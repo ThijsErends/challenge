@@ -1,1 +1,197 @@
-/* Puzzle-specific styles can go here */
+/* Puzzle 1 Specific Styles */
+
+/* --- The Cave Background --- */
+body {
+    position: relative;
+    overflow: hidden; /* Keep the cave layers contained */
+}
+
+.cave-layer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: -1;
+    /* Imperfect circle using varied border radius */
+    box-shadow: inset 10px 10px 0px rgba(0,0,0,0.2); 
+}
+
+.layer-1 {
+    width: 120vmax;
+    height: 120vmax;
+    background-color: #8f7661;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: breathe 8s ease-in-out infinite alternate;
+}
+
+.layer-2 {
+    width: 90vmax;
+    height: 90vmax;
+    background-color: #6e5a4b;
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    animation: breathe 7s ease-in-out infinite alternate-reverse;
+}
+
+.layer-3 {
+    width: 60vmax;
+    height: 60vmax;
+    background-color: #4a3d33;
+    border-radius: 70% 30% 50% 50% / 30% 50% 60% 40%;
+    animation: breathe 6s ease-in-out infinite alternate;
+}
+
+.layer-4 {
+    width: 30vmax;
+    height: 30vmax;
+    background-color: #2c2520;
+    border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
+    animation: breathe 5s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes breathe {
+    0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) scale(1.05) rotate(2deg); }
+}
+
+/* --- The Mobile (Hanging Letters) --- */
+.mobile-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 3rem;
+    perspective: 1000px; /* For 3D rotation effect */
+    max-width: 90%;
+}
+
+.letter-card {
+    width: 60px;
+    height: 80px;
+    background-color: var(--paper-white);
+    color: var(--marker-black);
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    
+    /* Cardboard cutout look */
+    border: 3px solid var(--marker-black);
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.3);
+    
+    /* Hanging Animation */
+    transform-origin: top center;
+    animation: swing 3s ease-in-out infinite;
+    animation-delay: var(--delay);
+}
+
+/* The String */
+.letter-card::before {
+    content: '';
+    position: absolute;
+    top: -100px; /* Long string */
+    left: 50%;
+    width: 2px;
+    height: 100px;
+    background-color: var(--marker-black);
+    transform: translateX(-50%);
+    z-index: -1;
+}
+
+/* Pin at the top */
+.letter-card::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background-color: var(--poofball-red);
+    border-radius: 50%;
+    border: 1px solid var(--marker-black);
+    transform: translateX(-50%);
+}
+
+.spacer {
+    width: 30px;
+}
+
+@keyframes swing {
+    0% { transform: rotate(5deg); }
+    50% { transform: rotate(-5deg); }
+    100% { transform: rotate(5deg); }
+}
+
+/* Hover effect to stabilize letters (gives user control) */
+.letter-card:hover {
+    animation-play-state: paused;
+    background-color: var(--teal-toque);
+    color: var(--paper-white);
+    cursor: help;
+}
+
+/* --- Interaction Area --- */
+.interaction-area {
+    background-color: rgba(244, 241, 232, 0.9); /* Paper white with opacity */
+    padding: 2rem;
+    border: 4px solid var(--marker-black);
+    box-shadow: 8px 8px 0px rgba(0,0,0,0.3);
+    transform: rotate(1deg);
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+}
+
+/* Tape holding the note */
+.interaction-area::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 100px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.5); /* Masking tape */
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.instruction-note {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--poofball-red);
+}
+
+.megaphone-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .letter-card {
+        width: 40px;
+        height: 55px;
+        font-size: 1.8rem;
+    }
+    .spacer {
+        width: 15px;
+    }
+}
+
+/* Shake Animation for Wrong Answer */
+.shake {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-10px) rotate(-5deg); }
+    50% { transform: translateX(10px) rotate(5deg); }
+    75% { transform: translateX(-10px) rotate(-5deg); }
+    100% { transform: translateX(0); }
+}
