@@ -1,21 +1,29 @@
-# Puzzle 2: The Color Maze
+# Puzzle 2: The Rooftop Delivery Route
 
 ## Puzzle Description
 
-This puzzle is a logic puzzle that involves a sequence of colors and directions. The user is given a starting point and a set of rules. They must follow the rules to navigate a "maze" of colors and find the final color, which is the password.
+This puzzle challenges the user to deduce Sinterklaas's secret delivery path across the rooftops of a Dutch town. Visual clues are provided in the form of Zwarte Pieten on various rooftops, each holding a distinctively colored gift bag. The user must identify the correct sequence of Pieten (based on their bag colors) that forms Sinterklaas's optimal, hidden route.
+
+## Inspiration & Theme
+
+*   **Sinterklaas Theme:** Directly integrates Zwarte Pieten, gift bags, and Dutch rooftops, tying into Pakjesavond traditions.
+*   **Neil.fun Inspiration:** Combines "Hidden Object" (finding the correct Pieten/colors) with "Interactive Diagram" (deducing a sequence from visual elements).
 
 ## Prompt for Google AI Studio
 
-"Create a logic puzzle called 'The Color Maze'. 
-1. Define a 3x3 grid of colors (e.g., Red, Blue, Green, Yellow, Orange, Purple, White, Black, Brown).
-2. Provide a starting position (e.g., 'Start at the top-left square').
-3. Create a set of 3 simple movement rules based on the colors (e.g., 'If you are on a Red square, move one square right.', 'If you are on a Blue square, move one square down.').
-4. The puzzle is to follow the rules from the starting position to find the final color. The name of this final color is the password."
+"Generate a visual description for 'The Rooftop Delivery Route' puzzle.
+1. Describe a stylized, cutout-paper scene of Dutch rooftops at night, with several Zwarte Pieten positioned on them.
+2. Each Piet should be holding a uniquely colored gift bag (choose 5-7 distinct colors from the 'Construction Paper Pack' in the STYLE_GUIDE, e.g., Red, Green, Orange, Teal).
+3. Create a short, poetic hint (in the style of a Sinterklaas poem) about a 'specific order' or 'hidden path' that connects certain Pieten by their bag color. The hint should gently guide the user without revealing the exact sequence.
+4. Define a specific sequence of 4-5 bag colors as the correct delivery route. This sequence should be the password. (e.g., 'red-green-teal-orange'). The password should be the hyphen-separated, lowercase names of the colors."
 
 ## Expected Answer/Solution
 
-The name of the final color in the maze.
+A hyphen-separated string of the correct sequence of bag colors (e.g., "red-green-teal-orange").
 
 ## Hint
 
-"The path is painted in the colors of the rainbow."
+"Across the gables, where the moon shines bright,
+Follow the hues that bring the gifts of night.
+A certain order, soft and sly,
+Will show the path where presents fly."
