@@ -1,67 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puzzle 1: The Echoing Entrance</title>
+    <title>Puzzel 1: Piets Perfecte Pepernoot</title>
     <link rel="stylesheet" href="../../style.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Background Elements specific to this puzzle -->
-    <div class="cave-layer layer-1"></div>
-    <div class="cave-layer layer-2"></div>
-    <div class="cave-layer layer-3"></div>
-    <div class="cave-layer layer-4"></div>
-
     <header>
-        <h1 id="main-heading">The Echoing Entrance</h1>
+        <h1 id="main-heading">De Perfecte Pepernoot van Piet</h1>
     </header>
 
     <main>
-        <div class="mobile-container">
-            <!-- The "String" holding the mobile -->
-            <div class="mobile-string"></div>
-            
-            <!-- The Letters hanging from the mobile -->
-            <!-- Message: "SHADOWS HIDE THE TRUTH" -->
-            <div class="letter-card" style="--delay: 0s; --pos: 1;">S</div>
-            <div class="letter-card" style="--delay: 0.2s; --pos: 2;">H</div>
-            <div class="letter-card" style="--delay: 0.5s; --pos: 3;">A</div>
-            <div class="letter-card" style="--delay: 0.1s; --pos: 4;">D</div>
-            <div class="letter-card" style="--delay: 0.7s; --pos: 5;">O</div>
-            <div class="letter-card" style="--delay: 0.3s; --pos: 6;">W</div>
-            <div class="letter-card" style="--delay: 0.6s; --pos: 7;">S</div>
-            
-            <div class="spacer" style="--pos: 8;"></div>
-
-            <div class="letter-card" style="--delay: 0.2s; --pos: 9;">H</div>
-            <div class="letter-card" style="--delay: 0.8s; --pos: 10;">I</div>
-            <div class="letter-card" style="--delay: 0.4s; --pos: 11;">D</div>
-            <div class="letter-card" style="--delay: 0.1s; --pos: 12;">E</div>
-
-            <div class="spacer" style="--pos: 13;"></div>
-
-            <div class="letter-card" style="--delay: 0.5s; --pos: 14;">T</div>
-            <div class="letter-card" style="--delay: 0.3s; --pos: 15;">H</div>
-            <div class="letter-card" style="--delay: 0.7s; --pos: 16;">E</div>
-
-            <div class="spacer" style="--pos: 17;"></div>
-
-            <div class="letter-card" style="--delay: 0.2s; --pos: 18;">T</div>
-            <div class="letter-card" style="--delay: 0.6s; --pos: 19;">R</div>
-            <div class="letter-card" style="--delay: 0.1s; --pos: 20;">U</div>
-            <div class="letter-card" style="--delay: 0.8s; --pos: 21;">T</div>
-            <div class="letter-card" style="--delay: 0.4s; --pos: 22;">H</div>
+        <p class="instruction-text">
+            Help Piet een perfecte pepernoot tekenen. Probeer een zo rond mogelijke cirkel te tekenen met je muis of vinger.
+        </p>
+        <div class="drawing-container">
+            <canvas id="drawingCanvas" width="400" height="400"></canvas>
+            <div id="pepernoot-graphic" class="hidden"></div>
         </div>
-
-        <div class="interaction-area">
-            <p class="instruction-note">The cave whispers... can you speak its language?</p>
-            <div class="megaphone-wrapper">
-                <input type="text" id="answer-input" placeholder="Reply to the echo...">
-                <button id="submit-button">SHOUT</button>
-            </div>
-            <div id="result"></div>
+        
+        <div class="feedback-area">
+            <p id="accuracy-display">Accuraat: 0%</p>
+            <button id="reset-button">Begin Opnieuw</button>
+            <button id="check-button">Controleer Cirkel</button>
+            <div id="result-message"></div>
         </div>
     </main>
     
