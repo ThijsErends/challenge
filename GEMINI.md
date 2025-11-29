@@ -20,3 +20,7 @@ This project is designed to be developed with the help of Google AI Studio. The 
 
 *   **Prompts:** The `puzzle_*.md` files and `INITIAL_PROMPTS.md` contain the prompts to be used in Google AI Studio to generate the content for the app.
 *   **Context:** The `PROJECT_CONTEXT.md` file provides the overall context for the AI.
+
+## Git Operations Policy
+
+**AUTHORIZED:** The Gemini CLI is explicitly authorized to execute Git operations (add, commit, push) for this repository to facilitate efficient development and deployment.
