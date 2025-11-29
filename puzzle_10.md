@@ -1,20 +1,34 @@
-# Puzzle 10: The Final Goat
+# Puzzle 10: The Grand Pakjesavond Code Generator
 
 ## Puzzle Description
 
-This is the final puzzle, which will reveal the 4-digit code. The user needs to combine clues from the previous puzzles to solve this one.
+This is the climactic final puzzle. The user is presented with an elaborate, interactive "Grand Pakjesavond Code Generator" – a whimsical, cardboard-constructed machine designed to reveal the ultimate 4-digit code. This machine requires specific inputs, which are derived from the solutions of previous puzzles. Each input slot on the machine will correspond to a unique clue (a word, a color, a number, a phrase) gathered throughout the labyrinth. The user's task is to correctly place and sequence these previously acquired clues into the machine. Once all inputs are correctly assembled, the machine will whir, click, and finally "print" or "display" the coveted 4-digit code.
+
+## Inspiration & Theme
+
+*   **Sinterklaas Theme:** The culmination of Pakjesavond, the grand mechanism that makes the magic happen. The "4-Digit Goat" is revealed as the ultimate secret of Sinterklaas's operation.
+*   **Neil.fun Inspiration:** This puzzle is an ultimate "Interactive Diagram/Simulation" or "Procedural Generation" experience. The user actively operates a complex, visually engaging machine that synthesizes previous data to produce a final, magical output, perfectly embodying the interactive, playful, and rewarding aspects found on `neil.fun`.
 
 ## Prompt for Google AI Studio
 
-"Create the final puzzle for the 'Labyrinth of the 4-Digit Goat'.
-1. The puzzle should require the user to remember or revisit the answers from some of the previous 9 puzzles.
-2. Create a short, cryptic message that hints at which previous puzzle answers are needed. For example: 'The echoing entrance (puzzle 1) holds the first digit. The color maze (puzzle 2) holds the second...'
-3. The puzzle is to combine these previous answers in a specific way to form the final 4-digit code. The 4-digit code is the '4-Digit Goat'."
+"Create a detailed concept for 'The Grand Pakjesavond Code Generator'.
+1.  Assume that throughout the previous 9 puzzles, the user has collected various Sinterklaas-themed clues. These clues could be:
+    *   A single digit.
+    *   A color.
+    *   A specific word or short phrase.
+    *   A boolean value (TRUE/FALSE).
+    *   A symbol.
+2.  Design a final mechanism where these specific clues must be combined in a particular order or configuration to produce a 4-digit code.
+3.  Create a 'blueprint' or a description of an interactive, cardboard-themed 'machine' with distinct input slots for each type of clue.
+4.  Formulate a short, dramatic message from the Digital Spirit that guides the user to use their collected wisdom to operate the machine.
+5.  Define which specific clues from which previous puzzles (e.g., 'The result of Puzzle 2's delivery route gives the first number', 'The decrypted message from Puzzle 5's cipher wheel gives the second part') are needed and how they combine to form the final 4-digit code.
+6.  Provide the exact 4-digit code as the solution."
 
 ## Expected Answer/Solution
 
-The 4-digit code.
+The final 4-digit code (e.g., "1006").
 
 ## Hint
 
-"The journey is the key. Look back at how far you've come."
+"All the threads of the labyrinth now converge. Revisit your journey."
+```
