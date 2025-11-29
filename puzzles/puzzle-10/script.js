@@ -6,11 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     submitButton.addEventListener('click', () => {
         const answer = answerInput.value.trim().toLowerCase();
-        if (answer === 'a bottle') {
+        if (answer === 'een fles') {
             // Correct answer, display the final code
-            mainContent.innerHTML = '<h2>Congratulations!</h2><p>You have solved all the puzzles. The 4-digit code is 1006.</p>';
+            mainContent.innerHTML = '<h2>Gefeliciteerd!</h2><p>Je hebt alle puzzels opgelost. De 4-cijferige code is 1006.</p>';
         } else {
-            resultDiv.textContent = 'Incorrect. Try again.';
+            resultDiv.textContent = 'Onjuist. Probeer opnieuw.';
             resultDiv.style.color = 'red';
         }
     });

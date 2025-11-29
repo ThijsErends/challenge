@@ -5,11 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     submitButton.addEventListener('click', () => {
         const answer = answerInput.value.trim().toLowerCase();
-        if (answer === 'a needle') {
+        if (answer === 'een naald') {
             // Correct answer, redirect to the next puzzle
             window.location.href = '../puzzle-5/index.html';
         } else {
-            resultDiv.textContent = 'Incorrect. Try again.';
+            resultDiv.textContent = 'Onjuist. Probeer opnieuw.';
             resultDiv.style.color = 'red';
         }
     });

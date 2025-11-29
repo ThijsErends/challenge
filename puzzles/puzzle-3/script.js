@@ -5,11 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     submitButton.addEventListener('click', () => {
         const answer = answerInput.value.trim().toLowerCase();
-        if (answer === 'his son') {
+        if (answer === 'zijn zoon') {
             // Correct answer, redirect to the next puzzle
             window.location.href = '../puzzle-4/index.html';
         } else {
-            resultDiv.textContent = 'Incorrect. Try again.';
+            resultDiv.textContent = 'Onjuist. Probeer opnieuw.';
             resultDiv.style.color = 'red';
         }
     });

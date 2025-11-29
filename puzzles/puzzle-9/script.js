@@ -5,11 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     submitButton.addEventListener('click', () => {
         const answer = answerInput.value.trim().toLowerCase();
-        if (answer === 'a leg') {
+        if (answer === 'een been') {
             // Correct answer, redirect to the next puzzle
             window.location.href = '../puzzle-10/index.html';
         } else {
-            resultDiv.textContent = 'Incorrect. Try again.';
+            resultDiv.textContent = 'Onjuist. Probeer opnieuw.';
             resultDiv.style.color = 'red';
         }
     });

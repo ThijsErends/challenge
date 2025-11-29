@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Correct answer, redirect to the next puzzle
             window.location.href = '../puzzle-3/index.html';
         } else {
-            resultDiv.textContent = 'Incorrect. Try again.';
+            resultDiv.textContent = 'Onjuist. Probeer opnieuw.';
             resultDiv.style.color = 'red';
         }
     });
