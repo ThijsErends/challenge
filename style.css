@@ -1,58 +1,226 @@
+/* 
+   STYLE GUIDE: "The Cardboard Arcade" 
+   Theme Implementation
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Permanent+Marker&display=swap');
+
+:root {
+    /* The Foundation */
+    --kraft-brown: #C4A484;
+    
+    /* The "Cartman & Kyle" Core Accents */
+    --poofball-red: #C94343;
+    --ushanka-green: #439F47;
+    --teal-toque: #2AB7CA;
+    --parka-orange: #F7931E;
+    
+    /* Typography & Outlines */
+    --marker-black: #1A1713;
+    --paper-white: #F4F1E8;
+}
+
+/* --- Global Resets & Base Styles --- */
+* {
+    box-sizing: border-box;
+}
+
 body {
+    background-color: var(--kraft-brown);
+    font-family: 'Patrick Hand', cursive;
+    color: var(--marker-black);
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    margin: 0;
+    overflow-x: hidden; /* Hide overflow from floating elements if we add them */
 }
 
-header, footer {
-    flex-shrink: 0;
+/* --- Typography --- */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--marker-black);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    /* Slight rotation for handmade feel */
+    transform: rotate(-1deg);
 }
 
-main {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.start-button {
-    padding: 15px 30px;
-    font-size: 1.5em;
-    color: white;
-    background-color: #007bff;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.start-button:hover {
-    background-color: #0056b3;
-}
-
-#main-heading {
-    animation: glowing 2s infinite;
+p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    max-width: 600px;
+    margin: 0 auto 1.5rem auto;
     text-align: center;
 }
 
-@keyframes glowing {
-    0% {
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #007bff, 0 0 20px #007bff, 0 0 25px #007bff, 0 0 30px #007bff, 0 0 35px #007bff;
-    }
-    50% {
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #007bff, 0 0 40px #007bff, 0 0 50px #007bff, 0 0 60px #007bff, 0 0 70px #007bff;
-    }
-    100% {
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #007bff, 0 0 20px #007bff, 0 0 25px #007bff, 0 0 30px #007bff, 0 0 35px #007bff;
-    }
+/* --- Layout Containers --- */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
+header, footer {
+    text-align: center;
+    padding: 1rem;
+}
+
+/* --- UI Components: Buttons --- */
+/* Applies to button elements and the start-button link */
+button, .start-button {
+    display: inline-block;
+    background-color: var(--poofball-red);
+    color: var(--paper-white);
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 30px;
+    border: 4px solid var(--marker-black);
+    /* Hard shadow */
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    
+    /* Imperfect border radius */
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    
+    /* Idle Animation */
+    animation: slowWiggle 3s ease-in-out infinite;
+}
+
+/* Hover State */
+button:hover, .start-button:hover {
+    animation: fastWiggle 0.5s linear infinite;
+    background-color: #d45454; /* Slightly lighter red */
+}
+
+/* Active State (Squish) */
+button:active, .start-button:active {
+    transform: scale(0.95);
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.25);
+    animation: none; /* Stop wiggling when pressed */
+}
+
+/* Secondary Button Variant (if needed) */
+.btn-secondary {
+    background-color: var(--ushanka-green);
+}
+
+/* --- UI Components: Inputs --- */
+input[type="text"] {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.5rem;
+    padding: 10px;
+    border: 4px solid var(--marker-black);
+    background-color: var(--paper-white);
+    color: var(--marker-black);
+    outline: none;
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    
+    /* Imperfect border radius */
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    
+    /* Hard shadow */
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+input[type="text"]:focus {
+    transform: scale(1.02);
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Feedback/Result Div --- */
 #result {
-    margin-top: 20px;
-    font-size: 1.2em;
-    font-weight: bold;
+    margin-top: 1.5rem;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.2rem;
+    min-height: 2rem;
 }
 
-#next-puzzle-button {
-    background-color: #28a745;
+/* --- Animations --- */
+@keyframes slowWiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(1deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-1deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes fastWiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(2deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-2deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* --- Floating Background Elements --- */
+.floating-shape {
+    position: fixed;
+    z-index: -1;
+    opacity: 0.4;
+    animation: floatAcross 20s linear infinite;
+    pointer-events: none; /* Don't interfere with clicks */
+}
+
+.shape-cloud {
+    top: 20%;
+    left: -100px;
+    width: 100px;
+    height: 60px;
+    background: #e0d4c4; /* Light tan */
+    border-radius: 50px;
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+    animation-duration: 25s;
+}
+.shape-cloud::after {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+    background: #e0d4c4;
+    border-radius: 50%;
+}
+
+.shape-star {
+    top: 60%;
+    left: -50px;
+    width: 40px;
+    height: 40px;
+    background: var(--parka-orange);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    animation-duration: 18s;
+    animation-delay: 5s;
+}
+
+.shape-circle {
+    top: 80%;
+    left: -80px;
+    width: 50px;
+    height: 50px;
+    background: var(--teal-toque);
+    border-radius: 50%;
+    animation-duration: 30s;
+    animation-delay: 2s;
+}
+
+@keyframes floatAcross {
+    0% { transform: translateX(-150px) rotate(0deg); }
+    100% { transform: translateX(120vw) rotate(360deg); }
 }
