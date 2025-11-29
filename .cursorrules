@@ -1,0 +1,44 @@
+# The Labyrinth of the 4-Digit Goat - Cursor AI Rules
+
+## Project Overview
+This is a personalized digital puzzle challenge - a web-based labyrinth of 10 interconnected puzzles. Users must solve all puzzles sequentially to reveal a final 4-digit code (the "4-Digit Goat") that unlocks a physical treasure.
+
+## Visual Style: "The Cardboard Arcade"
+- **Handmade Feel:** Everything looks like flat colored construction paper cut out with scissors
+- **Typography:** Marker-style headings (Permanent Marker) and handwritten body text (Patrick Hand)
+- **Animation:** Buttons and elements have a playful "wiggle" to keep the world alive
+- **No Textures:** Depth achieved through flat colors and hard, crisp shadows (box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25))
+- **Color Palette:** Kraft brown background (#C4A484), Poofball Red (#C94343), Ushanka Green (#439F47), Teal Toque (#2AB7CA), Parka Orange (#F7931E), Marker Black (#1A1713), Paper White (#F4F1E8)
+
+## Technical Stack
+- **HTML5:** Semantic structure for puzzles
+- **CSS3:** Custom variables, animations, no frameworks
+- **JavaScript:** Vanilla JS only - no frameworks or libraries
+- **Structure:** Each puzzle has its own folder (puzzle-1 through puzzle-10) with index.html, script.js, and style.css
+
+## Code Style Guidelines
+- Use semantic HTML5 elements
+- Follow the existing pattern: input field → submit button → validation → redirect to next puzzle
+- Maintain consistent error messaging in Dutch ("Onjuist. Probeer opnieuw.")
+- Use CSS custom properties from :root for colors
+- All buttons should have the wiggle animation and hard shadows
+- Keep code clean, commented, and maintainable
+
+## Puzzle Structure
+- Puzzles are sequential: solving one unlocks the next
+- Each puzzle validates an answer and redirects to the next puzzle on success
+- Puzzle 10 reveals the final 4-digit code (1006)
+- Navigation: window.location.href = '../puzzle-X/index.html'
+
+## File Organization
+- Root: index.html (landing page), style.css (global styles), README.md
+- puzzles/: Individual puzzle folders (puzzle-1 through puzzle-10)
+- Each puzzle folder: index.html, script.js, style.css
+- Documentation: PROJECT_CONTEXT.md, STYLE_GUIDE.md, puzzle_*.md files
+
+## Development Notes
+- The project was originally designed with Sinterklaas themes, but current implementation uses generic puzzles
+- Puzzle 1 has unique interactive canvas drawing functionality
+- Puzzles 2-10 follow a standard text input pattern
+- All styling should maintain the "Cardboard Arcade" aesthetic
+

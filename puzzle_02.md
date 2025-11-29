@@ -9,7 +9,7 @@ This puzzle challenges the user to deduce Sinterklaas's secret delivery path acr
 *   **Sinterklaas Theme:** Directly integrates Zwarte Pieten, gift bags, and Dutch rooftops, tying into Pakjesavond traditions.
 *   **Neil.fun Inspiration:** Combines "Hidden Object" (finding the correct Pieten/colors) with "Interactive Diagram" (deducing a sequence from visual elements).
 
-## Prompt for Google AI Studio
+## Design Notes
 
 "Generate a visual description for 'The Rooftop Delivery Route' puzzle.
 1. Describe a stylized, cutout-paper scene of Dutch rooftops at night, with several Zwarte Pieten positioned on them.

@@ -9,7 +9,7 @@ The user is presented with a large, visually rendered "JSON" object, stylized to
 *   **Sinterklaas Theme:** Directly uses core elements of Pakjesavond (presents, children, naughty/nice, delivery). The JSON format playfully reinterprets Sinterklaas's traditional administration.
 *   **Neil.fun Inspiration:** This puzzle is a sophisticated "Hidden Object" challenge, but instead of images, it's about finding data within a structured, interactive display. It also draws from "Interactive Diagrams" where the user explores a complex data visualization to find a single piece of information, similar to how one might explore an interactive infographic on neil.fun.
 
-## Prompt for Google AI Studio
+## Design Notes
 
 "Create a detailed, nested JSON object representing 'Sinterklaas's Grand Present Manifest'.
 1.  Include properties for multiple children. For each child, include: `name`, `nice_status` (boolean), `requested_gift` (string), `delivery_address` (object with `street`, `house_number`, `city`, `rooftop_access_code`).

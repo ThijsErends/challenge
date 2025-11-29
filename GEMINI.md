@@ -1,26 +1,16 @@
-# Gemini Project: The Labyrinth of the 4-Digit Goat
+# Historical Note: Project Development History
 
-This file provides the context for the Gemini CLI to assist in the development of this project.
+This project was originally developed with assistance from Google AI Studio (Gemini). The project has since been migrated to use Cursor AI for development assistance.
 
-## Project Overview
+## Current Development
 
-This project is a personalized digital gift for my sister, a "tool creator" in the tech world. It's a "Santa Claus gift exchange" app disguised as a labyrinth of 10 interconnected puzzles. The ultimate goal is for her to solve all the puzzles and receive a 4-digit code (which we'll playfully call the "4-Digit Goat"). This code will unlock a physical lockbox containing her Christmas present.
-
-The app will be presented as a website, and the puzzles are designed to be a fun, engaging, and challenging experience. The tone should be mysterious and slightly whimsical, with a narrative that unfolds as she progresses through the labyrinth.
+*   **Cursor AI:** The project now uses Cursor AI for development assistance. See `.cursorrules` for project-specific guidelines.
+*   **Documentation:** All project context is maintained in `PROJECT_CONTEXT.md` and `README.md`.
+*   **Puzzle Design:** Individual puzzle design documents are in `puzzle_*.md` files.
 
 ## Key Files
 
-*   `PROJECT_CONTEXT.md`: The main context file for the project. It contains the project vision, target audience, core features, narrative, puzzle outline, and technical implementation details.
-*   `puzzle_01.md` to `puzzle_10.md`: These files will contain the details for each of the 10 puzzles, including the prompts for Google AI Studio.
-*   `INITIAL_PROMPTS.md`: This file will contain the initial prompts to set up the project in Google AI Studio.
-
-## Development with Google AI Studio
-
-This project is designed to be developed with the help of Google AI Studio. The `.md` files in this project are intended to be used as prompts and context for the AI.
-
-*   **Prompts:** The `puzzle_*.md` files and `INITIAL_PROMPTS.md` contain the prompts to be used in Google AI Studio to generate the content for the app.
-*   **Context:** The `PROJECT_CONTEXT.md` file provides the overall context for the AI.
-
-## Git Operations Policy
-
-**AUTHORIZED:** The Gemini CLI is explicitly authorized to execute Git operations (add, commit, push) for this repository to facilitate efficient development and deployment.
+*   `PROJECT_CONTEXT.md`: The main context file for the project. It contains the project vision, target audience, core features, narrative, and puzzle outline.
+*   `puzzle_01.md` to `puzzle_10.md`: These files contain the design details and specifications for each of the 10 puzzles.
+*   `.cursorrules`: Cursor AI project configuration and development guidelines.
+*   `README.md`: Project overview, setup instructions, and current status.

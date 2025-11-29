@@ -9,7 +9,7 @@ The user is presented with a whimsical, Sinterklaas-themed visual (e.g., an unad
 *   **Sinterklaas Theme:** Applying CSS to Sinterklaas-related elements, making the abstract concept relatable and fun. The "Piet's Style Sheet" ties into the overall "Cardboard Arcade" aesthetic by suggesting a handmade, slightly disheveled style guide.
 *   **Neil.fun Inspiration:** This plays into "Text Manipulation Puzzles" where the challenge is to derive information from code. It also has elements of "Hidden Object" but in a code context, requiring careful reading rather than visual scanning. The interactive element could involve the user "inspecting" the elements or even being able to "toggle" CSS rules to see changes, similar to interactive debugging found on `neil.fun`.
 
-## Prompt for Google AI Studio
+## Design Notes
 
 "Create a CSS puzzle that hides a Sinterklaas-themed word or phrase.
 1.  Provide a short, themed HTML snippet (e.g., a simple `<div>` representing a gift, or a `<span>` for a feather).

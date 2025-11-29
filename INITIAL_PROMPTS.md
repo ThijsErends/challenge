@@ -1,6 +1,6 @@
-# Initial Prompts for Google AI Studio
+# Narrative Design: The Glitch Character
 
-This file contains the initial prompts to set up the "Labyrinth of the 4-Digit Goat" project in Google AI Studio.
+This file contains the narrative design for the "Glitch" character - the mischievous digital spirit that was originally intended to guide users through the labyrinth. This serves as design documentation for potential future narrative features.
 
 ## 1. Setting the AI's Personality
 

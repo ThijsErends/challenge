@@ -9,7 +9,7 @@ The user is presented with a whimsical "pseudo-code" algorithm, poetically descr
 *   **Sinterklaas Theme:** Centered around Amerigo and Pakjesavond logistics, blending technology with tradition.
 *   **Neil.fun Inspiration:** This leans into "Procedural Generation / Algorithmic Art Interaction" where the user manually processes an algorithm to derive an outcome. The poetic nature also touches on "Text Manipulation," but with a logical rather than purely linguistic twist, similar to some of Neil's more thought-provoking interactive narratives.
 
-## Prompt for Google AI Studio
+## Design Notes
 
 "Write a short, lyrical poem in the style of pseudo-code, describing a Sinterklaas/Amerigo-themed process.
 1.  Use Sinterklaas-related variables (e.g., `num_pepernoten_in_bag`, `amerigo_gallop_speed`, `rooftop_height`).

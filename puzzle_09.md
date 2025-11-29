@@ -9,7 +9,7 @@ The user is presented with a whimsical, interactive "Naughty/Nice Decision Engin
 *   **Sinterklaas Theme:** Directly uses the central Sinterklaas tradition of determining who is naughty or nice, making abstract logic gates tangible and fun within the Pakjesavond context.
 *   **Neil.fun Inspiration:** This is a clear application of "Interactive Diagrams/Simulations." The logic gates are visual and manipulable, allowing the user to experiment and understand the flow of information. It could involve clicking switches, observing lights, and seeing immediate feedback, highly reminiscent of `neil.fun`'s engaging interactive experiences.
 
-## Prompt for Google AI Studio
+## Design Notes
 
 "Create a Sinterklaas-themed logic gate puzzle.
 1.  Define 3-5 boolean inputs, each corresponding to a 'child's behavior' or a Pakjesavond condition (e.g., `has_polished_shoes`, `wrote_wish_list`, `shared_pepernoten`, `slept_through_night`). Assign initial TRUE/FALSE values based on a fictional child's profile.

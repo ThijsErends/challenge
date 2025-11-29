@@ -9,7 +9,7 @@ The user is presented with a visual representation of a "Piet's Cipher Wheel"—
 *   **Sinterklaas Theme:** Integrates Zwarte Piet, cryptic messages, and a classic Sinterklaas-era tool for secret communication.
 *   **Neil.fun Inspiration:** This is a direct application of "Interactive Diagrams/Simulations" where the user manipulates a visual tool to solve the puzzle. It also touches on "Text Manipulation" as the output is a deciphered message, aligning with Neil's playful and interactive problem-solving style.
 
-## Prompt for Google AI Studio
+## Design Notes
 
 "Design a simple substitution cipher puzzle using the concept of a 'Piet's Cipher Wheel'.
 1.  Create a short, secret Sinterklaas-themed message (e.g., about a hidden gift, a plan for Pakjesavond, or a location).
