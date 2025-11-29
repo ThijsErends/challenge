@@ -1,0 +1,536 @@
+/* Puzzel 2: De Dakroute - CSS Module */
+
+.puzzleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 2rem 1rem;
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.puzzleTitle {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2.5rem;
+  color: var(--marker-black);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  transform: rotate(-1deg);
+  text-align: center;
+}
+
+.hintContainer {
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  padding: 1.5rem;
+  background-color: var(--paper-white);
+  border: 4px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  transform: rotate(0.5deg);
+}
+
+.hintText {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--marker-black);
+  text-align: center;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Rooftop Scene */
+.rooftopScene {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 500px;
+  margin: 2rem auto;
+  border: 4px solid var(--marker-black);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(to bottom, #2C3E50 0%, #34495E 50%, var(--kraft-brown) 100%);
+  border-radius: 5% / 10%;
+  overflow: hidden;
+  transform: rotate(-0.5deg);
+}
+
+.rooftopScene.shake {
+  animation: shake 0.5s;
+}
+
+/* Night Sky */
+.nightSky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to bottom, #1a1a2e 0%, #16213e 100%);
+  z-index: 1;
+}
+
+.moon {
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  width: 80px;
+  height: 80px;
+  background-color: var(--paper-white);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 20px rgba(255, 255, 255, 0.3),
+    4px 4px 0px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+.moon::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  width: 20px;
+  height: 20px;
+  background-color: #E8E8E8;
+  border-radius: 50%;
+}
+
+.star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: var(--paper-white);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Rooftops */
+.roof {
+  position: absolute;
+  z-index: 3;
+  transform: translate(-50%, -50%);
+}
+
+.roofGable {
+  width: 0;
+  height: 0;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 60px solid var(--poofball-red);
+  filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.25));
+  position: relative;
+}
+
+.roofGable::before {
+  content: '';
+  position: absolute;
+  top: 60px;
+  left: -35px;
+  width: 70px;
+  height: 8px;
+  background-color: var(--marker-black);
+}
+
+.roofBase {
+  position: absolute;
+  top: 60px;
+  left: -50px;
+  width: 100px;
+  height: 30px;
+  background-color: #8B4513;
+  border: 3px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 0 0 5px 5px;
+}
+
+/* Roetveegpieten */
+.piet {
+  position: absolute;
+  z-index: 4;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease, filter 0.2s ease;
+  animation: slowWiggle 3s ease-in-out infinite;
+}
+
+.piet:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  animation: fastWiggle 0.5s linear infinite;
+  filter: brightness(1.1);
+}
+
+.piet.selected {
+  transform: translate(-50%, -50%) scale(1.15);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+  z-index: 5;
+}
+
+.pietBody {
+  width: 50px;
+  height: 70px;
+  background-color: var(--poofball-red); /* Default, wordt overschreven door inline style */
+  border: 3px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 25px 25px 15px 15px;
+  position: relative;
+  margin: 0 auto;
+  z-index: 2;
+}
+
+.pietHead {
+  width: 45px;
+  height: 45px;
+  background-color: #F4D1AE; /* Lichte huidskleur */
+  border: 3px solid var(--marker-black);
+  border-radius: 50%;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.pietHead::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  width: 10px;
+  height: 10px;
+  background-color: var(--paper-white);
+  border-radius: 50%;
+  border: 2px solid var(--marker-black);
+  z-index: 4;
+}
+
+.pietHead::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 8px;
+  width: 10px;
+  height: 10px;
+  background-color: var(--paper-white);
+  border-radius: 50%;
+  border: 2px solid var(--marker-black);
+  z-index: 4;
+}
+
+/* Roetvegen (soot smudges) op het gezicht */
+.roetveeg1 {
+  position: absolute;
+  width: 8px;
+  height: 12px;
+  background-color: #1A1713;
+  border-radius: 50% 30% 50% 30%;
+  z-index: 4;
+}
+
+.roetveeg2 {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #1A1713;
+  border-radius: 40% 50% 40% 50%;
+  z-index: 4;
+}
+
+.roetveeg3 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1A1713;
+  border-radius: 50%;
+  z-index: 4;
+}
+
+/* Cape/Collar achter de schouders */
+.pietCape {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 22px solid transparent;
+  border-right: 22px solid transparent;
+  border-bottom: 25px solid var(--poofball-red); /* Default, wordt overschreven door inline style */
+  z-index: 1;
+  filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.2));
+}
+
+.giftBag {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 35px;
+  height: 40px;
+  border: 3px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 5px 5px 15px 15px;
+  z-index: 2;
+}
+
+.giftBag::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 12px;
+  background-color: inherit;
+  border: 2px solid var(--marker-black);
+  border-radius: 3px;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Sequence Display */
+.sequenceContainer {
+  width: 100%;
+  max-width: 700px;
+  margin: 2rem auto 1.5rem auto;
+  padding: 1.5rem;
+  background-color: var(--paper-white);
+  border: 4px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  transform: rotate(0.5deg);
+}
+
+.sequenceLabel {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.3rem;
+  color: var(--marker-black);
+  text-align: center;
+  margin: 0 0 1rem 0;
+  transform: rotate(-1deg);
+}
+
+.sequenceDisplay {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 60px;
+}
+
+.emptySequence {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.1rem;
+  color: #999;
+  font-style: italic;
+}
+
+.colorBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.badgeColor {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--marker-black);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+
+.badgeText {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1rem;
+  color: var(--marker-black);
+  text-transform: capitalize;
+}
+
+.arrow {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5rem;
+  color: var(--marker-black);
+  margin: 0 0.3rem;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem auto;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.clearButton,
+.submitButton {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border: 4px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  animation: buttonWiggle 3s ease-in-out infinite;
+  min-width: 180px;
+}
+
+.clearButton {
+  background-color: var(--teal-toque);
+  color: var(--paper-white);
+}
+
+.submitButton {
+  background-color: var(--ushanka-green);
+  color: var(--paper-white);
+}
+
+.clearButton:hover,
+.submitButton:hover {
+  animation: buttonWiggleFast 0.5s linear infinite;
+  background-color: var(--poofball-red);
+}
+
+.clearButton:active,
+.submitButton:active {
+  transform: scale(0.95);
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.25);
+  animation: none;
+}
+
+.clearButton:disabled,
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  animation: none;
+}
+
+/* Feedback Messages */
+.feedbackContainer {
+  min-height: 60px;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.errorMessage {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5rem;
+  color: var(--poofball-red);
+  margin: 0;
+  transform: rotate(-1deg);
+}
+
+.successMessage {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5rem;
+  color: var(--ushanka-green);
+  margin: 0;
+  transform: rotate(1deg);
+}
+
+/* Animations */
+@keyframes shake {
+  0% { transform: translateX(0) rotate(-0.5deg); }
+  25% { transform: translateX(-10px) rotate(-1deg); }
+  50% { transform: translateX(10px) rotate(0deg); }
+  75% { transform: translateX(-10px) rotate(-1deg); }
+  100% { transform: translateX(0) rotate(-0.5deg); }
+}
+
+@keyframes slowWiggle {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  25% { transform: translate(-50%, -50%) rotate(1deg); }
+  50% { transform: translate(-50%, -50%) rotate(0deg); }
+  75% { transform: translate(-50%, -50%) rotate(-1deg); }
+  100% { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+@keyframes fastWiggle {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  25% { transform: translate(-50%, -50%) rotate(2deg); }
+  50% { transform: translate(-50%, -50%) rotate(0deg); }
+  75% { transform: translate(-50%, -50%) rotate(-2deg); }
+  100% { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+@keyframes buttonWiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes buttonWiggleFast {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .puzzleTitle {
+    font-size: 2rem;
+  }
+
+  .rooftopScene {
+    height: 400px;
+    max-width: 100%;
+  }
+
+  .piet {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+
+  .piet:hover {
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  .piet.selected {
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+
+  .moon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .clearButton,
+  .submitButton {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rooftopScene {
+    height: 350px;
+  }
+
+  .hintText {
+    font-size: 1rem;
+  }
+
+  .sequenceLabel {
+    font-size: 1.1rem;
+  }
+}
+

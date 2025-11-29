@@ -7,7 +7,7 @@ The user is presented with a collection of Sinterklaas-themed "data" snippets, e
 ## Inspiration & Theme
 
 *   **Sinterklaas Theme:** Applying regex to Sinterklaas's administrative data makes the technical concept playful and relevant to the Pakjesavond context.
-*   **Neil.fun Inspiration:** This falls under "Text Manipulation Puzzles" but with a strong interactive and analytical component. A visual interface where a user can "test" regex patterns against the cards, seeing which ones light up or change, would directly mirror Neil's interactive data exploration.
+*   **Neal.fun Inspiration:** This falls under "Text Manipulation Puzzles" but with a strong interactive and analytical component. A visual interface where a user can "test" regex patterns against the cards, seeing which ones light up or change, would directly mirror Neal's interactive data exploration.
 
 ## Design Notes
 

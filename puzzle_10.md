@@ -7,7 +7,7 @@ This is the climactic final puzzle. The user is presented with an elaborate, int
 ## Inspiration & Theme
 
 *   **Sinterklaas Theme:** The culmination of Pakjesavond, the grand mechanism that makes the magic happen. The "4-Digit Goat" is revealed as the ultimate secret of Sinterklaas's operation.
-*   **Neil.fun Inspiration:** This puzzle is an ultimate "Interactive Diagram/Simulation" or "Procedural Generation" experience. The user actively operates a complex, visually engaging machine that synthesizes previous data to produce a final, magical output, perfectly embodying the interactive, playful, and rewarding aspects found on `neil.fun`.
+*   **Neal.fun Inspiration:** This puzzle is an ultimate "Interactive Diagram/Simulation" or "Procedural Generation" experience. The user actively operates a complex, visually engaging machine that synthesizes previous data to produce a final, magical output, perfectly embodying the interactive, playful, and rewarding aspects found on `neal.fun`.
 
 ## Design Notes
 

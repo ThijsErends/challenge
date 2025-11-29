@@ -7,7 +7,7 @@ The user is presented with a mock "API Documentation" interface for Sinterklaas'
 ## Inspiration & Theme
 
 *   **Sinterklaas Theme:** Directly uses the concept of Sinterklaas's operations, gift delivery, and naughty/nice lists. The "API" is a playful nod to the tech-savvy target audience.
-*   **Neil.fun Inspiration:** Leans into "Text Manipulation" (analyzing dense, themed text for specific info) and "Interactive Diagrams/Simulations" (navigating a mock documentation interface, potentially with clickable elements revealing more details). The whimsical nature aligns with neil.fun's style.
+*   **Neal.fun Inspiration:** Leans into "Text Manipulation" (analyzing dense, themed text for specific info) and "Interactive Diagrams/Simulations" (navigating a mock documentation interface, potentially with clickable elements revealing more details). The whimsical nature aligns with neal.fun's style.
 
 ## Design Notes
 

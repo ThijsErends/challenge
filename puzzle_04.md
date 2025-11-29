@@ -7,7 +7,7 @@ The user is presented with a whimsical "pseudo-code" algorithm, poetically descr
 ## Inspiration & Theme
 
 *   **Sinterklaas Theme:** Centered around Amerigo and Pakjesavond logistics, blending technology with tradition.
-*   **Neil.fun Inspiration:** This leans into "Procedural Generation / Algorithmic Art Interaction" where the user manually processes an algorithm to derive an outcome. The poetic nature also touches on "Text Manipulation," but with a logical rather than purely linguistic twist, similar to some of Neil's more thought-provoking interactive narratives.
+*   **Neal.fun Inspiration:** This leans into "Procedural Generation / Algorithmic Art Interaction" where the user manually processes an algorithm to derive an outcome. The poetic nature also touches on "Text Manipulation," but with a logical rather than purely linguistic twist, similar to some of Neal's more thought-provoking interactive narratives.
 
 ## Design Notes
 

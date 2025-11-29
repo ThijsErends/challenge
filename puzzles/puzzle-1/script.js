@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
             maxDeviation = Math.max(maxDeviation, Math.abs(dist - averageRadius));
         }
 
-        // Neil.fun's algorithm is complex, this is a simplified heuristic:
+        // Neal.fun's algorithm is complex, this is a simplified heuristic:
         // Accuracy decreases as maxDeviation increases relative to averageRadius
         let accuracy = (1 - (maxDeviation / averageRadius)) * 100;
         accuracy = Math.max(0, Math.min(100, accuracy)); // Clamp between 0 and 100

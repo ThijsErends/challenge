@@ -1,4 +1,4 @@
-# The Labyrinth of the 4-Digit Goat - Cursor AI Rules
+# Het Mysterie van Sinterklaas - Cursor AI Rules
 
 ## Project Overview
 This is a personalized digital puzzle challenge - a web-based labyrinth of 10 interconnected puzzles. Users must solve all puzzles sequentially to reveal a final 4-digit code (the "4-Digit Goat") that unlocks a physical treasure.
@@ -11,34 +11,50 @@ This is a personalized digital puzzle challenge - a web-based labyrinth of 10 in
 - **Color Palette:** Kraft brown background (#C4A484), Poofball Red (#C94343), Ushanka Green (#439F47), Teal Toque (#2AB7CA), Parka Orange (#F7931E), Marker Black (#1A1713), Paper White (#F4F1E8)
 
 ## Technical Stack
-- **HTML5:** Semantic structure for puzzles
-- **CSS3:** Custom variables, animations, no frameworks
-- **JavaScript:** Vanilla JS only - no frameworks or libraries
-- **Structure:** Each puzzle has its own folder (puzzle-1 through puzzle-10) with index.html, script.js, and style.css
+- **React:** Component-based UI framework for interactive puzzles
+- **Vite:** Build tool and development server
+- **React Router:** Client-side routing (HashRouter for GitHub Pages compatibility)
+- **CSS3:** Custom variables, animations, no CSS frameworks
+- **Structure:** React components in src/components/ directory, each puzzle is a component
 
 ## Code Style Guidelines
-- Use semantic HTML5 elements
-- Follow the existing pattern: input field → submit button → validation → redirect to next puzzle
+- Use React functional components with hooks
+- Follow the existing pattern: input field → submit button → validation → navigate to next puzzle
+- Use React Router's useNavigate hook for navigation
 - Maintain consistent error messaging in Dutch ("Onjuist. Probeer opnieuw.")
 - Use CSS custom properties from :root for colors
 - All buttons should have the wiggle animation and hard shadows
 - Keep code clean, commented, and maintainable
+- Use JSX for component structure
 
 ## Puzzle Structure
 - Puzzles are sequential: solving one unlocks the next
-- Each puzzle validates an answer and redirects to the next puzzle on success
+- Each puzzle validates an answer and navigates to the next puzzle on success
 - Puzzle 10 reveals the final 4-digit code (1006)
-- Navigation: window.location.href = '../puzzle-X/index.html'
+- Navigation: useNavigate() hook from react-router-dom, routes are '/puzzle-X'
 
 ## File Organization
-- Root: index.html (landing page), style.css (global styles), README.md
-- puzzles/: Individual puzzle folders (puzzle-1 through puzzle-10)
-- Each puzzle folder: index.html, script.js, style.css
-- Documentation: PROJECT_CONTEXT.md, STYLE_GUIDE.md, puzzle_*.md files
+- Root: index.html (Vite entry), package.json, vite.config.js, README.md
+- src/: React source code
+  - main.jsx: React entry point with HashRouter
+  - App.jsx: Main app component with Routes
+  - index.css: Global styles
+  - components/: React components (Layout, LandingPage, Puzzle1-10, PuzzleInput)
+- Documentation: PROJECT_INTENT_AND_PROMPT.md (complete project vision and narrative), STYLE_GUIDE.md, PUZZLE_INSPIRATION.md (neal.fun puzzle style reference), puzzle_*.md files
+
+## Puzzle Design Inspiration
+- Puzzles are inspired by [neal.fun](https://neal.fun) - aim for interactive, engaging, and visually appealing experiences
+- Each puzzle should feel like a mini-game or interactive experience, not just a text-based challenge
+- Focus on creative mechanics, satisfying interactions, and clear visual feedback
+- Maintain the playful, hands-on feel that makes neil.fun projects so engaging
 
 ## Development Notes
 - The project was originally designed with Sinterklaas themes, but current implementation uses generic puzzles
-- Puzzle 1 has unique interactive canvas drawing functionality
-- Puzzles 2-10 follow a standard text input pattern
+- Puzzle 1 has unique interactive canvas drawing functionality using React refs and hooks
+- Puzzles 2-9 use the reusable PuzzleInput component
+- Puzzle 10 has custom logic for displaying the final code
 - All styling should maintain the "Cardboard Arcade" aesthetic
+- Use HashRouter for GitHub Pages compatibility (no server-side routing needed)
+- Local development: `npm run dev` (Vite dev server)
+- Production build: `npm run build` (outputs to dist/)
 

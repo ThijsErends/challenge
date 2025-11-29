@@ -7,7 +7,7 @@ This puzzle challenges the user to deduce Sinterklaas's secret delivery path acr
 ## Inspiration & Theme
 
 *   **Sinterklaas Theme:** Directly integrates Zwarte Pieten, gift bags, and Dutch rooftops, tying into Pakjesavond traditions.
-*   **Neil.fun Inspiration:** Combines "Hidden Object" (finding the correct Pieten/colors) with "Interactive Diagram" (deducing a sequence from visual elements).
+*   **Neal.fun Inspiration:** Combines "Hidden Object" (finding the correct Pieten/colors) with "Interactive Diagram" (deducing a sequence from visual elements).
 
 ## Design Notes
 

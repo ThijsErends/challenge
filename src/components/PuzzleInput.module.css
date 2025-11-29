@@ -1,0 +1,50 @@
+/* PuzzleInput Component Styles - CSS Module */
+
+.puzzleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.puzzleContainer h2 {
+    margin-bottom: 1rem;
+}
+
+.puzzleContainer p {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.inputContainer input {
+    width: 100%;
+}
+
+.inputContainer button {
+    width: 100%;
+    max-width: 300px;
+}
+
+.result {
+    margin-top: 1.5rem;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.2rem;
+    min-height: 2rem;
+    text-align: center;
+    width: 100%;
+}
+

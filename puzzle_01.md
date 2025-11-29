@@ -7,7 +7,7 @@ Zwarte Piet is renowned for many talents, but drawing a perfectly round pepernoo
 ## Inspiration & Theme
 
 *   **Sinterklaas Theme:** Directly involves Zwarte Piet and the iconic pepernoot, making the abstract task concrete and fun within the Pakjesavond context.
-*   **Neil.fun Inspiration:** Directly inspired by `neal.fun/perfect-circle`, focusing on a simple, satisfying, and skill-based interactive challenge.
+*   **Neal.fun Inspiration:** Directly inspired by `neal.fun/perfect-circle`, focusing on a simple, satisfying, and skill-based interactive challenge.
 
 ## Design Notes
 
