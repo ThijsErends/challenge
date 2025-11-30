@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { usePuzzleProgress } from '../contexts/PuzzleProgressContext'
 import styles from './Puzzle2.module.css'
 
 function Puzzle2() {
   const navigate = useNavigate()
+  const { markPuzzleSolved } = usePuzzleProgress()
   const [selectedSequence, setSelectedSequence] = useState([])
   const [errorMessage, setErrorMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
@@ -11,14 +13,14 @@ function Puzzle2() {
   const [isCompleted, setIsCompleted] = useState(false)
 
   // Definieer de juiste volgorde (4 kleuren)
-  const correctSequence = ['red', 'green', 'teal', 'orange']
+  const correctSequence = ['rood', 'groen', 'turquoise', 'oranje']
 
   // Definieer Roetveegpieten met hun posities, kleuren en kostuumkleuren
   const pieten = [
-    { id: 1, color: 'red', position: { top: '25%', left: '8%' }, roof: 1, costumeColor: 'var(--poofball-red)' },
-    { id: 2, color: 'green', position: { top: '20%', left: '35%' }, roof: 2, costumeColor: 'var(--ushanka-green)' },
-    { id: 3, color: 'teal', position: { top: '18%', left: '62%' }, roof: 3, costumeColor: 'var(--teal-toque)' },
-    { id: 4, color: 'orange', position: { top: '22%', left: '85%' }, roof: 4, costumeColor: 'var(--parka-orange)' },
+    { id: 1, color: 'rood', position: { top: '25%', left: '8%' }, roof: 1, costumeColor: 'var(--poofball-red)' },
+    { id: 2, color: 'groen', position: { top: '20%', left: '35%' }, roof: 2, costumeColor: 'var(--ushanka-green)' },
+    { id: 3, color: 'turquoise', position: { top: '18%', left: '62%' }, roof: 3, costumeColor: 'var(--teal-toque)' },
+    { id: 4, color: 'oranje', position: { top: '22%', left: '85%' }, roof: 4, costumeColor: 'var(--parka-orange)' },
     { id: 5, color: 'purple', position: { top: '45%', left: '20%' }, roof: 5, costumeColor: '#9B59B6' },
     { id: 6, color: 'yellow', position: { top: '42%', left: '75%' }, roof: 6, costumeColor: '#F1C40F' },
     { id: 7, color: 'blue', position: { top: '65%', left: '50%' }, roof: 7, costumeColor: '#3498DB' },
@@ -62,6 +64,7 @@ function Puzzle2() {
       setSuccessMessage(`Perfect! De route is correct! Hier is de code voor de volgende puzzel: ${password}`)
       setErrorMessage('')
       setIsCompleted(true)
+      markPuzzleSolved(2, password)
     } else {
       setErrorMessage('Onjuist. Probeer opnieuw.')
       setShake(true)
@@ -81,6 +84,10 @@ function Puzzle2() {
       green: 'var(--ushanka-green)',
       teal: 'var(--teal-toque)',
       orange: 'var(--parka-orange)',
+      rood: 'var(--poofball-red)',
+      groen: 'var(--ushanka-green)',
+      turquoise: 'var(--teal-toque)',
+      oranje: 'var(--parka-orange)',
       purple: '#9B59B6',
       yellow: '#F1C40F',
       blue: '#3498DB'
@@ -94,6 +101,10 @@ function Puzzle2() {
       green: 'groen',
       teal: 'turquoise',
       orange: 'oranje',
+      rood: 'rood',
+      groen: 'groen',
+      turquoise: 'turquoise',
+      oranje: 'oranje',
       purple: 'paars',
       yellow: 'geel',
       blue: 'blauw'
@@ -108,9 +119,11 @@ function Puzzle2() {
       <div className={styles.hintContainer}>
         <p className={styles.hintText}>
           "Over de daken, waar de maan helder schijnt,<br />
-          Volg de kleuren die de geschenken van de nacht brengen.<br />
-          Rood begint, groen volgt, turquoise wacht,<br />
-          Oranje eindigt waar cadeaus vliegen."
+          Volg de weg die de nacht je wijst.<br />
+          Eerst waar de haard zijn warmte geeft,<br />
+          Dan waar de lente haar groet zendt,<br />
+          Vervolgens waar de diepte spreekt,<br />
+          Tot waar de dageraad ontwaakt."
         </p>
       </div>
 

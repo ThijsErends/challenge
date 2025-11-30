@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { usePuzzleProgress } from '../contexts/PuzzleProgressContext'
 import styles from './Puzzle1.module.css'
 
 function Puzzle1() {
   const navigate = useNavigate()
+  const { markPuzzleSolved } = usePuzzleProgress()
   const canvasRef = useRef(null)
   const [isDrawing, setIsDrawing] = useState(false)
   const [points, setPoints] = useState([])
@@ -155,9 +157,11 @@ function Puzzle1() {
     setAccuracy(acc)
 
     if (acc >= 80) {
+      const password = 'pepernoot'
       setResultMessage('Perfect! Hier is de code voor de volgende puzzel: pepernoot')
       setShowPepernoot(true)
       setIsCompleted(true)
+      markPuzzleSolved(1, password)
     } else {
       setResultMessage('Niet helemaal rond. Probeer het opnieuw, Piet!')
       setShake(true)

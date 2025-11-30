@@ -15,9 +15,21 @@
     --teal-toque: #2AB7CA;
     --parka-orange: #F7931E;
     
+    /* Additional Puzzle Colors for Variety */
+    --puzzle-purple: #9B59B6;
+    --puzzle-yellow: #F1C40F;
+    --puzzle-blue: #3498DB;
+    --puzzle-pink: #E91E63;
+    --puzzle-cyan: #1ABC9C;
+    --puzzle-indigo: #5D4E75;
+    --puzzle-coral: #FF6B6B;
+    --puzzle-lavender: #A29BFE;
+    
     /* Typography & Outlines */
     --marker-black: #1A1713;
     --paper-white: #F4F1E8;
+    --text-dark: #2C2C2C; /* Better contrast for readability */
+    --text-light: #FFFFFF; /* Pure white for better contrast on colored backgrounds */
 }
 
 /* --- Global Resets & Base Styles --- */
@@ -28,7 +40,7 @@
 body {
     background-color: var(--kraft-brown);
     font-family: 'Patrick Hand', cursive;
-    color: var(--marker-black);
+    color: var(--text-dark);
     margin: 0;
     padding: 0;
     display: flex;
@@ -46,7 +58,7 @@ body {
 /* --- Typography --- */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Permanent Marker', cursive;
-    color: var(--marker-black);
+    color: var(--text-dark);
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 0.5rem;
@@ -72,9 +84,10 @@ main {
     justify-content: center;
     padding: 2rem;
     width: 100%;
-    max-width: 800px;
+    max-width: calc(100vw - 280px); /* Account for sidebar */
     margin: 0 auto;
     text-align: center;
+    box-sizing: border-box;
 }
 
 header, footer {

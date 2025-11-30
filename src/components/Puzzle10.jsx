@@ -1,16 +1,19 @@
 import { useState } from 'react'
+import { usePuzzleProgress } from '../contexts/PuzzleProgressContext'
 import styles from './Puzzle10.module.css'
 
 function Puzzle10() {
   const [answer, setAnswer] = useState('')
   const [result, setResult] = useState('')
   const [showSuccess, setShowSuccess] = useState(false)
+  const { markPuzzleSolved } = usePuzzleProgress()
 
   const handleSubmit = () => {
     const trimmedAnswer = answer.trim().toLowerCase()
     if (trimmedAnswer === 'een fles') {
       setShowSuccess(true)
       setResult('')
+      markPuzzleSolved(10, '1006')
     } else {
       setResult('Onjuist. Probeer opnieuw.')
     }

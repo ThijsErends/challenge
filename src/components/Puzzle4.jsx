@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { usePuzzleProgress } from '../contexts/PuzzleProgressContext'
 import styles from './Puzzle4.module.css'
 
 function Puzzle4() {
   const navigate = useNavigate()
+  const { markPuzzleSolved } = usePuzzleProgress()
   const [answer, setAnswer] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [isCompleted, setIsCompleted] = useState(false)
@@ -16,6 +18,7 @@ function Puzzle4() {
     if (trimmedAnswer === correctAnswer) {
       setIsCompleted(true)
       setErrorMessage('')
+      markPuzzleSolved(4, correctAnswer)
     } else {
       setErrorMessage('Onjuist. Probeer opnieuw.')
     }
@@ -44,6 +47,7 @@ function Puzzle4() {
   LET pepernoten_eaten_by_Amerigo = 3
   LET rooftops_visited = []
   LET final_destination = ""
+  LET base_word = "pakjesavond"
   
   // Amerigo begint zijn tocht
   FOR EACH dak IN [eerste, tweede, derde, vierde] {
@@ -63,22 +67,47 @@ function Puzzle4() {
     pepernoten_eaten_by_Amerigo = pepernoten_eaten_by_Amerigo - 1
   }
   
-  // De hoefslag vertelt het verhaal
+  // De hoefslag vertelt het verhaal van zijn pad
   IF rooftop_count == 4 THEN
     LET path_sound = rooftops_visited.join("")
     // path_sound = "hooglaaghooglaag"
     
-    // Tel de letters in het geluid
-    LET letter_count = path_sound.length
-    // letter_count = 16
+    // Vind alle posities waar de letter 'a' voorkomt in het pad
+    LET a_positions = []
+    FOR i FROM 0 TO path_sound.length - 1 {
+      IF path_sound[i] == "a" THEN
+        a_positions.push(i)
+      END IF
+    }
+    // path_sound = "hooglaaghooglaag"
+    // Posities: 0=h, 1=o, 2=o, 3=g, 4=l, 5=a, 6=a, 7=g, 8=h, 9=o, 10=o, 11=g, 12=l, 13=a, 14=a, 15=g
+    // a_positions = [5, 6, 13, 14]
     
-    // Deel door het aantal daken
-    LET magic_number = letter_count / rooftop_count
-    // magic_number = 4
+    // Elke hoefslag heeft 4 letters ("hoog" of "laag")
+    // Het antwoord heeft 3 letters
+    // Gebruik de posities van 'a' om letters te extraheren
     
-    // Het antwoord is het woord met 4 letters
-    // dat Amerigo het meest hoort tijdens zijn reis
-    final_destination = "dak"
+    // Eerste letter: laatste 'a' positie minus 4
+    LET idx_1 = a_positions[3] - 4
+    // idx_1 = 14 - 4 = 10
+    LET letter_1 = base_word[idx_1]
+    // letter_1 = base_word[10] = "d"
+    
+    // Tweede letter: eerste 'a' positie minus 4
+    LET idx_2 = a_positions[0] - 4
+    // idx_2 = 5 - 4 = 1
+    LET letter_2 = base_word[idx_2]
+    // letter_2 = base_word[1] = "a"
+    
+    // Derde letter: tweede 'a' positie minus 4
+    LET idx_3 = a_positions[1] - 4
+    // idx_3 = 6 - 4 = 2
+    LET letter_3 = base_word[idx_3]
+    // letter_3 = base_word[2] = "k"
+    
+    // Combineer de letters tot het antwoord
+    final_destination = letter_1 + letter_2 + letter_3
+    // final_destination = "d" + "a" + "k" = "dak"
   END IF
   
   RETURN final_destination
@@ -89,10 +118,10 @@ function Puzzle4() {
 
       <div className={styles.instructionContainer}>
         <p className={styles.instruction}>
-          Volg het algoritme stap voor stap. Wat is de waarde die <code>final_destination</code> krijgt?
+          Voer het algoritme stap voor stap uit. Bereken de waarde van <code>final_destination</code> door alle berekeningen te volgen.
         </p>
         <p className={styles.hint}>
-          💡 Hint: "Luister naar Amerigo's hoeven, ze vertellen het verhaal van zijn pad."
+          💡 Hint: "Luister naar Amerigo's hoeven, ze vertellen het verhaal van zijn pad." Tel waar de letter 'a' voorkomt in het pad.
         </p>
       </div>
 

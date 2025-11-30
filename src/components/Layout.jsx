@@ -1,9 +1,11 @@
 import '../index.css'
 import styles from './Layout.module.css'
+import SidebarNavigation from './SidebarNavigation'
 
 function Layout({ children }) {
   return (
     <>
+      <SidebarNavigation />
       <div className="floating-shape shape-cloud"></div>
       <div className="floating-shape shape-star"></div>
       <div className="floating-shape shape-circle"></div>

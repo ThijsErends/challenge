@@ -6,10 +6,13 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 100vh;
+    max-width: 100%;
+    min-height: calc(100vh - 150px);
     position: relative;
     overflow: hidden;
     padding: 2rem;
+    box-sizing: border-box;
+    margin: 0 auto;
 }
 
 /* Background Elements */
@@ -200,7 +203,7 @@
 .glitchTitle {
     font-family: 'Permanent Marker', cursive;
     font-size: 2.5rem;
-    color: var(--marker-black);
+    color: var(--text-dark);
     margin-bottom: 1rem;
     text-transform: uppercase;
     transform: rotate(-1deg);
@@ -210,7 +213,7 @@
 .glitchText {
     font-family: 'Patrick Hand', cursive;
     font-size: 1.3rem;
-    color: var(--marker-black);
+    color: var(--text-dark);
     line-height: 1.6;
     margin-bottom: 1rem;
 }

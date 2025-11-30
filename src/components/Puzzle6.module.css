@@ -1,0 +1,369 @@
+/* Puzzle 6: The Grand Present Manifest - CSS Module */
+
+.puzzleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  position: relative;
+}
+
+.title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2rem;
+  color: var(--marker-black);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  transform: rotate(-1deg);
+  text-align: center;
+}
+
+.hintContainer {
+  background-color: var(--paper-white);
+  border: 4px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+  max-width: 700px;
+  width: 100%;
+  animation: slowWiggle 3s ease-in-out infinite;
+}
+
+.hintText {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.1rem;
+  color: var(--marker-black);
+  text-align: center;
+  margin: 0 0 0.5rem 0;
+  font-style: italic;
+}
+
+.clueText {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  color: var(--marker-black);
+  text-align: center;
+  margin: 0.5rem 0 0 0;
+  font-weight: bold;
+}
+
+/* JSON Container Styling */
+.jsonContainer {
+  background-color: var(--paper-white);
+  border: 4px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  max-width: 900px;
+  width: 100%;
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.jsonHeader {
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--marker-black);
+}
+
+.jsonTitle {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.3rem;
+  color: var(--marker-black);
+  text-transform: uppercase;
+}
+
+.jsonContent {
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* JSON Node Styling */
+.jsonNode {
+  margin: 0.2rem 0;
+}
+
+.jsonNode .jsonNode {
+  margin: 0.1rem 0;
+}
+
+.jsonKeyRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.3rem 0;
+  transition: background-color 0.2s;
+  border-radius: 4px;
+}
+
+.jsonKeyRow:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.expandButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: var(--teal-toque);
+  color: var(--paper-white);
+  border: 2px solid var(--marker-black);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  flex-shrink: 0;
+  animation: slowWiggle 3s ease-in-out infinite;
+}
+
+.expandButton:hover {
+  animation: fastWiggle 0.5s linear infinite;
+  background-color: #3ba5b8;
+}
+
+.jsonBrace,
+.jsonBracket {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.2rem;
+  color: var(--marker-black);
+}
+
+.jsonObjectLength,
+.jsonArrayLength {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 0.9rem;
+  color: var(--parka-orange);
+  font-style: italic;
+}
+
+.jsonChildren {
+  margin-left: 0.5rem;
+  border-left: 2px dashed rgba(0, 0, 0, 0.2);
+  padding-left: 0.5rem;
+}
+
+.jsonProperty {
+  margin: 0.2rem 0;
+}
+
+.jsonKey {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.jsonKeyName {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.95rem;
+  color: var(--poofball-red);
+  font-weight: bold;
+}
+
+.jsonColon {
+  font-family: 'Permanent Marker', cursive;
+  color: var(--marker-black);
+  font-size: 1rem;
+}
+
+.jsonValue {
+  margin: 0.2rem 0;
+}
+
+.jsonString {
+  color: var(--ushanka-green);
+  font-family: 'Courier New', monospace;
+  font-weight: normal;
+}
+
+.jsonNumber {
+  color: var(--teal-toque);
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+}
+
+.jsonBoolean {
+  color: var(--parka-orange);
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+}
+
+.jsonNull {
+  color: #999;
+  font-family: 'Courier New', monospace;
+  font-style: italic;
+}
+
+/* Input Section */
+.inputSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 1rem;
+}
+
+.instructionText {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.2rem;
+  color: var(--marker-black);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.answerInput {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.5rem;
+  padding: 12px 20px;
+  border: 4px solid var(--marker-black);
+  background-color: var(--paper-white);
+  color: var(--marker-black);
+  outline: none;
+  width: 100%;
+  text-align: center;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.answerInput:focus {
+  transform: scale(1.02);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.15);
+}
+
+.answerInput:disabled {
+  background-color: var(--ushanka-green);
+  color: var(--paper-white);
+  cursor: not-allowed;
+}
+
+.submitButton {
+  display: inline-block;
+  background-color: var(--poofball-red);
+  color: var(--paper-white);
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  padding: 15px 30px;
+  border: 4px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  animation: slowWiggle 3s ease-in-out infinite;
+  width: 100%;
+  max-width: 300px;
+}
+
+.submitButton:hover:not(:disabled) {
+  animation: fastWiggle 0.5s linear infinite;
+  background-color: #d45454;
+}
+
+.submitButton:active:not(:disabled) {
+  transform: scale(0.95);
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.25);
+  animation: none;
+}
+
+.submitButton:disabled {
+  background-color: var(--ushanka-green);
+  cursor: not-allowed;
+  animation: none;
+}
+
+.errorMessage {
+  margin-top: 1rem;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.2rem;
+  color: var(--poofball-red);
+  text-align: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--paper-white);
+  border: 3px solid var(--poofball-red);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  animation: shake 0.5s;
+}
+
+.successMessage {
+  margin-top: 1rem;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.2rem;
+  color: var(--ushanka-green);
+  text-align: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--paper-white);
+  border: 3px solid var(--ushanka-green);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  animation: slowWiggle 3s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes slowWiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes fastWiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Scrollbar Styling */
+.jsonContainer::-webkit-scrollbar {
+  width: 12px;
+}
+
+.jsonContainer::-webkit-scrollbar-track {
+  background: var(--kraft-brown);
+  border: 2px solid var(--marker-black);
+  border-radius: 4px;
+}
+
+.jsonContainer::-webkit-scrollbar-thumb {
+  background: var(--poofball-red);
+  border: 2px solid var(--marker-black);
+  border-radius: 4px;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+.jsonContainer::-webkit-scrollbar-thumb:hover {
+  background: #d45454;
+}
+

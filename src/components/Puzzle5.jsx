@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { usePuzzleProgress } from '../contexts/PuzzleProgressContext'
 import styles from './Puzzle5.module.css'
 
 function Puzzle5() {
   const navigate = useNavigate()
+  const { markPuzzleSolved } = usePuzzleProgress()
   
   // Cipher details: Shift of 5 (December 5th - Pakjesavond)
   const SHIFT = 5
@@ -174,6 +176,7 @@ function Puzzle5() {
     if (trimmedAnswer === trimmedCorrect) {
       setIsCompleted(true)
       setErrorMessage('')
+      markPuzzleSolved(5, CORRECT_ANSWER.toLowerCase())
     } else {
       setErrorMessage('Onjuist. Probeer opnieuw.')
       setShake(true)

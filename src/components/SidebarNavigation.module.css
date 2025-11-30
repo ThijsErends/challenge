@@ -1,0 +1,449 @@
+/* Sidebar Navigation - Cardboard Arcade Style */
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 150px; /* Start below fixed header */
+  height: calc(100vh - 150px); /* Full height minus header */
+  width: 280px;
+  background-color: var(--paper-white);
+  border-right: 4px solid var(--marker-black);
+  box-shadow: 4px 0px 0px rgba(0, 0, 0, 0.25);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+  overflow-y: auto;
+}
+
+.sidebar.mobile {
+  transform: translateX(-100%);
+  width: 100%;
+  max-width: 320px;
+  box-shadow: 4px 0px 20px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar.mobile.open {
+  transform: translateX(0);
+}
+
+.sidebarHeader {
+  padding: 1.5rem 1rem;
+  border-bottom: 3px solid var(--marker-black);
+  background-color: var(--teal-toque);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.sidebarTitle {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5rem;
+  color: var(--paper-white);
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0px var(--marker-black);
+  margin: 0;
+  transform: rotate(-1deg);
+}
+
+.puzzleList {
+  flex: 1;
+  padding: 1rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+}
+
+.puzzleButton {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--paper-white);
+  border: 3px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Patrick Hand', cursive;
+  position: relative;
+  color: var(--text-dark);
+}
+
+.puzzleButton:hover:not(.disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
+  animation: wiggle 0.3s ease-in-out;
+}
+
+.puzzleButton:active:not(.disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+.puzzleButton.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #e0e0e0;
+  color: var(--text-dark);
+}
+
+.puzzleButton:not(.disabled) {
+  color: var(--text-light);
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.puzzleButton.solved:not(.active) {
+  background-color: var(--ushanka-green) !important;
+  color: var(--text-light);
+}
+
+.puzzleButton.active {
+  background-color: var(--parka-orange) !important;
+  color: var(--text-light);
+  border-width: 4px;
+  font-weight: 700;
+}
+
+.puzzleButtonContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.puzzleHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.puzzleNumber {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--text-dark);
+  min-width: 2rem;
+}
+
+.puzzleButton:not(.disabled) .puzzleNumber {
+  color: var(--text-light);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.puzzleButton.disabled .puzzleNumber {
+  color: var(--text-dark);
+}
+
+.puzzleTitle {
+  flex: 1;
+  font-size: 0.9rem;
+  font-weight: bold;
+  line-height: 1.2;
+  color: inherit;
+}
+
+.puzzleButton.disabled .puzzleTitle {
+  color: var(--text-dark);
+}
+
+.checkmark {
+  font-size: 1.2rem;
+  color: var(--paper-white);
+  font-weight: bold;
+  background-color: var(--marker-black);
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.passwordDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-top: 0.5rem;
+  border-top: 2px dashed var(--marker-black);
+  font-size: 0.85rem;
+}
+
+.passwordLabel {
+  font-weight: bold;
+  opacity: 0.8;
+}
+
+.passwordValue {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1rem;
+  color: var(--text-dark);
+  background-color: var(--paper-white);
+  padding: 0.25rem 0.5rem;
+  border: 2px solid var(--marker-black);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.puzzleButton.solved .passwordValue {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: var(--text-light);
+  border-color: var(--text-light);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.sidebarFooter {
+  padding: 1rem;
+  border-top: 3px solid var(--marker-black);
+  background-color: var(--kraft-brown);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: sticky;
+  bottom: 0;
+}
+
+.resetButton {
+  padding: 0.75rem;
+  background-color: var(--poofball-red);
+  color: var(--paper-white);
+  border: 3px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+}
+
+.resetButton:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
+  animation: wiggle 0.3s ease-in-out;
+}
+
+.resetButton:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+.devButton {
+  padding: 0.5rem;
+  background-color: var(--parka-orange);
+  color: var(--marker-black);
+  border: 2px dashed var(--marker-black);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+  font-family: 'Patrick Hand', cursive;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: bold;
+}
+
+.devButton:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.25);
+}
+
+.devButton:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.25);
+}
+
+.confirmDialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.confirmContent {
+  background-color: var(--paper-white);
+  border: 4px solid var(--marker-black);
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.25);
+  padding: 2rem;
+  max-width: 400px;
+  text-align: center;
+  font-family: 'Patrick Hand', cursive;
+}
+
+.confirmContent p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: var(--marker-black);
+}
+
+.confirmButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.confirmYes,
+.confirmNo {
+  padding: 0.75rem 1.5rem;
+  border: 3px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+}
+
+.confirmYes {
+  background-color: var(--poofball-red);
+  color: var(--paper-white);
+}
+
+.confirmNo {
+  background-color: var(--ushanka-green);
+  color: var(--paper-white);
+}
+
+.confirmYes:hover,
+.confirmNo:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
+}
+
+.confirmYes:active,
+.confirmNo:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* Mobile Toggle Button */
+.toggleButton {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+  width: 50px;
+  height: 50px;
+  background-color: var(--teal-toque);
+  border: 3px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.toggleButton:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
+}
+
+.toggleButton:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 24px;
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: var(--marker-black);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+}
+
+/* Animations */
+@keyframes wiggle {
+  0%, 100% {
+    transform: translate(-2px, -2px) rotate(0deg);
+  }
+  25% {
+    transform: translate(-2px, -2px) rotate(-1deg);
+  }
+  75% {
+    transform: translate(-2px, -2px) rotate(1deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .toggleButton {
+    display: flex;
+    top: 1rem;
+    left: 1rem;
+  }
+
+  .sidebar {
+    top: 120px; /* Start below smaller fixed header on mobile */
+    height: calc(100vh - 120px);
+  }
+
+  .sidebarHeader {
+    padding: 1rem 0.75rem;
+  }
+
+  .sidebarTitle {
+    font-size: 1.2rem;
+  }
+
+  .puzzleList {
+    padding: 0.75rem 0.25rem;
+  }
+
+  .puzzleButton {
+    padding: 0.5rem;
+  }
+
+  .puzzleTitle {
+    font-size: 0.85rem;
+  }
+
+  .passwordValue {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar.mobile {
+    max-width: 100%;
+  }
+
+  .confirmContent {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .confirmButtons {
+    flex-direction: column;
+  }
+
+  .confirmYes,
+  .confirmNo {
+    width: 100%;
+  }
+}
+

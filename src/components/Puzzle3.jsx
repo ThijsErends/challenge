@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Chess } from 'chess.js'
+import { usePuzzleProgress } from '../contexts/PuzzleProgressContext'
 import styles from './Puzzle3.module.css'
 
 function Puzzle3() {
   const navigate = useNavigate()
+  const { markPuzzleSolved } = usePuzzleProgress()
   const [chess] = useState(() => {
     const game = new Chess()
     // Set up a checkmate-in-2 position
@@ -21,9 +23,15 @@ function Puzzle3() {
   const [availableMoves, setAvailableMoves] = useState([])
   const [isCheckmate, setIsCheckmate] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
   const [draggedPiece, setDraggedPiece] = useState(null)
   const [dragOverSquare, setDragOverSquare] = useState(null)
   const [isCompleted, setIsCompleted] = useState(false)
+  const [initialPosition] = useState(() => {
+    const game = new Chess()
+    game.load('r5k1/5ppp/8/8/8/8/3Q1PPP/R3K2R w KQ - 0 1')
+    return game.fen()
+  })
   const boardRef = useRef(null)
 
   useEffect(() => {
@@ -31,8 +39,9 @@ function Puzzle3() {
     if (chess.isCheckmate()) {
       setIsCheckmate(true)
       setIsCompleted(true)
+      markPuzzleSolved(3, 'schaakmat')
     }
-  }, [chess])
+  }, [chess, markPuzzleSolved])
 
   const getSquareFromPosition = (row, col) => {
     const files = 'abcdefgh'
@@ -81,11 +90,7 @@ function Puzzle3() {
           setSelectedSquare(null)
           setAvailableMoves([])
           setErrorMessage('')
-          
-          if (chess.isCheckmate()) {
-            setIsCheckmate(true)
-            setIsCompleted(true)
-          }
+          checkMoveFeedback()
         }
       } catch (e) {
         setErrorMessage('Ongeldige zet!')
@@ -132,11 +137,7 @@ function Puzzle3() {
           setSelectedSquare(null)
           setAvailableMoves([])
           setErrorMessage('')
-          
-          if (chess.isCheckmate()) {
-            setIsCheckmate(true)
-            setIsCompleted(true)
-          }
+          checkMoveFeedback()
         }
       } catch (e) {
         setErrorMessage('Ongeldige zet!')
@@ -155,6 +156,32 @@ function Puzzle3() {
 
   const handleNext = () => {
     navigate('/puzzle-4')
+  }
+
+  const handleReset = () => {
+    chess.load(initialPosition)
+    setBoard(chess.board())
+    setSelectedSquare(null)
+    setAvailableMoves([])
+    setIsCheckmate(false)
+    setIsCompleted(false)
+    setErrorMessage('')
+    setSuccessMessage('')
+    // Note: Puzzle progress is not reset when resetting the puzzle
+  }
+
+  const checkMoveFeedback = () => {
+    if (chess.isCheckmate()) {
+      setSuccessMessage('Perfect! Schaakmat! Je hebt de juiste zet gedaan!')
+      setIsCheckmate(true)
+      setIsCompleted(true)
+      markPuzzleSolved(3, 'schaakmat')
+    } else if (chess.isCheck()) {
+      setSuccessMessage('Goed gedaan! De koning staat in schaak!')
+      setTimeout(() => setSuccessMessage(''), 3000)
+    } else {
+      setSuccessMessage('')
+    }
   }
 
   const getPieceTypeClass = (type) => {
@@ -186,6 +213,7 @@ function Puzzle3() {
         onDragStart={(e) => handleDragStart(e, row, col)}
         onDragEnd={handleDragEnd}
       >
+        <div className={`${styles.pieceBase} ${piece.color === 'w' ? styles.whiteBase : styles.blackBase}`}></div>
         {piece.type === 'k' && <div className={styles.king}></div>}
         {piece.type === 'q' && <div className={styles.queen}></div>}
         {piece.type === 'r' && <div className={styles.rook}></div>}
@@ -224,6 +252,16 @@ function Puzzle3() {
       {errorMessage && (
         <div className={styles.errorMessage}>{errorMessage}</div>
       )}
+      
+      {successMessage && !isCheckmate && (
+        <div className={styles.successMessage}>{successMessage}</div>
+      )}
+      
+      <div className={styles.buttonContainer}>
+        <button className={styles.resetButton} onClick={handleReset}>
+          Herstart Puzzel
+        </button>
+      </div>
       
       <div className={styles.boardContainer} ref={boardRef}>
         <div className={styles.board}>
