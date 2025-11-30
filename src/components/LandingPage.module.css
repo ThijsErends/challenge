@@ -6,18 +6,243 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 60vh;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
 }
 
+/* Background Elements */
+.backgroundElements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* Pepernoten Styles */
+.pepernoot {
+    position: absolute;
+    border-radius: 50%;
+    background-color: #A0522D;
+    opacity: 0.5;
+    border: 3px solid var(--marker-black);
+    animation: floatNote ease-in-out infinite;
+    transform: rotate(var(--base-rotation, 0deg));
+    box-shadow: 
+        0 4px 0px rgba(139, 69, 19, 0.8),
+        0 8px 0px rgba(101, 50, 20, 0.6),
+        6px 6px 0px rgba(0, 0, 0, 0.25),
+        inset 0 -4px 0px rgba(0, 0, 0, 0.2);
+    background: radial-gradient(circle at 30% 30%, #B8653A, #8B4513 70%);
+}
+
+.pepernoot.small {
+    width: 60px;
+    height: 60px;
+}
+
+.pepernoot.medium {
+    width: 90px;
+    height: 90px;
+}
+
+.pepernoot.large {
+    width: 120px;
+    height: 120px;
+}
+
+@keyframes floatNote {
+    0% {
+        transform: translateY(0px) translateX(0px) rotate(var(--base-rotation, 0deg));
+    }
+    25% {
+        transform: translateY(-15px) translateX(10px) rotate(calc(var(--base-rotation, 0deg) + 3deg));
+    }
+    50% {
+        transform: translateY(-5px) translateX(-8px) rotate(calc(var(--base-rotation, 0deg) - 2deg));
+    }
+    75% {
+        transform: translateY(-18px) translateX(6px) rotate(calc(var(--base-rotation, 0deg) + 3.5deg));
+    }
+    100% {
+        transform: translateY(0px) translateX(0px) rotate(var(--base-rotation, 0deg));
+    }
+}
+
+/* Star Styles */
+.star {
+    position: absolute;
+    background: var(--parka-orange);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    opacity: 0.6;
+    border: 2px solid var(--marker-black);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+    animation: floatStar ease-in-out infinite, twinkle 2s ease-in-out infinite;
+}
+
+.star.small {
+    width: 30px;
+    height: 30px;
+}
+
+.star.medium {
+    width: 50px;
+    height: 50px;
+}
+
+@keyframes floatStar {
+    0% {
+        transform: translateY(0px) translateX(0px) rotate(0deg);
+    }
+    33% {
+        transform: translateY(-20px) translateX(15px) rotate(120deg);
+    }
+    66% {
+        transform: translateY(-10px) translateX(-12px) rotate(240deg);
+    }
+    100% {
+        transform: translateY(0px) translateX(0px) rotate(360deg);
+    }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 0.9; }
+}
+
+/* Main Content */
+.content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 800px;
+    width: 100%;
+}
+
+/* Sinterklaas Hat */
+.sinterklaasHat {
+    position: relative;
+    width: 200px;
+    height: 180px;
+    animation: hatWiggle 4s ease-in-out infinite;
+    transform: rotate(-2deg);
+}
+
+.hatTop {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 120px;
+    background-color: var(--poofball-red);
+    border: 4px solid var(--marker-black);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+    clip-path: polygon(0% 100%, 20% 0%, 80% 0%, 100% 100%);
+    border-radius: 5px 5px 0 0;
+}
+
+.hatBrim {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 40px;
+    background-color: var(--poofball-red);
+    border: 4px solid var(--marker-black);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+}
+
+.hatCross {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background-color: var(--paper-white);
+    border: 3px solid var(--marker-black);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+@keyframes hatWiggle {
+    0%, 100% { transform: rotate(-2deg) translateY(0px); }
+    25% { transform: rotate(-1deg) translateY(-5px); }
+    50% { transform: rotate(-3deg) translateY(0px); }
+    75% { transform: rotate(-1deg) translateY(-5px); }
+}
+
+/* Welcome Message */
+.welcomeMessage {
+    background-color: var(--paper-white);
+    border: 4px solid var(--marker-black);
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
+    padding: 2rem;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    max-width: 600px;
+    text-align: center;
+    transform: rotate(1deg);
+    animation: messageFloat 5s ease-in-out infinite;
+}
+
+.glitchTitle {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2.5rem;
+    color: var(--marker-black);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    transform: rotate(-1deg);
+    animation: titlePulse 3s ease-in-out infinite;
+}
+
+.glitchText {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.3rem;
+    color: var(--marker-black);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.glitchQuestion {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.5rem;
+    color: var(--poofball-red);
+    margin-top: 1rem;
+    transform: rotate(1deg);
+}
+
+@keyframes messageFloat {
+    0%, 100% { transform: rotate(1deg) translateY(0px); }
+    50% { transform: rotate(1deg) translateY(-8px); }
+}
+
+@keyframes titlePulse {
+    0%, 100% { transform: rotate(-1deg) scale(1); }
+    50% { transform: rotate(-1deg) scale(1.05); }
+}
+
+/* Start Button */
 .startButton {
     display: inline-block;
     background-color: var(--poofball-red);
     color: var(--paper-white);
     font-family: 'Permanent Marker', cursive;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     text-transform: uppercase;
     text-decoration: none;
-    padding: 15px 30px;
+    padding: 20px 40px;
     border: 4px solid var(--marker-black);
     box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
     cursor: pointer;
@@ -25,11 +250,14 @@
     border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
     animation: slowWiggle 3s ease-in-out infinite;
     text-align: center;
+    position: relative;
+    z-index: 2;
 }
 
 .startButton:hover {
     animation: fastWiggle 0.5s linear infinite;
     background-color: #d45454;
+    transform: scale(1.05);
 }
 
 .startButton:active {
@@ -52,5 +280,50 @@
     50% { transform: rotate(0deg); }
     75% { transform: rotate(-2deg); }
     100% { transform: rotate(0deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sinterklaasHat {
+        width: 150px;
+        height: 135px;
+    }
+    
+    .hatTop {
+        width: 60px;
+        height: 90px;
+    }
+    
+    .hatBrim {
+        width: 135px;
+        height: 30px;
+    }
+    
+    .hatCross {
+        width: 40px;
+        height: 40px;
+        top: 15px;
+    }
+    
+    .glitchTitle {
+        font-size: 2rem;
+    }
+    
+    .glitchText {
+        font-size: 1.1rem;
+    }
+    
+    .glitchQuestion {
+        font-size: 1.2rem;
+    }
+    
+    .startButton {
+        font-size: 1.5rem;
+        padding: 15px 30px;
+    }
+    
+    .welcomeMessage {
+        padding: 1.5rem;
+    }
 }
 

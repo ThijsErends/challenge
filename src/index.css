@@ -82,6 +82,12 @@ header, footer {
     padding: 1rem;
 }
 
+/* Override for sticky header - no bottom margin */
+header.stickyHeader {
+    margin-bottom: 0;
+    padding: 0;
+}
+
 /* --- UI Components: Buttons --- */
 /* Applies to button elements and the start-button link */
 button, .start-button {

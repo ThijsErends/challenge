@@ -1,0 +1,443 @@
+/* Puzzle 3: Sinterklaas's Royal Checkmate - CSS Module */
+
+.puzzleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  position: relative;
+}
+
+.title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2rem;
+  color: var(--marker-black);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  transform: rotate(-1deg);
+}
+
+.instruction {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.2rem;
+  color: var(--marker-black);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+}
+
+.checkmateMessage {
+  background-color: var(--ushanka-green);
+  color: var(--paper-white);
+  padding: 1rem 2rem;
+  border: 4px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  margin-bottom: 1rem;
+  animation: slowWiggle 3s ease-in-out infinite;
+  text-align: center;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5rem;
+}
+
+.errorMessage {
+  background-color: var(--poofball-red);
+  color: var(--paper-white);
+  padding: 0.5rem 1rem;
+  border: 3px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  margin-bottom: 1rem;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1rem;
+}
+
+.boardContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: var(--kraft-brown);
+  border: 4px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  width: min(80vw, 600px);
+  height: min(80vw, 600px);
+  border: 3px solid var(--marker-black);
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.square {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.square.light {
+  background-color: var(--paper-white);
+}
+
+.square.dark {
+  background-color: #A68B5B;
+}
+
+.square.selectedSquare {
+  background-color: var(--teal-toque) !important;
+  opacity: 0.7;
+}
+
+.square.availableMove::before {
+  content: '';
+  position: absolute;
+  width: 30%;
+  height: 30%;
+  background-color: var(--ushanka-green);
+  border-radius: 50%;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+  z-index: 1;
+}
+
+.square.dragOver {
+  background-color: var(--parka-orange) !important;
+  opacity: 0.8;
+}
+
+/* Piece Styling */
+.piece {
+  width: 80%;
+  height: 80%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  z-index: 10;
+  animation: slowWiggle 3s ease-in-out infinite;
+  transition: transform 0.2s;
+}
+
+.piece:active {
+  cursor: grabbing;
+  animation: none;
+}
+
+.piece.selected {
+  transform: scale(1.1);
+  z-index: 20;
+}
+
+.piece.dragging {
+  opacity: 0.5;
+  z-index: 30;
+}
+
+.piece.white {
+  filter: brightness(1.1);
+}
+
+.piece.black {
+  filter: brightness(0.7) contrast(1.2);
+}
+
+/* King - Sinterklaas */
+.king {
+  width: 60%;
+  height: 60%;
+  background-color: var(--poofball-red);
+  border: 3px solid var(--marker-black);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.king::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 35%;
+  background-color: var(--poofball-red);
+  border: 2px solid var(--marker-black);
+  border-radius: 50% 50% 0 0;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.king::after {
+  content: '';
+  position: absolute;
+  top: -25%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 20%;
+  background-color: var(--parka-orange);
+  border: 2px solid var(--marker-black);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Queen - Pakjesboot (Steamboat) */
+.queen {
+  width: 70%;
+  height: 70%;
+  background-color: var(--teal-toque);
+  border: 3px solid var(--marker-black);
+  border-radius: 0 0 50% 50%;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.queen::before {
+  content: '';
+  position: absolute;
+  top: -25%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 30%;
+  background-color: var(--teal-toque);
+  border: 2px solid var(--marker-black);
+  border-radius: 50% 50% 0 0;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.queen::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 15%;
+  background-color: var(--marker-black);
+  border: 1px solid var(--marker-black);
+  border-radius: 3px;
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Rook - Schoorsteen (Chimney) */
+.rook {
+  width: 65%;
+  height: 65%;
+  background-color: var(--parka-orange);
+  border: 3px solid var(--marker-black);
+  border-radius: 10% 10% 0 0;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.rook::before {
+  content: '';
+  position: absolute;
+  top: -15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 25%;
+  background-color: var(--parka-orange);
+  border: 2px solid var(--marker-black);
+  border-radius: 5px;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.rook::after {
+  content: '';
+  position: absolute;
+  top: -12%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 8%;
+  background-color: var(--marker-black);
+  border: 1px solid var(--marker-black);
+  border-radius: 2px;
+}
+
+/* Bishop - Zwarte Piet */
+.bishop {
+  width: 60%;
+  height: 70%;
+  background-color: var(--marker-black);
+  border: 3px solid var(--marker-black);
+  border-radius: 50% 50% 0 0;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.bishop::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 30%;
+  background-color: var(--marker-black);
+  border: 2px solid var(--marker-black);
+  border-radius: 50% 50% 0 0;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.bishop::after {
+  content: '';
+  position: absolute;
+  top: -18%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 35%;
+  height: 12%;
+  background-color: var(--poofball-red);
+  border: 1px solid var(--marker-black);
+  border-radius: 50% 50% 0 0;
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Knight - Amerigo (Horse) */
+.knight {
+  width: 70%;
+  height: 70%;
+  background-color: var(--ushanka-green);
+  border: 3px solid var(--marker-black);
+  border-radius: 30% 50% 50% 30%;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  position: relative;
+  transform: rotate(-10deg);
+}
+
+.knight::before {
+  content: '';
+  position: absolute;
+  top: -15%;
+  left: 15%;
+  width: 40%;
+  height: 35%;
+  background-color: var(--ushanka-green);
+  border: 2px solid var(--marker-black);
+  border-radius: 50% 50% 0 50%;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.knight::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: 20%;
+  width: 25%;
+  height: 20%;
+  background-color: var(--marker-black);
+  border: 1px solid var(--marker-black);
+  border-radius: 50%;
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Pawn - Pepernoot */
+.pawn {
+  width: 50%;
+  height: 50%;
+  background-color: #A0522D;
+  border: 3px solid var(--marker-black);
+  border-radius: 50%;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.pawn::before {
+  content: '';
+  position: absolute;
+  top: -25%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 35%;
+  background-color: #A0522D;
+  border: 2px solid var(--marker-black);
+  border-radius: 50% 50% 0 0;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Legend */
+.legend {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: var(--paper-white);
+  border: 4px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.legendTitle {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.2rem;
+  color: var(--marker-black);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.legendItems {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 0.9rem;
+  color: var(--marker-black);
+}
+
+.legendItem .piece {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  animation: none;
+}
+
+/* Animations */
+@keyframes slowWiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .board {
+    width: min(90vw, 500px);
+    height: min(90vw, 500px);
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .instruction {
+    font-size: 1rem;
+  }
+  
+  .legendItems {
+    grid-template-columns: 1fr;
+  }
+}
+

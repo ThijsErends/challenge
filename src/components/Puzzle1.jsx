@@ -11,6 +11,7 @@ function Puzzle1() {
   const [resultMessage, setResultMessage] = useState('')
   const [showPepernoot, setShowPepernoot] = useState(false)
   const [shake, setShake] = useState(false)
+  const [isCompleted, setIsCompleted] = useState(false)
 
   const minPoints = 20
 
@@ -97,6 +98,7 @@ function Puzzle1() {
     setResultMessage('')
     setShowPepernoot(false)
     setShake(false)
+    setIsCompleted(false)
   }
 
   const calculateAccuracyFromPoints = (pointArray) => {
@@ -155,15 +157,16 @@ function Puzzle1() {
     if (acc >= 80) {
       setResultMessage('Perfect! Hier is de code voor de volgende puzzel: pepernoot')
       setShowPepernoot(true)
-      
-      setTimeout(() => {
-        navigate('/puzzle-2')
-      }, 3000)
+      setIsCompleted(true)
     } else {
       setResultMessage('Niet helemaal rond. Probeer het opnieuw, Piet!')
       setShake(true)
       setTimeout(() => setShake(false), 500)
     }
+  }
+
+  const handleNext = () => {
+    navigate('/puzzle-2')
   }
 
   // Generate chocolate pepernoten with different sizes
@@ -223,8 +226,14 @@ function Puzzle1() {
           Accuraat: {Math.round(accuracy)}%
         </p>
         <div className={styles.buttonContainer}>
-          <button className={styles.resetButton} onClick={clearCanvas}>Begin Opnieuw</button>
-          <button className={styles.checkButton} onClick={checkCircle}>Controleer Cirkel</button>
+          {!isCompleted ? (
+            <>
+              <button className={styles.resetButton} onClick={clearCanvas}>Begin Opnieuw</button>
+              <button className={styles.checkButton} onClick={checkCircle}>Controleer Cirkel</button>
+            </>
+          ) : (
+            <button className={styles.checkButton} onClick={handleNext}>Volgende Puzzel</button>
+          )}
         </div>
         <div className={styles.resultMessage} style={{ color: accuracy >= 80 ? 'var(--ushanka-green)' : 'var(--poofball-red)' }}>
           {resultMessage}

@@ -1,31 +1,40 @@
-# Puzzle 3: Sinterklaas's Gift Registry Query
+# Puzzle 3: Sinterklaas's Royal Checkmate
 
 ## Puzzle Description
 
-The user is presented with a mock "API Documentation" interface for Sinterklaas's highly exclusive "Gift Registry." This documentation will detail various (fictional) endpoints related to Pakjesavond logistics, such as `/pepernoten_count`, `/naughty_nice_status`, or `/present_delivery_manifest`. The challenge lies in sifting through the verbose, whimsical, and slightly confusing technical text to locate a specific "API Key" that grants access to the next stage of the labyrinth. The key might be hidden in an example request, a deprecated section, or a "developer testing" credential.
+The user is presented with an interactive chess board where they must checkmate Sinterklaas (the black king) using Sinterklaas-themed chess pieces. The puzzle features a pre-set position where white (the player) can achieve checkmate in 2-3 moves. Players can interact with the board by clicking or dragging pieces to make moves. The puzzle automatically detects when checkmate is achieved and celebrates the victory before proceeding to the next puzzle.
 
 ## Inspiration & Theme
 
-*   **Sinterklaas Theme:** Directly uses the concept of Sinterklaas's operations, gift delivery, and naughty/nice lists. The "API" is a playful nod to the tech-savvy target audience.
-*   **Neal.fun Inspiration:** Leans into "Text Manipulation" (analyzing dense, themed text for specific info) and "Interactive Diagrams/Simulations" (navigating a mock documentation interface, potentially with clickable elements revealing more details). The whimsical nature aligns with neal.fun's style.
+*   **Sinterklaas Theme:** Directly integrates Sinterklaas characters and elements as chess pieces:
+    *   **King**: Sinterklaas (the player's king and the opponent to checkmate)
+    *   **Queen**: Pakjesboot (the steamboat - powerful like the queen)
+    *   **Rook**: Schoorsteen (chimney - moves straight like a chimney)
+    *   **Bishop**: Zwarte Piet (moves diagonally, like climbing rooftops)
+    *   **Knight**: Amerigo (Sinterklaas's horse - perfect for L-shaped moves)
+    *   **Pawn**: Pepernoot (small helpers)
+*   **Neal.fun Inspiration:** Combines "Interactive Games" (chess gameplay) with "Visual Puzzles" (recognizing piece types and planning moves). The interactive, hands-on nature aligns with neal.fun's engaging puzzle style.
 
 ## Design Notes
 
-"Generate a short, playful, yet dense 'API Documentation' for 'Sinterklaas's Gift Registry'.
-1.  Invent 2-3 API endpoints related to Sinterklaas's operations (e.g., `/check_list_status`, `/get_present_details`, `/request_speculaas`).
-2.  For each endpoint, include mock details like: Method (GET/POST), Parameters (e.g., `schoen_id`, `child_name`), Example Request/Response, and Status Codes.
-3.  Bury the 'API Key' within the documentation. It should not be immediately obvious. For example:
-    *   In a 'Developer Notes' section, mention a default key for 'testing purposes'.
-    *   In an example `curl` command, the key is pre-filled.
-    *   As a commented-out line in a 'Version History' section.
-    *   The key should be a Sinterklaas-themed string (e.g., `piet-power-99`, `steamboat-secret`, `delightful-december`).
-4.  The documentation should have a slightly archaic or formal tone mixed with Sinterklaas terminology.
-5.  Provide the exact API key string as the solution."
+1.  **Chess Board**: 8x8 grid with alternating light (Paper White) and dark (brown) squares, following the Cardboard Arcade aesthetic with hard shadows and flat colors.
+2.  **Piece Design**: Each piece is designed using pure CSS shapes to represent the Sinterklaas theme:
+    *   Pieces use flat colors from the style guide
+    *   Hard shadows (4px 4px 0px rgba(0, 0, 0, 0.25)) for depth
+    *   Simple geometric shapes that are recognizable as chess pieces
+    *   Wiggle animation on pieces to keep the world alive
+3.  **Interaction**: 
+    *   Click-to-move: Click a piece to select it, then click a destination square
+    *   Drag-and-drop: Drag pieces to move them
+    *   Visual feedback: Selected pieces are highlighted, available moves show green dots
+    *   Illegal moves show error messages
+4.  **Starting Position**: A checkmate-in-2 puzzle position where white (player) can checkmate black's king in 2-3 moves. The position should be solvable but require some strategic thinking.
+5.  **Checkmate Detection**: Automatically detects when checkmate is achieved using chess.js library. Shows success message and auto-navigates to next puzzle after 3 seconds.
 
 ## Expected Answer/Solution
 
-The hidden Sinterklaas-themed API key string (e.g., `piet-power-99`).
+The puzzle is solved when the player achieves checkmate against the black king (Sinterklaas). No text input is required - the puzzle automatically detects the checkmate condition.
 
 ## Hint
 
-"The secrets of the registry are often found where developers test their magic."
+"De koning staat alleen, maar zijn verdedigers zijn zwak. Gebruik je krachtigste stukken om hem te omsingelen."

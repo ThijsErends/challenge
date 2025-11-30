@@ -1,0 +1,327 @@
+/* Layout Component Styles - Sticky Title Bar with Dutch Skyline */
+
+.stickyHeader {
+    position: relative;
+    z-index: 1000;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--teal-toque);
+    border-bottom: 4px solid var(--marker-black);
+    box-shadow: 0 4px 0px rgba(0, 0, 0, 0.25);
+    overflow: visible;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.skylineBackground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    pointer-events: none;
+}
+
+/* House container */
+.house {
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+}
+
+/* Dutch Rooftops - Traditional stepped gable style (facade) */
+.rooftop {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--poofball-red);
+    border: 3px solid var(--marker-black);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+    clip-path: polygon(
+        0% 100%,
+        0% 20%,
+        10% 10%,
+        20% 20%,
+        30% 10%,
+        40% 20%,
+        50% 10%,
+        60% 20%,
+        70% 10%,
+        80% 20%,
+        90% 10%,
+        100% 20%,
+        100% 100%
+    );
+    opacity: 0.9;
+}
+
+/* Roof structure on top of gable */
+.roof {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background-color: var(--poofball-red);
+    border: 3px solid var(--marker-black);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+    clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+    opacity: 0.95;
+}
+
+/* Chimney */
+.chimney {
+    position: absolute;
+    bottom: 0;
+    right: 10%;
+    width: 12px;
+    height: 35px;
+    background-color: var(--marker-black);
+    border: 2px solid var(--marker-black);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+    z-index: 5;
+}
+
+/* Smoke effects */
+.smoke {
+    position: absolute;
+    bottom: 35px;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: smokeRise 4s ease-out infinite;
+    box-shadow: 
+        0 0 0 6px rgba(255, 255, 255, 0.5),
+        0 0 0 12px rgba(255, 255, 255, 0.3),
+        0 0 0 18px rgba(255, 255, 255, 0.1);
+    filter: blur(1px);
+}
+
+@keyframes smokeRise {
+    0% {
+        transform: translateX(-50%) translateY(0px) scale(1);
+        opacity: 0.8;
+    }
+    20% {
+        transform: translateX(calc(-50% + 5px)) translateY(-15px) scale(1.2);
+        opacity: 0.7;
+    }
+    40% {
+        transform: translateX(calc(-50% - 3px)) translateY(-30px) scale(1.5);
+        opacity: 0.5;
+    }
+    60% {
+        transform: translateX(calc(-50% + 2px)) translateY(-50px) scale(1.8);
+        opacity: 0.3;
+    }
+    80% {
+        transform: translateX(calc(-50% - 1px)) translateY(-70px) scale(2.2);
+        opacity: 0.1;
+    }
+    100% {
+        transform: translateX(-50%) translateY(-100px) scale(2.5);
+        opacity: 0;
+    }
+}
+
+/* Horse on Roof - Sinterklaas's white horse (Amerigo/Ozosnel) - on leftmost house */
+.horseOnRoof {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    width: 120px;
+    height: 80px;
+    transform: translateX(-50%);
+    animation: horseGallop 3s ease-in-out infinite;
+    z-index: 20;
+}
+
+.horseBody {
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    width: 60px;
+    height: 35px;
+    background-color: var(--paper-white);
+    border: 3px solid var(--marker-black);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 30px 30px 15px 15px;
+    clip-path: ellipse(60% 100% at 50% 50%);
+}
+
+.horseHead {
+    position: absolute;
+    bottom: 25px;
+    left: 0;
+    width: 35px;
+    height: 40px;
+    background-color: var(--paper-white);
+    border: 3px solid var(--marker-black);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 50% 40% 40% 50%;
+    clip-path: ellipse(70% 80% at 50% 50%);
+}
+
+/* Horse eye */
+.horseHead::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 5px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--marker-black);
+    border-radius: 50%;
+}
+
+/* Horse nostril */
+.horseHead::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    right: 5px;
+    width: 6px;
+    height: 4px;
+    background-color: var(--marker-black);
+    border-radius: 2px;
+}
+
+.horseMane {
+    position: absolute;
+    top: -5px;
+    left: 5px;
+    width: 12px;
+    height: 25px;
+    background-color: var(--marker-black);
+    border: 2px solid var(--marker-black);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
+    clip-path: polygon(0% 0%, 100% 0%, 80% 50%, 60% 100%, 40% 80%, 20% 60%, 0% 40%);
+    transform: rotate(-5deg);
+}
+
+.horseTail {
+    position: absolute;
+    bottom: 5px;
+    right: -5px;
+    width: 8px;
+    height: 30px;
+    background-color: var(--marker-black);
+    border: 2px solid var(--marker-black);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 4px 4px 0 0;
+    transform: rotate(-20deg);
+}
+
+.titleText {
+    position: relative;
+    z-index: 15;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2.5rem;
+    color: var(--paper-white);
+    text-transform: uppercase;
+    text-shadow: 
+        3px 3px 0px var(--marker-black),
+        5px 5px 0px rgba(0, 0, 0, 0.3);
+    margin: 0 !important;
+    padding: 1rem 0;
+    transform: rotate(-1deg);
+    animation: titleWiggle 4s ease-in-out infinite;
+    letter-spacing: 2px;
+    pointer-events: none;
+}
+
+@keyframes horseGallop {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0px);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+@keyframes titleWiggle {
+    0%, 100% {
+        transform: rotate(-1deg);
+    }
+    25% {
+        transform: rotate(-0.5deg);
+    }
+    75% {
+        transform: rotate(-1.5deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .stickyHeader {
+        min-height: 120px;
+    }
+    
+    .titleText {
+        font-size: 1.8rem;
+        padding: 0.8rem 0;
+    }
+    
+    .roof {
+        height: 25px;
+    }
+    
+    .chimney {
+        height: 30px;
+        width: 10px;
+    }
+    
+    .horseOnRoof {
+        width: 90px;
+        height: 60px;
+        bottom: 25px;
+    }
+    
+    .horseBody {
+        width: 45px;
+        height: 25px;
+        left: 15px;
+    }
+    
+    .horseHead {
+        width: 25px;
+        height: 30px;
+        bottom: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .titleText {
+        font-size: 1.4rem;
+        padding: 0.6rem 0.5rem;
+    }
+    
+    .stickyHeader {
+        min-height: 100px;
+    }
+    
+    .roof {
+        height: 20px;
+    }
+    
+    .chimney {
+        height: 25px;
+        width: 8px;
+    }
+    
+    .horseOnRoof {
+        width: 70px;
+        height: 50px;
+        bottom: 20px;
+    }
+}
+

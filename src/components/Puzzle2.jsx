@@ -8,6 +8,7 @@ function Puzzle2() {
   const [errorMessage, setErrorMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
   const [shake, setShake] = useState(false)
+  const [isCompleted, setIsCompleted] = useState(false)
 
   // Definieer de juiste volgorde (4 kleuren)
   const correctSequence = ['red', 'green', 'teal', 'orange']
@@ -38,6 +39,11 @@ function Puzzle2() {
     setErrorMessage('')
     setSuccessMessage('')
     setShake(false)
+    setIsCompleted(false)
+  }
+
+  const handleNext = () => {
+    navigate('/puzzle-3')
   }
 
   const checkAnswer = () => {
@@ -52,11 +58,10 @@ function Puzzle2() {
     const correctAnswer = correctSequence.join('-').toLowerCase()
 
     if (userAnswer === correctAnswer) {
-      setSuccessMessage('Perfect! De route is correct!')
+      const password = correctSequence.join('-')
+      setSuccessMessage(`Perfect! De route is correct! Hier is de code voor de volgende puzzel: ${password}`)
       setErrorMessage('')
-      setTimeout(() => {
-        navigate('/puzzle-3')
-      }, 2000)
+      setIsCompleted(true)
     } else {
       setErrorMessage('Onjuist. Probeer opnieuw.')
       setShake(true)
@@ -212,20 +217,31 @@ function Puzzle2() {
 
       {/* Bediening */}
       <div className={styles.controls}>
-        <button 
-          className={styles.clearButton}
-          onClick={clearSelection}
-          disabled={selectedSequence.length === 0}
-        >
-          Begin Opnieuw
-        </button>
-        <button 
-          className={styles.submitButton}
-          onClick={checkAnswer}
-          disabled={selectedSequence.length === 0}
-        >
-          Controleer Route
-        </button>
+        {!isCompleted ? (
+          <>
+            <button 
+              className={styles.clearButton}
+              onClick={clearSelection}
+              disabled={selectedSequence.length === 0}
+            >
+              Begin Opnieuw
+            </button>
+            <button 
+              className={styles.submitButton}
+              onClick={checkAnswer}
+              disabled={selectedSequence.length === 0}
+            >
+              Controleer Route
+            </button>
+          </>
+        ) : (
+          <button 
+            className={styles.submitButton}
+            onClick={handleNext}
+          >
+            Volgende Puzzel
+          </button>
+        )}
       </div>
 
       {/* Feedback Berichten */}

@@ -1,0 +1,281 @@
+/* Puzzle 4: Amerigo's Algorithm for Arrival - CSS Module */
+
+.puzzleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  position: relative;
+}
+
+.title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2rem;
+  color: var(--marker-black);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  transform: rotate(-1deg);
+  text-align: center;
+}
+
+.algorithmContainer {
+  width: 100%;
+  max-width: 800px;
+  margin: 1rem 0 2rem 0;
+  padding: 1rem;
+}
+
+.algorithmCode {
+  background-color: var(--paper-white);
+  border: 4px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+.codeBlock {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--marker-black);
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: left;
+}
+
+.codeBlock code {
+  font-family: inherit;
+}
+
+.instructionContainer {
+  max-width: 700px;
+  width: 100%;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.instruction {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.2rem;
+  color: var(--marker-black);
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.instruction code {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: var(--paper-white);
+  padding: 0.2rem 0.4rem;
+  border: 2px solid var(--marker-black);
+  border-radius: 4px;
+  font-size: 1rem;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
+}
+
+.hint {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  color: var(--marker-black);
+  font-style: italic;
+  opacity: 0.8;
+  margin-top: 0.5rem;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 1rem;
+}
+
+.answerInput {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.5rem;
+  padding: 12px 20px;
+  border: 4px solid var(--marker-black);
+  background-color: var(--paper-white);
+  color: var(--marker-black);
+  outline: none;
+  width: 100%;
+  text-align: center;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.answerInput:focus {
+  transform: scale(1.02);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.15);
+}
+
+.answerInput:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.submitButton {
+  display: inline-block;
+  background-color: var(--poofball-red);
+  color: var(--paper-white);
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  padding: 15px 30px;
+  border: 4px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  animation: slowWiggle 3s ease-in-out infinite;
+}
+
+.submitButton:hover {
+  animation: fastWiggle 0.5s linear infinite;
+  background-color: #d45454;
+}
+
+.submitButton:active {
+  transform: scale(0.95);
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.25);
+  animation: none;
+}
+
+.successContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.successMessage {
+  background-color: var(--ushanka-green);
+  color: var(--paper-white);
+  padding: 1rem 2rem;
+  border: 4px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5rem;
+  text-align: center;
+  animation: slowWiggle 3s ease-in-out infinite;
+}
+
+.nextButton {
+  display: inline-block;
+  background-color: var(--ushanka-green);
+  color: var(--paper-white);
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  padding: 15px 30px;
+  border: 4px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  animation: slowWiggle 3s ease-in-out infinite;
+}
+
+.nextButton:hover {
+  animation: fastWiggle 0.5s linear infinite;
+  background-color: #4fb053;
+}
+
+.nextButton:active {
+  transform: scale(0.95);
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.25);
+  animation: none;
+}
+
+.errorMessage {
+  background-color: var(--poofball-red);
+  color: var(--paper-white);
+  padding: 0.75rem 1.5rem;
+  border: 3px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 1rem;
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Animations */
+@keyframes slowWiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes fastWiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .instruction {
+    font-size: 1rem;
+  }
+
+  .codeBlock {
+    font-size: 0.75rem;
+  }
+
+  .answerInput {
+    font-size: 1.2rem;
+    padding: 10px 15px;
+  }
+
+  .submitButton,
+  .nextButton {
+    font-size: 1.2rem;
+    padding: 12px 24px;
+  }
+
+  .successMessage {
+    font-size: 1.2rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .algorithmCode {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .codeBlock {
+    font-size: 0.65rem;
+    line-height: 1.4;
+  }
+
+  .puzzleContainer {
+    padding: 1rem 0.5rem;
+  }
+}
+
