@@ -1,69 +1,484 @@
-/* Puzzle10 Component Styles - CSS Module */
+/* Puzzle 10: De Grand Finale - CSS Module */
 
+/* === PUZZLE SCREEN === */
 .puzzleContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
-.puzzleContainer h2 {
-    margin-bottom: 1rem;
+.title {
+  margin-bottom: 1.5rem;
+  color: var(--parka-orange);
+  font-size: 2rem;
 }
 
-.puzzleContainer p {
-    margin-bottom: 2rem;
-    text-align: center;
+.riddleBox {
+  background: linear-gradient(135deg, var(--paper-white) 0%, #f0ebe0 100%);
+  border: 5px solid var(--marker-black);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.25);
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  max-width: 600px;
+  position: relative;
 }
 
-.inputContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.riddleBox::before {
+  content: '🍾';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.5rem;
+}
+
+.riddleText {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--marker-black);
+  line-height: 1.8;
+  margin: 0 0 1rem 0;
+}
+
+.riddleQuestion {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5rem;
+  color: var(--parka-orange);
+  margin: 0;
+}
+
+.codeInstructions {
+  background-color: var(--paper-white);
+  border: 3px solid var(--marker-black);
+  border-radius: 15px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  max-width: 550px;
+}
+
+.instructionsTitle {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.1rem;
+  margin: 0 0 1rem 0;
+  text-align: center;
+  color: var(--marker-black);
+}
+
+.instructionsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.instructionsList li {
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
+}
+
+.instructionsList li:last-child {
+  border-bottom: none;
+}
+
+.instructionsList strong {
+  color: var(--parka-orange);
+}
+
+.inputSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.answerInput {
+  width: 100%;
+  font-size: 1.3rem;
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.submitButton {
+  width: 100%;
+  font-size: 1.3rem;
+  padding: 15px 30px;
+  background-color: var(--parka-orange);
+  animation: slowWiggle 3s ease-in-out infinite;
+}
+
+.submitButton:hover {
+  animation: fastWiggle 0.5s linear infinite;
+  background-color: #f9a23e;
+}
+
+.errorMessage {
+  margin-top: 1.5rem;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.2rem;
+  color: var(--poofball-red);
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* === VICTORY SCREEN === */
+.victoryContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem 1rem;
+}
+
+.confettiContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.confetti {
+  position: absolute;
+  top: -20px;
+  border-radius: 3px;
+  animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.victoryContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 700px;
+  z-index: 10;
+}
+
+.trophyIcon {
+  font-size: 6rem;
+  animation: bounce 1s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.victoryTitle {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 3rem;
+  color: var(--parka-orange);
+  text-align: center;
+  margin: 0 0 0.5rem 0;
+  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+  animation: titlePulse 2s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.victorySubtitle {
+  font-size: 1.3rem;
+  color: var(--marker-black);
+  text-align: center;
+  margin: 0 0 2rem 0;
+}
+
+/* Code Reveal */
+.codeReveal {
+  background: linear-gradient(135deg, var(--parka-orange) 0%, #e6850a 100%);
+  border: 5px solid var(--marker-black);
+  border-radius: 20px;
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+  padding: 2rem 3rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  transition: transform 0.5s ease;
+}
+
+.codeReveal.revealed {
+  animation: revealPop 0.5s ease-out;
+}
+
+@keyframes revealPop {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.codeLabel {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.2rem;
+  color: var(--paper-white);
+  margin: 0 0 1rem 0;
+}
+
+.codeDisplay {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.codeDigit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 85px;
+  background-color: var(--paper-white);
+  border: 4px solid var(--marker-black);
+  border-radius: 12px;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 3rem;
+  color: var(--marker-black);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+}
+
+.codeReveal.revealed .codeDigit {
+  animation: digitReveal 0.3s ease-out backwards;
+}
+
+.codeReveal.revealed .codeDigit:nth-child(1) { animation-delay: 0s; }
+.codeReveal.revealed .codeDigit:nth-child(2) { animation-delay: 0.15s; }
+.codeReveal.revealed .codeDigit:nth-child(3) { animation-delay: 0.3s; }
+.codeReveal.revealed .codeDigit:nth-child(4) { animation-delay: 0.45s; }
+
+@keyframes digitReveal {
+  0% {
+    transform: rotateY(90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateY(0);
+    opacity: 1;
+  }
+}
+
+/* Code Explanation */
+.codeExplanation {
+  background-color: var(--paper-white);
+  border: 3px solid var(--marker-black);
+  border-radius: 15px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  max-width: 400px;
+  animation: fadeIn 0.5s ease-out 1s backwards;
+}
+
+.explanationTitle {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1rem;
+  margin: 0 0 0.75rem 0;
+  text-align: center;
+}
+
+.explanationList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.explanationList li {
+  padding: 0.3rem 0;
+}
+
+.explanationList strong {
+  color: var(--parka-orange);
+  font-family: 'Permanent Marker', cursive;
+}
+
+/* Journey Summary */
+.journeySummary {
+  background-color: var(--ushanka-green);
+  border: 4px solid var(--marker-black);
+  border-radius: 20px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 500px;
+  animation: fadeIn 0.5s ease-out 1.3s backwards;
+}
+
+.journeyTitle {
+  font-family: 'Permanent Marker', cursive;
+  color: var(--paper-white);
+  text-align: center;
+  margin: 0 0 1rem 0;
+  font-size: 1.3rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 1rem 0.5rem;
+}
+
+.statEmoji {
+  font-size: 2rem;
+  margin-bottom: 0.3rem;
+}
+
+.statValue {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.8rem;
+  color: var(--paper-white);
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: var(--paper-white);
+  text-align: center;
+  opacity: 0.9;
+}
+
+/* Final Message */
+.finalMessage {
+  background-color: var(--paper-white);
+  border: 4px solid var(--marker-black);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  max-width: 550px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-out 1.6s backwards;
+}
+
+.glitchMessage {
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--marker-black);
+  margin: 0 0 1rem 0;
+}
+
+.signature {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.2rem;
+  color: var(--puzzle-purple);
+  margin: 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+@keyframes slowWiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes fastWiggle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .victoryTitle {
+    font-size: 2rem;
+  }
+  
+  .codeDigit {
+    width: 55px;
+    height: 70px;
+    font-size: 2.2rem;
+  }
+  
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .statCard {
+    flex-direction: row;
     justify-content: center;
     gap: 1rem;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
+    padding: 0.75rem 1rem;
+  }
+  
+  .statEmoji {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+  }
+  
+  .statValue {
+    font-size: 1.5rem;
+  }
+  
+  .trophyIcon {
+    font-size: 4rem;
+  }
 }
-
-.inputContainer input {
-    width: 100%;
-}
-
-.inputContainer button {
-    width: 100%;
-    max-width: 300px;
-}
-
-.result {
-    margin-top: 1.5rem;
-    font-family: 'Permanent Marker', cursive;
-    font-size: 1.2rem;
-    min-height: 2rem;
-    text-align: center;
-    width: 100%;
-}
-
-.successContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.successContainer h2 {
-    margin-bottom: 1rem;
-}
-
-.successContainer p {
-    margin-bottom: 2rem;
-}
-

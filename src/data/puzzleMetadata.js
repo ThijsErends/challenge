@@ -31,27 +31,27 @@ export const puzzleMetadata = [
   },
   {
     number: 6,
-    title: "Puzzel 6",
+    title: "Het Grote Cadeau Manifest",
     route: "/puzzle-6",
-    description: "Wat kun je vangen, maar niet gooien?"
+    description: "Doorzoek het geheime manifest"
   },
   {
     number: 7,
-    title: "Puzzel 7",
+    title: "Het Mysterie van de Mijn",
     route: "/puzzle-7",
-    description: "Ik word uit een mijn gehaald..."
+    description: "Wat komt uit de mijn maar zit in hout?"
   },
   {
     number: 8,
-    title: "Puzzel 8",
+    title: "De Verdwijnende Letters",
     route: "/puzzle-8",
-    description: "Welk woord wordt hetzelfde uitgesproken..."
+    description: "Een woord dat zichzelf blijft"
   },
   {
     number: 9,
-    title: "Puzzel 9",
+    title: "Boven en Onder",
     route: "/puzzle-9",
-    description: "Wat heeft een onderkant aan de bovenkant?"
+    description: "Een raadsel over lichaamsdelen"
   },
   {
     number: 10,

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePuzzleProgress } from '../contexts/PuzzleProgressContext'
+import { STRINGS } from '../data/strings'
 import styles from './PuzzleInput.module.css'
 
 function PuzzleInput({ puzzleNumber, question, correctAnswer, nextPuzzle }) {
@@ -17,7 +18,7 @@ function PuzzleInput({ puzzleNumber, question, correctAnswer, nextPuzzle }) {
         navigate(`/puzzle-${nextPuzzle}`)
       }
     } else {
-      setResult('Onjuist. Probeer opnieuw.')
+      setResult(STRINGS.common.incorrect)
     }
   }
 
@@ -37,10 +38,16 @@ function PuzzleInput({ puzzleNumber, question, correctAnswer, nextPuzzle }) {
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
           onKeyDown={handleKeyDown}
+          aria-label={`Antwoord voor puzzel ${puzzleNumber}`}
         />
-        <button onClick={handleSubmit}>Indienen</button>
+        <button onClick={handleSubmit}>{STRINGS.common.submit}</button>
       </div>
-      <div className={styles.result} style={{ color: result ? 'var(--poofball-red)' : 'transparent' }}>
+      <div 
+        className={styles.result} 
+        style={{ color: result ? 'var(--poofball-red)' : 'transparent' }}
+        role="alert"
+        aria-live="polite"
+      >
         {result}
       </div>
     </div>

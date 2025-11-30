@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { usePuzzleProgress } from '../contexts/PuzzleProgressContext'
 import styles from './Puzzle6.module.css'
 
 // The hidden answer is buried in children[3].notes.admin_log.secret_code
@@ -224,6 +225,7 @@ function JsonNode({ data, path = '', level = 0, expandedPaths, togglePath }) {
 
 function Puzzle6() {
   const navigate = useNavigate()
+  const { markPuzzleSolved } = usePuzzleProgress()
   const [expandedPaths, setExpandedPaths] = useState(new Set(['']))
   const [answer, setAnswer] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
@@ -246,6 +248,7 @@ function Puzzle6() {
     if (trimmedAnswer === correctAnswer) {
       setIsCompleted(true)
       setErrorMessage('')
+      markPuzzleSolved(6, correctAnswer)
       // Navigate after a brief delay to show success
       setTimeout(() => {
         navigate('/puzzle-7')

@@ -11,23 +11,26 @@ import Puzzle8 from './components/Puzzle8'
 import Puzzle9 from './components/Puzzle9'
 import Puzzle10 from './components/Puzzle10'
 import Layout from './components/Layout'
+import ErrorBoundary from './components/ErrorBoundary'
 
 function App() {
   return (
     <Layout>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/puzzle-1" element={<Puzzle1 />} />
-        <Route path="/puzzle-2" element={<Puzzle2 />} />
-        <Route path="/puzzle-3" element={<Puzzle3 />} />
-        <Route path="/puzzle-4" element={<Puzzle4 />} />
-        <Route path="/puzzle-5" element={<Puzzle5 />} />
-        <Route path="/puzzle-6" element={<Puzzle6 />} />
-        <Route path="/puzzle-7" element={<Puzzle7 />} />
-        <Route path="/puzzle-8" element={<Puzzle8 />} />
-        <Route path="/puzzle-9" element={<Puzzle9 />} />
-        <Route path="/puzzle-10" element={<Puzzle10 />} />
-      </Routes>
+      <ErrorBoundary>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/puzzle-1" element={<Puzzle1 />} />
+          <Route path="/puzzle-2" element={<Puzzle2 />} />
+          <Route path="/puzzle-3" element={<Puzzle3 />} />
+          <Route path="/puzzle-4" element={<Puzzle4 />} />
+          <Route path="/puzzle-5" element={<Puzzle5 />} />
+          <Route path="/puzzle-6" element={<Puzzle6 />} />
+          <Route path="/puzzle-7" element={<Puzzle7 />} />
+          <Route path="/puzzle-8" element={<Puzzle8 />} />
+          <Route path="/puzzle-9" element={<Puzzle9 />} />
+          <Route path="/puzzle-10" element={<Puzzle10 />} />
+        </Routes>
+      </ErrorBoundary>
     </Layout>
   )
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { usePuzzleProgress } from '../contexts/PuzzleProgressContext'
 import { puzzleMetadata } from '../data/puzzleMetadata'
@@ -19,6 +19,10 @@ function SidebarNavigation() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
   const [showResetConfirm, setShowResetConfirm] = useState(false)
   
+  // Use ref to track isOpen without causing effect re-runs
+  const isOpenRef = useRef(isOpen)
+  isOpenRef.current = isOpen
+  
   const isLocalhost = window.location.hostname === 'localhost' || 
                       window.location.hostname === '127.0.0.1' ||
                       window.location.hostname === ''
@@ -28,21 +32,21 @@ function SidebarNavigation() {
       const mobile = window.innerWidth < 768
       setIsMobile(mobile)
       // Auto-close sidebar on mobile when resizing to desktop
-      if (!mobile && isOpen) {
+      if (!mobile && isOpenRef.current) {
         setIsOpen(false)
       }
     }
 
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [isOpen])
+  }, [])
 
   // Close sidebar when route changes on mobile
   useEffect(() => {
-    if (isMobile && isOpen) {
+    if (isMobile && isOpenRef.current) {
       setIsOpen(false)
     }
-  }, [location.pathname, isMobile, isOpen])
+  }, [location.pathname, isMobile])
 
   const handlePuzzleClick = (puzzleNumber, route) => {
     if (canAccessPuzzle(puzzleNumber)) {

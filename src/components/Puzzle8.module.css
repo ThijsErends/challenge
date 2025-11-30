@@ -1,0 +1,359 @@
+/* Puzzle 8: De Verdwijnende Letters - CSS Module */
+
+.puzzleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.title {
+  margin-bottom: 1.5rem;
+  color: var(--puzzle-lavender);
+}
+
+.riddleBox {
+  background-color: var(--paper-white);
+  border: 4px solid var(--marker-black);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  max-width: 600px;
+}
+
+.riddleText {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--marker-black);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.gameSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.instructions {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: var(--marker-black);
+  max-width: 500px;
+}
+
+.wordDisplay {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.letterTile {
+  width: 70px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--puzzle-lavender);
+  border: 4px solid var(--marker-black);
+  border-radius: 12px;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  font-family: 'Permanent Marker', cursive;
+}
+
+.letterTile:hover:not(:disabled):not(.removed) {
+  transform: translateY(-5px);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
+  background-color: var(--poofball-red);
+}
+
+.letterTile:active:not(:disabled) {
+  transform: scale(0.95);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+.letterTile.removed {
+  background-color: #e0e0e0;
+  opacity: 0.5;
+  transform: scale(0.9);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
+}
+
+.letterTile.removed:hover:not(:disabled) {
+  opacity: 0.7;
+  background-color: var(--ushanka-green);
+}
+
+.letter {
+  font-size: 2.5rem;
+  color: var(--paper-white);
+}
+
+.removed .letter {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.removedMark {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 1rem;
+  color: var(--poofball-red);
+}
+
+.resultPreview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--paper-white);
+  border: 3px solid var(--marker-black);
+  border-radius: 15px;
+  padding: 1rem 2rem;
+  margin-bottom: 1rem;
+}
+
+.resultLabel {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.3rem;
+}
+
+.resultWord {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2rem;
+  color: var(--puzzle-lavender);
+  letter-spacing: 0.5rem;
+}
+
+.pronunciation {
+  font-size: 0.95rem;
+  color: var(--marker-black);
+  font-style: italic;
+  margin-top: 0.3rem;
+}
+
+.stats {
+  margin-bottom: 1.5rem;
+}
+
+.stat {
+  font-size: 1rem;
+  color: var(--marker-black);
+}
+
+.stat strong {
+  color: var(--puzzle-lavender);
+  font-family: 'Permanent Marker', cursive;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.resetButton,
+.checkButton,
+.nextButton,
+.submitButton {
+  font-size: 1.2rem;
+  padding: 12px 24px;
+}
+
+.resetButton {
+  background-color: var(--teal-toque);
+}
+
+.checkButton {
+  background-color: var(--poofball-red);
+}
+
+.nextButton {
+  background-color: var(--ushanka-green);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 1.5rem 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 3px;
+  background-color: var(--marker-black);
+  opacity: 0.3;
+}
+
+.divider span {
+  padding: 0 1rem;
+  font-family: 'Permanent Marker', cursive;
+  color: var(--marker-black);
+  opacity: 0.5;
+}
+
+.inputSection {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.inputLabel {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: var(--marker-black);
+}
+
+.inputContainer {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.textInput {
+  flex: 1;
+  font-size: 1.2rem;
+  padding: 10px 15px;
+}
+
+.submitButton {
+  background-color: var(--parka-orange);
+  font-size: 1rem;
+  padding: 10px 20px;
+}
+
+.hintButton {
+  margin-top: 1.5rem;
+  background-color: transparent;
+  border: 3px dashed var(--marker-black);
+  color: var(--marker-black);
+  font-size: 1rem;
+  padding: 10px 20px;
+  box-shadow: none;
+  opacity: 0.7;
+  animation: none;
+}
+
+.hintButton:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.05);
+  animation: none;
+}
+
+.hintBox {
+  margin-top: 1rem;
+  padding: 1rem 1.5rem;
+  background-color: var(--puzzle-yellow);
+  border: 3px solid var(--marker-black);
+  border-radius: 12px;
+  max-width: 400px;
+}
+
+.hintText {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--marker-black);
+}
+
+.errorMessage {
+  margin-top: 1.5rem;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.2rem;
+  color: var(--poofball-red);
+  text-align: center;
+}
+
+.successMessage {
+  margin-top: 1.5rem;
+  padding: 1.5rem 2rem;
+  background-color: var(--ushanka-green);
+  color: var(--paper-white);
+  border: 4px solid var(--marker-black);
+  border-radius: 15px;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 500px;
+  animation: bounceIn 0.5s ease-out;
+}
+
+.successTitle {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.successExplanation {
+  font-size: 1.1rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .letterTile {
+    width: 55px;
+    height: 65px;
+  }
+  
+  .letter {
+    font-size: 2rem;
+  }
+  
+  .wordDisplay {
+    gap: 0.5rem;
+  }
+  
+  .inputContainer {
+    flex-direction: column;
+  }
+  
+  .controls {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .resetButton,
+  .checkButton,
+  .nextButton {
+    width: 100%;
+  }
+}
+

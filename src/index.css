@@ -49,6 +49,60 @@ body {
     overflow-x: hidden; /* Hide overflow from floating elements if we add them */
 }
 
+/* --- Accessibility: Skip Link --- */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--marker-black);
+    color: var(--paper-white);
+    padding: 10px 20px;
+    z-index: 10000;
+    border-radius: 0 0 10px 10px;
+    text-decoration: none;
+    font-family: 'Permanent Marker', cursive;
+    transition: top 0.2s;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: none;
+}
+
+/* --- Accessibility: Focus Styles --- */
+/* Visible focus indicators for keyboard navigation */
+*:focus-visible {
+    outline: 4px dashed var(--parka-orange);
+    outline-offset: 4px;
+}
+
+/* Remove default outline but keep focus-visible for keyboard users */
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Enhanced focus for interactive elements */
+button:focus-visible,
+.start-button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+    outline: 4px dashed var(--marker-black);
+    outline-offset: 4px;
+    animation: none; /* Stop wiggle animation when focused */
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
 #root {
     min-height: 100vh;
     display: flex;

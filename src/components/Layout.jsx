@@ -5,11 +5,15 @@ import SidebarNavigation from './SidebarNavigation'
 function Layout({ children }) {
   return (
     <>
+      {/* Skip link for keyboard accessibility */}
+      <a href="#main-content" className="skip-link">
+        Ga naar inhoud
+      </a>
       <SidebarNavigation />
-      <div className="floating-shape shape-cloud"></div>
-      <div className="floating-shape shape-star"></div>
-      <div className="floating-shape shape-circle"></div>
-      <header className={styles.stickyHeader}>
+      <div className="floating-shape shape-cloud" aria-hidden="true"></div>
+      <div className="floating-shape shape-star" aria-hidden="true"></div>
+      <div className="floating-shape shape-circle" aria-hidden="true"></div>
+      <header className={styles.stickyHeader} role="banner">
         <div className={styles.skylineBackground}>
           {/* Dutch houses with roofs and chimneys */}
           <div className={styles.house} style={{ left: '5%', width: '12%', height: '40px' }}>
@@ -81,10 +85,10 @@ function Layout({ children }) {
         </div>
         <h1 className={styles.titleText}>Het Mysterie van Sinterklaas</h1>
       </header>
-      <main>
+      <main id="main-content" role="main" aria-label="Puzzel inhoud">
         {children}
       </main>
-      <footer>
+      <footer role="contentinfo">
         <p>© 2025 Thijs Erends</p>
       </footer>
     </>
