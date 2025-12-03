@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { usePuzzleProgress } from '../contexts/PuzzleProgressContext'
 import styles from './Puzzle4.module.css'
@@ -7,11 +7,66 @@ function Puzzle4() {
   const navigate = useNavigate()
   const { markPuzzleSolved } = usePuzzleProgress()
   const [answer, setAnswer] = useState('')
+  const [offsetInput, setOffsetInput] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [isCompleted, setIsCompleted] = useState(false)
+  const [consoleLines, setConsoleLines] = useState([])
+  const [isRunning, setIsRunning] = useState(false)
+  const [hasRun, setHasRun] = useState(false)
+  const consoleRef = useRef(null)
 
   // The expected answer derived from executing the algorithm
   const correctAnswer = 'dak'
+  const correctOffset = 6
+
+  // Generate console output based on the offset input
+  const getConsoleOutput = () => {
+    const offsetNum = parseInt(offsetInput, 10)
+    
+    if (offsetInput === '' || isNaN(offsetNum)) {
+      return [
+        { text: '> DecodeerBericht() wordt uitgevoerd...', type: 'info' },
+        { text: '>', type: 'empty' },
+        { text: '> bericht = "pakjesavond" (11 tekens)', type: 'var' },
+        { text: '> Index: p=0, a=1, k=2, j=3, e=4, s=5, a=6, v=7, o=8, n=9, d=10', type: 'index' },
+        { text: '> sleutel = [4, 6, 7]', type: 'var' },
+        { text: '>', type: 'empty' },
+        { text: '> Bezig met uitvoeren...', type: 'info' },
+        { text: '>', type: 'empty' },
+        { text: '> ❌ FOUT op regel 4: offset is niet gedefinieerd!', type: 'error' },
+        { text: '>', type: 'empty' },
+        { text: '> 💡 HINT: "Amerigo telt zijn hoefstappen op het dak:', type: 'hint' },
+        { text: '>          klip-klop, klip-klop, klip-klop"', type: 'hint' },
+      ]
+    }
+
+    // Calculate the result with the given offset
+    const bericht = "pakjesavond"
+    const sleutel = [4, 6, 7]
+    let resultaat = ""
+    
+    for (const pos of sleutel) {
+      const nieuwe_pos = (pos + offsetNum) % 11
+      resultaat += bericht[nieuwe_pos]
+    }
+
+    return [
+      { text: '> DecodeerBericht() wordt uitgevoerd...', type: 'info' },
+      { text: '>', type: 'empty' },
+      { text: '> bericht = "pakjesavond" (11 tekens)', type: 'var' },
+      { text: '> Index: p=0, a=1, k=2, j=3, e=4, s=5, a=6, v=7, o=8, n=9, d=10', type: 'index' },
+      { text: '> sleutel = [4, 6, 7]', type: 'var' },
+      { text: `> offset = ${offsetNum}`, type: 'var' },
+      { text: '>', type: 'empty' },
+      { text: '> Bezig met uitvoeren...', type: 'info' },
+      { text: '>', type: 'empty' },
+      { text: `> Loop: pos=4 → nieuwe_pos=(4+${offsetNum})%11=${(4 + offsetNum) % 11} → "${bericht[(4 + offsetNum) % 11]}"`, type: 'var' },
+      { text: `> Loop: pos=6 → nieuwe_pos=(6+${offsetNum})%11=${(6 + offsetNum) % 11} → "${bericht[(6 + offsetNum) % 11]}"`, type: 'var' },
+      { text: `> Loop: pos=7 → nieuwe_pos=(7+${offsetNum})%11=${(7 + offsetNum) % 11} → "${bericht[(7 + offsetNum) % 11]}"`, type: 'var' },
+      { text: '>', type: 'empty' },
+      { text: `> ✅ RETURN "${resultaat}"`, type: 'success' },
+    ]
+  }
 
   const handleSubmit = () => {
     const trimmedAnswer = answer.trim().toLowerCase()
@@ -34,96 +89,117 @@ function Puzzle4() {
     }
   }
 
+  const runSimulation = () => {
+    if (isRunning) return
+    
+    setIsRunning(true)
+    setConsoleLines([])
+    setHasRun(true)
+    
+    const consoleOutput = getConsoleOutput()
+    
+    // Progressively add lines with typing effect
+    consoleOutput.forEach((line, index) => {
+      setTimeout(() => {
+        setConsoleLines(prev => [...prev, line])
+        
+        // Scroll to bottom of console
+        if (consoleRef.current) {
+          consoleRef.current.scrollTop = consoleRef.current.scrollHeight
+        }
+        
+        // Mark as done after last line
+        if (index === consoleOutput.length - 1) {
+          setIsRunning(false)
+        }
+      }, index * 250) // 250ms delay between each line
+    })
+  }
+
+  // Auto-scroll console when new lines are added
+  useEffect(() => {
+    if (consoleRef.current) {
+      consoleRef.current.scrollTop = consoleRef.current.scrollHeight
+    }
+  }, [consoleLines])
+
   return (
     <div className={styles.puzzleContainer}>
-      <h2 className={styles.title}>Puzzel 4: Amerigo's Algoritme voor Aankomst</h2>
+      <h2 className={styles.title}>Puzzel 4: Amerigo's Algoritme</h2>
       
-      <div className={styles.algorithmContainer}>
+      <p className={styles.intro}>
+        Amerigo heeft een geheim bericht achtergelaten in code. 
+        Kun jij het algoritme uitvoeren en ontdekken wat het bericht is?
+      </p>
+      
+      <div className={styles.codeEditorContainer}>
+        <div className={styles.editorHeader}>
+          <span className={styles.editorDot} style={{ backgroundColor: '#ff5f56' }}></span>
+          <span className={styles.editorDot} style={{ backgroundColor: '#ffbd2e' }}></span>
+          <span className={styles.editorDot} style={{ backgroundColor: '#27ca40' }}></span>
+          <span className={styles.editorTitle}>amerigo_code.txt</span>
+        </div>
         <div className={styles.algorithmCode}>
           <pre className={styles.codeBlock}>
-{`FUNCTION AmerigoJourney() {
-  // Op Pakjesavond, wanneer de nacht valt
-  LET rooftop_count = 0
-  LET pepernoten_eaten_by_Amerigo = 3
-  LET rooftops_visited = []
-  LET final_destination = ""
-  LET base_word = "pakjesavond"
-  
-  // Amerigo begint zijn tocht
-  FOR EACH dak IN [eerste, tweede, derde, vierde] {
-    rooftop_count = rooftop_count + 1
-    
-    IF dak == "eerste" THEN
-      rooftops_visited.push("hoog")
-    ELSE IF dak == "tweede" THEN
-      rooftops_visited.push("laag")
-    ELSE IF dak == "derde" THEN
-      rooftops_visited.push("hoog")
-    ELSE
-      rooftops_visited.push("laag")
-    END IF
-    
-    // Voor elk dak eet Amerigo een pepernoot
-    pepernoten_eaten_by_Amerigo = pepernoten_eaten_by_Amerigo - 1
-  }
-  
-  // De hoefslag vertelt het verhaal van zijn pad
-  IF rooftop_count == 4 THEN
-    LET path_sound = rooftops_visited.join("")
-    // path_sound = "hooglaaghooglaag"
-    
-    // Vind alle posities waar de letter 'a' voorkomt in het pad
-    LET a_positions = []
-    FOR i FROM 0 TO path_sound.length - 1 {
-      IF path_sound[i] == "a" THEN
-        a_positions.push(i)
-      END IF
-    }
-    // path_sound = "hooglaaghooglaag"
-    // Posities: 0=h, 1=o, 2=o, 3=g, 4=l, 5=a, 6=a, 7=g, 8=h, 9=o, 10=o, 11=g, 12=l, 13=a, 14=a, 15=g
-    // a_positions = [5, 6, 13, 14]
-    
-    // Elke hoefslag heeft 4 letters ("hoog" of "laag")
-    // Het antwoord heeft 3 letters
-    // Gebruik de posities van 'a' om letters te extraheren
-    
-    // Eerste letter: laatste 'a' positie minus 4
-    LET idx_1 = a_positions[3] - 4
-    // idx_1 = 14 - 4 = 10
-    LET letter_1 = base_word[idx_1]
-    // letter_1 = base_word[10] = "d"
-    
-    // Tweede letter: eerste 'a' positie minus 4
-    LET idx_2 = a_positions[0] - 4
-    // idx_2 = 5 - 4 = 1
-    LET letter_2 = base_word[idx_2]
-    // letter_2 = base_word[1] = "a"
-    
-    // Derde letter: tweede 'a' positie minus 4
-    LET idx_3 = a_positions[1] - 4
-    // idx_3 = 6 - 4 = 2
-    LET letter_3 = base_word[idx_3]
-    // letter_3 = base_word[2] = "k"
-    
-    // Combineer de letters tot het antwoord
-    final_destination = letter_1 + letter_2 + letter_3
-    // final_destination = "d" + "a" + "k" = "dak"
-  END IF
-  
-  RETURN final_destination
-}`}
+            <code>
+<span className={styles.keyword}>FUNCTION</span> <span className={styles.funcName}>DecodeerBericht</span>() {'{'}{'\n'}
+{'  '}<span className={styles.keyword}>LET</span> bericht = <span className={styles.string}>"pakjesavond"</span>{'\n'}
+{'  '}<span className={styles.keyword}>LET</span> sleutel = <span className={styles.array}>[4, 6, 7]</span>{'\n'}
+{'  '}<span className={styles.keyword}>LET</span> offset = <input type="text" value={offsetInput} onChange={(e) => setOffsetInput(e.target.value)} className={styles.offsetInput} placeholder="?" maxLength={2} />{'\n'}
+{'  '}<span className={styles.keyword}>LET</span> resultaat = <span className={styles.string}>""</span>{'\n'}
+{'\n'}
+{'  '}<span className={styles.keyword}>FOR EACH</span> pos <span className={styles.keyword}>IN</span> sleutel {'{'}{'\n'}
+{'    '}<span className={styles.keyword}>LET</span> nieuwe_pos = (pos + offset) <span className={styles.keyword}>MOD</span> <span className={styles.number}>11</span>{'\n'}
+{'    '}resultaat = resultaat + bericht[nieuwe_pos]{'\n'}
+{'  '}{'}'}{'\n'}
+{'\n'}
+{'  '}<span className={styles.keyword}>RETURN</span> resultaat{'\n'}
+{'}'}
+            </code>
           </pre>
         </div>
       </div>
 
-      <div className={styles.instructionContainer}>
-        <p className={styles.instruction}>
-          Voer het algoritme stap voor stap uit. Bereken de waarde van <code>final_destination</code> door alle berekeningen te volgen.
-        </p>
-        <p className={styles.hint}>
-          💡 Hint: "Luister naar Amerigo's hoeven, ze vertellen het verhaal van zijn pad." Tel waar de letter 'a' voorkomt in het pad.
-        </p>
+      <button 
+        onClick={runSimulation} 
+        className={`${styles.runButton} ${isRunning ? styles.running : ''}`}
+        disabled={isRunning}
+      >
+        {isRunning ? '⏳ Bezig...' : '▶ Run Code'}
+      </button>
+
+      <div className={styles.consoleContainer}>
+        <div className={styles.consoleHeader}>
+          <span className={styles.consoleIcon}>⬛</span>
+          <span className={styles.consoleTitle}>Console Output</span>
+        </div>
+        <div className={styles.consoleOutput} ref={consoleRef}>
+          {consoleLines.length === 0 && !isRunning && (
+            <span className={styles.consolePlaceholder}>
+              Klik op "Run Code" om het algoritme uit te voeren...
+            </span>
+          )}
+          {consoleLines.map((line, index) => (
+            <div 
+              key={index} 
+              className={`${styles.consoleLine} ${styles[line.type]}`}
+            >
+              {line.text}
+            </div>
+          ))}
+          {isRunning && (
+            <span className={styles.cursor}>▋</span>
+          )}
+        </div>
       </div>
+
+      {hasRun && !isRunning && (
+        <div className={styles.instructionContainer}>
+          <p className={styles.instruction}>
+            Wat is het resultaat van <code>DecodeerBericht()</code>?
+          </p>
+        </div>
+      )}
 
       <div className={styles.inputContainer}>
         <input
@@ -131,7 +207,7 @@ function Puzzle4() {
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Voer je antwoord in..."
+          placeholder="Voer het resultaat in..."
           disabled={isCompleted}
           className={styles.answerInput}
         />

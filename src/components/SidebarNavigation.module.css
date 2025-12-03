@@ -3,12 +3,10 @@
 .sidebar {
   position: fixed;
   left: 0;
-  top: 150px; /* Start below fixed header */
-  height: calc(100vh - 150px); /* Full height minus header */
+  top: 0; /* Start from top to integrate with header */
+  height: 100vh;
   width: 280px;
   background-color: var(--paper-white);
-  border-right: 4px solid var(--marker-black);
-  box-shadow: 4px 0px 0px rgba(0, 0, 0, 0.25);
   z-index: 999;
   display: flex;
   flex-direction: column;
@@ -29,13 +27,18 @@
 }
 
 .sidebarHeader {
+  min-height: 150px; /* Match main header height */
   padding: 1.5rem 1rem;
-  border-bottom: 3px solid var(--marker-black);
+  border-bottom: 4px solid var(--marker-black); /* Match header border */
   background-color: var(--teal-toque);
   position: sticky;
   top: 0;
   z-index: 10;
   flex-shrink: 0;
+  display: flex;
+  align-items: flex-end; /* Align title to bottom for visual balance */
+  padding-bottom: 1rem;
+  box-shadow: 0 4px 0px rgba(0, 0, 0, 0.25); /* Match header shadow */
 }
 
 .sidebarTitle {
@@ -55,6 +58,8 @@
   flex-direction: column;
   gap: 0.5rem;
   overflow-y: auto;
+  border-right: 4px solid var(--marker-black);
+  box-shadow: 4px 0px 0px rgba(0, 0, 0, 0.25);
 }
 
 .puzzleButton {
@@ -198,12 +203,14 @@
 .sidebarFooter {
   padding: 1rem;
   border-top: 3px solid var(--marker-black);
+  border-right: 4px solid var(--marker-black);
   background-color: var(--kraft-brown);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   position: sticky;
   bottom: 0;
+  box-shadow: 4px 0px 0px rgba(0, 0, 0, 0.25);
 }
 
 .resetButton {
@@ -398,12 +405,14 @@
   }
 
   .sidebar {
-    top: 120px; /* Start below smaller fixed header on mobile */
-    height: calc(100vh - 120px);
+    top: 0; /* Keep starting from top on mobile too */
+    height: 100vh;
   }
 
   .sidebarHeader {
+    min-height: 120px; /* Match smaller mobile header */
     padding: 1rem 0.75rem;
+    padding-bottom: 0.75rem;
   }
 
   .sidebarTitle {

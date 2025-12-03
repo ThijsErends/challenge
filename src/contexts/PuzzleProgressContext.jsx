@@ -67,10 +67,24 @@ export function PuzzleProgressProvider({ children }) {
   }
 
   const unlockAllPuzzles = () => {
+    // Actual passwords from each puzzle implementation
+    const puzzlePasswords = {
+      1: 'pepernoot',
+      2: 'rood-groen-turquoise-oranje',
+      3: 'schaakmat',
+      4: 'dak',
+      5: 'de kados zijn verborgen',
+      6: 'pakjesboot',
+      7: 'potlood',
+      8: 'queue',
+      9: 'een been',
+      10: '1006'
+    }
+    
     const allPuzzles = {}
     for (let i = 1; i <= 10; i++) {
       allPuzzles[i] = {
-        password: `test-password-${i}`,
+        password: puzzlePasswords[i],
         solvedAt: new Date().toISOString()
       }
     }

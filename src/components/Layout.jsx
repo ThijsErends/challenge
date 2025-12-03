@@ -24,12 +24,20 @@ function Layout({ children }) {
               <div className={styles.smoke} style={{ animationDelay: '0.5s' }}></div>
               <div className={styles.smoke} style={{ animationDelay: '1s' }}></div>
             </div>
-            {/* Horse on leftmost roof */}
+            {/* Horse and Sinterklaas on leftmost roof */}
             <div className={styles.horseOnRoof}>
+              <div className={styles.horseTail}></div>
               <div className={styles.horseBody}></div>
+              <div className={styles.horseNeck}></div>
               <div className={styles.horseHead}></div>
               <div className={styles.horseMane}></div>
-              <div className={styles.horseTail}></div>
+              {/* Sinterklaas riding the horse */}
+              <div className={styles.sinterklaas}>
+                <div className={styles.sintBody}></div>
+                <div className={styles.sintHead}></div>
+                <div className={styles.sintMitre}></div>
+                <div className={styles.sintBeard}></div>
+              </div>
             </div>
           </div>
           

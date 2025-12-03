@@ -1,4 +1,5 @@
 /* Puzzel 2: De Dakroute - CSS Module */
+/* Amsterdam Canal Houses Theme */
 
 .puzzleContainer {
   display: flex;
@@ -22,67 +23,78 @@
   text-align: center;
 }
 
+/* Main content row - riddle left, scene right */
+.contentRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .hintContainer {
-  max-width: 600px;
-  margin: 0 auto 2rem auto;
+  flex: 0 0 380px;
   padding: 1.5rem;
   background-color: var(--paper-white);
   border: 4px solid var(--marker-black);
   box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-  transform: rotate(0.5deg);
+  transform: rotate(-1deg);
+  align-self: center;
 }
 
 .hintText {
   font-family: 'Patrick Hand', cursive;
-  font-size: 1.2rem;
-  line-height: 1.8;
+  font-size: 1.15rem;
+  line-height: 1.7;
   color: var(--marker-black);
   text-align: center;
   margin: 0;
   font-style: italic;
 }
 
-/* Rooftop Scene */
+/* Rooftop Scene - Main Container */
 .rooftopScene {
   position: relative;
-  width: 100%;
-  max-width: 900px;
-  height: 500px;
-  margin: 2rem auto;
+  flex: 1;
+  max-width: 650px;
+  height: 380px;
   border: 4px solid var(--marker-black);
   box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
-  background: linear-gradient(to bottom, #2C3E50 0%, #34495E 50%, var(--kraft-brown) 100%);
+  background: linear-gradient(to bottom, #1a1a2e 0%, #16213e 40%, #1e3a5f 100%);
   border-radius: 5% / 10%;
   overflow: hidden;
-  transform: rotate(-0.5deg);
+  transform: rotate(0.5deg);
 }
 
 .rooftopScene.shake {
   animation: shake 0.5s;
 }
 
-/* Night Sky */
+/* Night Sky Elements */
 .nightSky {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 60%;
-  background: linear-gradient(to bottom, #1a1a2e 0%, #16213e 100%);
+  height: 100%;
   z-index: 1;
+  pointer-events: none;
 }
 
 .moon {
   position: absolute;
-  top: 10%;
-  right: 10%;
-  width: 80px;
-  height: 80px;
+  top: 8%;
+  right: 8%;
+  width: 70px;
+  height: 70px;
   background-color: var(--paper-white);
   border-radius: 50%;
   box-shadow: 
-    0 0 20px rgba(255, 255, 255, 0.3),
+    0 0 30px rgba(255, 255, 255, 0.4),
+    0 0 60px rgba(255, 255, 255, 0.2),
     4px 4px 0px rgba(0, 0, 0, 0.15);
   z-index: 2;
 }
@@ -90,123 +102,595 @@
 .moon::before {
   content: '';
   position: absolute;
-  top: 15%;
-  left: 20%;
-  width: 20px;
-  height: 20px;
-  background-color: #E8E8E8;
+  top: 12%;
+  left: 18%;
+  width: 16px;
+  height: 16px;
+  background-color: #E0E0E0;
+  border-radius: 50%;
+}
+
+.moon::after {
+  content: '';
+  position: absolute;
+  bottom: 25%;
+  right: 20%;
+  width: 10px;
+  height: 10px;
+  background-color: #EBEBEB;
   border-radius: 50%;
 }
 
 .star {
   position: absolute;
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   background-color: var(--paper-white);
   border-radius: 50%;
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
   animation: twinkle 2s ease-in-out infinite;
+}
+
+.cloud {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  animation: floatCloud 40s linear infinite;
+}
+
+@keyframes floatCloud {
+  0% { transform: translateX(-100px); }
+  100% { transform: translateX(1000px); }
 }
 
 @keyframes twinkle {
   0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
+  50% { opacity: 1; transform: scale(1.3); }
 }
 
-/* Rooftops */
-.roof {
+/* Houses Container - Row Layout */
+.housesContainer {
   position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+  padding: 0 5px;
   z-index: 3;
-  transform: translate(-50%, -50%);
 }
 
-.roofGable {
+/* Canal water reflection at bottom */
+.housesContainer::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: linear-gradient(to bottom, rgba(30, 58, 95, 0.8), rgba(22, 33, 62, 0.9));
+  z-index: -1;
+}
+
+/* Individual House */
+.house {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  margin: 0 -2px;
+}
+
+.house:hover {
+  transform: translateY(-8px);
+  z-index: 5;
+  filter: brightness(1.1);
+}
+
+.house.selected {
+  z-index: 6;
+}
+
+.house.selected .houseWall {
+  box-shadow: 
+    4px 4px 0px rgba(0, 0, 0, 0.25),
+    0 0 25px rgba(255, 255, 255, 0.6),
+    0 0 40px rgba(255, 255, 255, 0.3);
+}
+
+/* House Wall - Base Structure */
+.houseWall {
+  position: relative;
+  border: 3px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 8px;
+}
+
+/* Gable Types - Amsterdam Style */
+
+/* Step Gable (Trapgevel) */
+.stepGable {
+  position: relative;
+  width: 65px;
+  margin-bottom: -3px;
+}
+
+.stepGable .gableTop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stepGable .step {
+  background-color: inherit;
+  border: 3px solid var(--marker-black);
+  border-bottom: none;
+}
+
+.stepGable .step1 {
+  width: 20px;
+  height: 12px;
+}
+
+.stepGable .step2 {
+  width: 36px;
+  height: 12px;
+  margin-top: -3px;
+}
+
+.stepGable .step3 {
+  width: 52px;
+  height: 12px;
+  margin-top: -3px;
+}
+
+.stepGable .step4 {
+  width: 65px;
+  height: 12px;
+  margin-top: -3px;
+  border-bottom: 3px solid var(--marker-black);
+}
+
+/* Bell Gable (Klokgevel) */
+.bellGable {
+  position: relative;
+  width: 70px;
+  height: 50px;
+  margin-bottom: -3px;
+}
+
+.bellGable::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 45px;
+  background-color: inherit;
+  border: 3px solid var(--marker-black);
+  border-bottom: none;
+  border-radius: 50% 50% 0 0;
+}
+
+.bellGable::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  background-color: inherit;
+  border: 3px solid var(--marker-black);
+  border-radius: 50%;
+}
+
+/* Neck Gable (Halsgevel) */
+.neckGable {
+  position: relative;
+  width: 65px;
+  height: 55px;
+  margin-bottom: -3px;
+}
+
+.neckGable .neckTop {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 25px;
+  background-color: inherit;
+  border: 3px solid var(--marker-black);
+  border-bottom: none;
+  border-radius: 3px 3px 0 0;
+}
+
+.neckGable .neckTop::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 40px solid transparent;
-  border-right: 40px solid transparent;
-  border-bottom: 60px solid var(--poofball-red);
-  filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.25));
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-bottom: 12px solid var(--marker-black);
+}
+
+.neckGable .neckTop::after {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-bottom: 9px solid inherit;
+}
+
+.neckGable .neckBase {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 65px;
+  height: 30px;
+  background-color: inherit;
+  border: 3px solid var(--marker-black);
+  border-bottom: none;
+}
+
+/* Pointed Gable (Puntgevel) */
+.pointedGable {
+  position: relative;
+  width: 70px;
+  height: 45px;
+  margin-bottom: -3px;
+}
+
+.pointedGable::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 35px solid transparent;
+  border-right: 35px solid transparent;
+  border-bottom: 45px solid var(--marker-black);
+}
+
+.pointedGable::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 3px;
+  width: 0;
+  height: 0;
+  border-left: 32px solid transparent;
+  border-right: 32px solid transparent;
+  border-bottom: 40px solid inherit;
+}
+
+/* Window Styles */
+.windowRow {
+  display: flex;
+  gap: 6px;
+  margin: 6px 0;
+}
+
+.window {
+  width: 18px;
+  height: 24px;
+  background-color: #FFF9C4;
+  border: 2px solid var(--marker-black);
+  box-shadow: inset 0 0 8px rgba(255, 200, 50, 0.5);
   position: relative;
 }
 
-.roofGable::before {
+.window::before {
   content: '';
   position: absolute;
-  top: 60px;
-  left: -35px;
-  width: 70px;
-  height: 8px;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
   background-color: var(--marker-black);
+  transform: translateY(-50%);
 }
 
-.roofBase {
+.window::after {
+  content: '';
   position: absolute;
-  top: 60px;
-  left: -50px;
-  width: 100px;
-  height: 30px;
-  background-color: #8B4513;
-  border: 3px solid var(--marker-black);
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
-  border-radius: 0 0 5px 5px;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--marker-black);
+  transform: translateX(-50%);
 }
 
-/* Roetveegpieten */
+.windowLarge {
+  width: 22px;
+  height: 30px;
+}
+
+/* Door Styles */
+.door {
+  width: 20px;
+  height: 32px;
+  background-color: #5D4037;
+  border: 2px solid var(--marker-black);
+  border-radius: 2px 2px 0 0;
+  position: relative;
+  margin-top: auto;
+  margin-bottom: -3px;
+}
+
+.door::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  width: 4px;
+  height: 4px;
+  background-color: #FFD700;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+/* Chimney */
+.chimney {
+  position: absolute;
+  width: 14px;
+  height: 22px;
+  background-color: #8D6E63;
+  border: 2px solid var(--marker-black);
+  top: -20px;
+  z-index: 1;
+}
+
+.chimneyLeft {
+  left: 15%;
+}
+
+.chimneyRight {
+  right: 15%;
+}
+
+/* Chimney Smoke */
+.smoke {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: rgba(200, 200, 200, 0.6);
+  border-radius: 50%;
+  animation: smokeRise 3s ease-out infinite;
+}
+
+.smoke::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -3px;
+  width: 8px;
+  height: 8px;
+  background-color: rgba(180, 180, 180, 0.5);
+  border-radius: 50%;
+  animation: smokeRise 3s ease-out infinite;
+  animation-delay: 0.5s;
+}
+
+.smoke::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 2px;
+  width: 6px;
+  height: 6px;
+  background-color: rgba(160, 160, 160, 0.4);
+  border-radius: 50%;
+  animation: smokeRise 3s ease-out infinite;
+  animation-delay: 1s;
+}
+
+@keyframes smokeRise {
+  0% {
+    opacity: 0.6;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translateX(-50%) translateY(-15px) scale(1.3);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-30px) scale(1.6);
+  }
+}
+
+/* House Color Variations */
+.houseRed .houseWall,
+.houseRed .stepGable .step,
+.houseRed .bellGable::before,
+.houseRed .bellGable::after,
+.houseRed .neckGable .neckTop,
+.houseRed .neckGable .neckBase,
+.houseRed .pointedGable::after {
+  background-color: #B85450;
+}
+
+.houseOrange .houseWall,
+.houseOrange .stepGable .step,
+.houseOrange .bellGable::before,
+.houseOrange .bellGable::after,
+.houseOrange .neckGable .neckTop,
+.houseOrange .neckGable .neckBase,
+.houseOrange .pointedGable::after {
+  background-color: #D4875C;
+}
+
+.houseBrown .houseWall,
+.houseBrown .stepGable .step,
+.houseBrown .bellGable::before,
+.houseBrown .bellGable::after,
+.houseBrown .neckGable .neckTop,
+.houseBrown .neckGable .neckBase,
+.houseBrown .pointedGable::after {
+  background-color: #8B7355;
+}
+
+.houseCream .houseWall,
+.houseCream .stepGable .step,
+.houseCream .bellGable::before,
+.houseCream .bellGable::after,
+.houseCream .neckGable .neckTop,
+.houseCream .neckGable .neckBase,
+.houseCream .pointedGable::after {
+  background-color: #E8DCC4;
+}
+
+.houseGreen .houseWall,
+.houseGreen .stepGable .step,
+.houseGreen .bellGable::before,
+.houseGreen .bellGable::after,
+.houseGreen .neckGable .neckTop,
+.houseGreen .neckGable .neckBase,
+.houseGreen .pointedGable::after {
+  background-color: #5C7A5C;
+}
+
+.houseBlue .houseWall,
+.houseBlue .stepGable .step,
+.houseBlue .bellGable::before,
+.houseBlue .bellGable::after,
+.houseBlue .neckGable .neckTop,
+.houseBlue .neckGable .neckBase,
+.houseBlue .pointedGable::after {
+  background-color: #5A7A8A;
+}
+
+.houseYellow .houseWall,
+.houseYellow .stepGable .step,
+.houseYellow .bellGable::before,
+.houseYellow .bellGable::after,
+.houseYellow .neckGable .neckTop,
+.houseYellow .neckGable .neckBase,
+.houseYellow .pointedGable::after {
+  background-color: #C9B896;
+}
+
+/* Roetveegpieten - Positioned on Roofs */
 .piet {
   position: absolute;
-  z-index: 4;
+  z-index: 10;
   cursor: pointer;
-  transform: translate(-50%, -50%);
   transition: transform 0.2s ease, filter 0.2s ease;
-  animation: slowWiggle 3s ease-in-out infinite;
+  animation: pietBob 2s ease-in-out infinite;
 }
 
 .piet:hover {
-  transform: translate(-50%, -50%) scale(1.1);
-  animation: fastWiggle 0.5s linear infinite;
+  transform: scale(1.15);
+  animation: pietWiggle 0.4s ease-in-out infinite;
   filter: brightness(1.1);
 }
 
 .piet.selected {
-  transform: translate(-50%, -50%) scale(1.15);
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
-  z-index: 5;
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9));
+  z-index: 11;
+  animation: none;
+}
+
+/* Selection order number badge */
+.selectionBadge {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  background-color: var(--paper-white);
+  border: 3px solid var(--marker-black);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.9rem;
+  color: var(--marker-black);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+  z-index: 12;
+  animation: popIn 0.3s ease-out;
+}
+
+@keyframes popIn {
+  0% { transform: translateX(-50%) scale(0); }
+  70% { transform: translateX(-50%) scale(1.2); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+
+@keyframes pietBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes pietWiggle {
+  0%, 100% { transform: scale(1.15) rotate(0deg); }
+  25% { transform: scale(1.15) rotate(3deg); }
+  75% { transform: scale(1.15) rotate(-3deg); }
 }
 
 .pietBody {
-  width: 50px;
-  height: 70px;
-  background-color: var(--poofball-red); /* Default, wordt overschreven door inline style */
+  width: 40px;
+  height: 55px;
   border: 3px solid var(--marker-black);
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
-  border-radius: 25px 25px 15px 15px;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 20px 20px 12px 12px;
   position: relative;
   margin: 0 auto;
   z-index: 2;
 }
 
 .pietHead {
-  width: 45px;
-  height: 45px;
-  background-color: #F4D1AE; /* Lichte huidskleur */
+  width: 36px;
+  height: 36px;
+  background-color: #F4D1AE;
   border: 3px solid var(--marker-black);
   border-radius: 50%;
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.25);
   position: absolute;
-  top: -25px;
+  top: -20px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
 }
 
+/* Eyes */
 .pietHead::before {
   content: '';
   position: absolute;
-  top: 10px;
-  left: 8px;
-  width: 10px;
-  height: 10px;
+  top: 8px;
+  left: 6px;
+  width: 8px;
+  height: 8px;
   background-color: var(--paper-white);
   border-radius: 50%;
   border: 2px solid var(--marker-black);
@@ -216,33 +700,33 @@
 .pietHead::after {
   content: '';
   position: absolute;
-  top: 10px;
-  right: 8px;
-  width: 10px;
-  height: 10px;
+  top: 8px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
   background-color: var(--paper-white);
   border-radius: 50%;
   border: 2px solid var(--marker-black);
   z-index: 4;
 }
 
-/* Roetvegen (soot smudges) op het gezicht */
+/* Roetvegen (soot smudges) */
 .roetveeg1 {
   position: absolute;
-  width: 8px;
-  height: 12px;
+  width: 6px;
+  height: 10px;
   background-color: #1A1713;
   border-radius: 50% 30% 50% 30%;
-  z-index: 4;
+  z-index: 5;
 }
 
 .roetveeg2 {
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   background-color: #1A1713;
   border-radius: 40% 50% 40% 50%;
-  z-index: 4;
+  z-index: 5;
 }
 
 .roetveeg3 {
@@ -251,49 +735,89 @@
   transform: translateX(-50%);
   background-color: #1A1713;
   border-radius: 50%;
-  z-index: 4;
+  z-index: 5;
 }
 
-/* Cape/Collar achter de schouders */
-.pietCape {
+/* Piet Beret/Hat - Feathered cap style */
+.pietHat {
   position: absolute;
-  top: -10px;
+  top: -30px;
   left: 50%;
   transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 22px solid transparent;
-  border-right: 22px solid transparent;
-  border-bottom: 25px solid var(--poofball-red); /* Default, wordt overschreven door inline style */
-  z-index: 1;
-  filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.2));
+  width: 34px;
+  height: 12px;
+  background-color: var(--marker-black);
+  border-radius: 50%;
+  z-index: 6;
 }
 
+/* Feather on the hat */
+.pietHat::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 2px;
+  width: 4px;
+  height: 14px;
+  background-color: var(--poofball-red);
+  border-radius: 2px 2px 50% 50%;
+  transform: rotate(15deg);
+}
+
+.pietHat::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  right: 6px;
+  width: 3px;
+  height: 10px;
+  background-color: var(--parka-orange);
+  border-radius: 2px 2px 50% 50%;
+  transform: rotate(5deg);
+}
+
+/* Gift Bag */
 .giftBag {
   position: absolute;
-  top: 50px;
+  top: 35px;
   left: 50%;
   transform: translateX(-50%);
-  width: 35px;
-  height: 40px;
+  width: 28px;
+  height: 32px;
   border: 3px solid var(--marker-black);
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
-  border-radius: 5px 5px 15px 15px;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 4px 4px 12px 12px;
   z-index: 2;
 }
 
 .giftBag::before {
   content: '';
   position: absolute;
-  top: -8px;
+  top: -6px;
   left: 50%;
   transform: translateX(-50%);
-  width: 20px;
-  height: 12px;
+  width: 16px;
+  height: 10px;
   background-color: inherit;
   border: 2px solid var(--marker-black);
-  border-radius: 3px;
+  border-radius: 2px;
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Path Line connecting selected houses */
+.pathLine {
+  position: absolute;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--paper-white) 0px,
+    var(--paper-white) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+  z-index: 8;
+  pointer-events: none;
+  opacity: 0.8;
 }
 
 /* Sequence Display */
@@ -448,22 +972,6 @@
   100% { transform: translateX(0) rotate(-0.5deg); }
 }
 
-@keyframes slowWiggle {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  25% { transform: translate(-50%, -50%) rotate(1deg); }
-  50% { transform: translate(-50%, -50%) rotate(0deg); }
-  75% { transform: translate(-50%, -50%) rotate(-1deg); }
-  100% { transform: translate(-50%, -50%) rotate(0deg); }
-}
-
-@keyframes fastWiggle {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  25% { transform: translate(-50%, -50%) rotate(2deg); }
-  50% { transform: translate(-50%, -50%) rotate(0deg); }
-  75% { transform: translate(-50%, -50%) rotate(-2deg); }
-  100% { transform: translate(-50%, -50%) rotate(0deg); }
-}
-
 @keyframes buttonWiggle {
   0% { transform: rotate(0deg); }
   25% { transform: rotate(1deg); }
@@ -481,6 +989,25 @@
 }
 
 /* Responsive Design */
+@media (max-width: 900px) {
+  .contentRow {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .hintContainer {
+    flex: none;
+    width: 100%;
+    max-width: 500px;
+    transform: rotate(0.5deg);
+  }
+
+  .rooftopScene {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .puzzleTitle {
     font-size: 2rem;
@@ -491,21 +1018,29 @@
     max-width: 100%;
   }
 
+  .housesContainer {
+    padding: 0 8px;
+  }
+
+  .house {
+    transform: scale(0.85);
+  }
+
   .piet {
-    transform: translate(-50%, -50%) scale(0.8);
+    transform: scale(0.8);
   }
 
   .piet:hover {
-    transform: translate(-50%, -50%) scale(0.9);
+    transform: scale(0.9);
   }
 
   .piet.selected {
-    transform: translate(-50%, -50%) scale(0.95);
+    transform: scale(0.95);
   }
 
   .moon {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
   }
 
   .controls {
@@ -522,7 +1057,11 @@
 
 @media (max-width: 480px) {
   .rooftopScene {
-    height: 350px;
+    height: 380px;
+  }
+
+  .house {
+    transform: scale(0.7);
   }
 
   .hintText {
@@ -533,4 +1072,3 @@
     font-size: 1.1rem;
   }
 }
-

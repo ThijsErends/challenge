@@ -23,10 +23,9 @@ main {
 .stickyHeader {
     position: fixed;
     top: 0;
-    left: 0;
+    left: 280px; /* Account for sidebar width */
     right: 0;
     z-index: 1000;
-    width: 100%;
     margin: 0;
     padding: 0;
     background-color: var(--teal-toque);
@@ -38,6 +37,7 @@ main {
     align-items: center;
     justify-content: center;
     padding-top: 20px;
+    transition: left 0.3s ease-in-out;
 }
 
 .skylineBackground {
@@ -104,18 +104,30 @@ main {
     position: absolute;
     bottom: 0;
     right: 10%;
-    width: 12px;
-    height: 35px;
+    width: 18px;
+    height: 38px;
     background-color: var(--marker-black);
     border: 2px solid var(--marker-black);
     box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
     z-index: 5;
 }
 
+/* Chimney top detail */
+.chimney::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: 4px;
+    background-color: #3d3530;
+    border: 1px solid var(--marker-black);
+}
+
 /* Smoke effects */
 .smoke {
     position: absolute;
-    bottom: 35px;
+    bottom: 38px;
     left: 50%;
     width: 10px;
     height: 10px;
@@ -159,89 +171,252 @@ main {
 /* Horse on Roof - Sinterklaas's white horse (Amerigo/Ozosnel) - on leftmost house */
 .horseOnRoof {
     position: absolute;
-    bottom: 30px;
+    bottom: 25px;
     left: 50%;
-    width: 120px;
-    height: 80px;
+    width: 100px;
+    height: 70px;
     transform: translateX(-50%);
     animation: horseGallop 3s ease-in-out infinite;
     z-index: 20;
 }
 
+/* Horse body - main torso */
 .horseBody {
     position: absolute;
-    bottom: 0;
-    left: 20px;
-    width: 60px;
-    height: 35px;
+    bottom: 18px;
+    left: 25px;
+    width: 50px;
+    height: 28px;
     background-color: var(--paper-white);
-    border: 3px solid var(--marker-black);
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
-    border-radius: 30px 30px 15px 15px;
-    clip-path: ellipse(60% 100% at 50% 50%);
+    border: 2px solid var(--marker-black);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 12px 8px 5px 8px;
 }
 
+/* Front legs */
+.horseBody::before {
+    content: '';
+    position: absolute;
+    bottom: -18px;
+    left: 8px;
+    width: 6px;
+    height: 20px;
+    background-color: var(--paper-white);
+    border: 2px solid var(--marker-black);
+    border-radius: 0 0 3px 3px;
+    box-shadow: 12px 0 0 var(--paper-white), 
+                12px 0 0 0 var(--paper-white);
+}
+
+/* Back legs */
+.horseBody::after {
+    content: '';
+    position: absolute;
+    bottom: -18px;
+    right: 6px;
+    width: 6px;
+    height: 20px;
+    background-color: var(--paper-white);
+    border: 2px solid var(--marker-black);
+    border-radius: 0 0 3px 3px;
+    box-shadow: -10px 0 0 var(--paper-white);
+}
+
+/* Horse head - elongated snout shape */
 .horseHead {
     position: absolute;
-    bottom: 25px;
-    left: 0;
-    width: 35px;
-    height: 40px;
+    bottom: 32px;
+    left: 4px;
+    width: 14px;
+    height: 30px;
     background-color: var(--paper-white);
-    border: 3px solid var(--marker-black);
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
-    border-radius: 50% 40% 40% 50%;
-    clip-path: ellipse(70% 80% at 50% 50%);
+    border: 2px solid var(--marker-black);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 8px 8px 4px 4px;
+    transform: rotate(-15deg);
+    transform-origin: bottom center;
 }
 
-/* Horse eye */
+/* Horse ear */
 .horseHead::before {
     content: '';
     position: absolute;
-    top: 8px;
-    left: 5px;
-    width: 8px;
+    top: -6px;
+    left: 3px;
+    width: 5px;
     height: 8px;
+    background-color: var(--paper-white);
+    border: 2px solid var(--marker-black);
+    border-radius: 50% 50% 0 0;
+}
+
+/* Horse eye */
+.horseHead::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 4px;
+    width: 4px;
+    height: 4px;
     background-color: var(--marker-black);
     border-radius: 50%;
 }
 
-/* Horse nostril */
-.horseHead::after {
+/* Horse neck - connects head to body */
+.horseNeck {
+    position: absolute;
+    bottom: 28px;
+    left: 18px;
+    width: 18px;
+    height: 22px;
+    background-color: var(--paper-white);
+    border: 2px solid var(--marker-black);
+    border-radius: 10px 5px 0 0;
+    transform: rotate(-20deg);
+    z-index: -1;
+}
+
+/* Horse mane - flowing from neck */
+.horseMane {
+    position: absolute;
+    bottom: 40px;
+    left: 18px;
+    width: 25px;
+    height: 16px;
+    background-color: var(--marker-black);
+    border-radius: 8px 8px 0 0;
+    clip-path: polygon(0% 100%, 10% 40%, 25% 70%, 40% 30%, 55% 60%, 70% 20%, 85% 50%, 100% 0%, 100% 100%);
+    z-index: 5;
+}
+
+/* Horse tail */
+.horseTail {
+    position: absolute;
+    bottom: 20px;
+    right: 18px;
+    width: 12px;
+    height: 22px;
+    background-color: var(--marker-black);
+    border-radius: 6px 6px 0 0;
+    transform: rotate(25deg);
+    transform-origin: top center;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 80% 60%, 100% 100%, 50% 80%, 0% 100%, 20% 60%, 0% 30%);
+}
+
+/* Sinterklaas figure riding the horse */
+.sinterklaas {
+    position: absolute;
+    bottom: 38px;
+    left: 35px;
+    width: 40px;
+    height: 50px;
+    z-index: 10;
+}
+
+/* Sinterklaas body - red bishop's robe */
+.sintBody {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 22px;
+    height: 26px;
+    background-color: var(--poofball-red);
+    border: 2px solid var(--marker-black);
+    border-radius: 6px 6px 10px 10px;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Golden trim on robe */
+.sintBody::before {
     content: '';
     position: absolute;
-    top: 12px;
-    right: 5px;
-    width: 6px;
-    height: 4px;
-    background-color: var(--marker-black);
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 3px;
+    background-color: var(--parka-orange);
     border-radius: 2px;
 }
 
-.horseMane {
+/* Sinterklaas head */
+.sintHead {
     position: absolute;
-    top: -5px;
-    left: 5px;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 12px;
-    height: 25px;
-    background-color: var(--marker-black);
+    height: 12px;
+    background-color: #FFDAB9; /* Peach skin tone */
     border: 2px solid var(--marker-black);
-    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
-    clip-path: polygon(0% 0%, 100% 0%, 80% 50%, 60% 100%, 40% 80%, 20% 60%, 0% 40%);
-    transform: rotate(-5deg);
+    border-radius: 50%;
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
 }
 
-.horseTail {
+/* Eyes */
+.sintHead::before {
+    content: '';
     position: absolute;
-    bottom: 5px;
-    right: -5px;
-    width: 8px;
-    height: 30px;
+    top: 3px;
+    left: 2px;
+    width: 2px;
+    height: 2px;
     background-color: var(--marker-black);
+    border-radius: 50%;
+    box-shadow: 4px 0 0 var(--marker-black);
+}
+
+/* Sinterklaas mitre (bishop's hat) */
+.sintMitre {
+    position: absolute;
+    bottom: 34px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 16px;
+    background-color: var(--poofball-red);
     border: 2px solid var(--marker-black);
-    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
-    border-radius: 4px 4px 0 0;
-    transform: rotate(-20deg);
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Gold cross on mitre */
+.sintMitre::before {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 3px;
+    background-color: var(--parka-orange);
+}
+
+/* Mitre band */
+.sintMitre::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -2px;
+    width: 14px;
+    height: 4px;
+    background-color: var(--parka-orange);
+    border: 1px solid var(--marker-black);
+}
+
+/* Sinterklaas beard */
+.sintBeard {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 10px;
+    background-color: var(--paper-white);
+    border: 1px solid var(--marker-black);
+    border-radius: 0 0 7px 7px;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 85% 80%, 70% 100%, 50% 90%, 30% 100%, 15% 80%, 0% 50%);
 }
 
 .titleText {
@@ -286,6 +461,7 @@ main {
 /* Responsive Design */
 @media (max-width: 768px) {
     .stickyHeader {
+        left: 0; /* Full width on mobile since sidebar slides in */
         min-height: 120px;
     }
     
@@ -300,25 +476,78 @@ main {
     
     .chimney {
         height: 30px;
-        width: 10px;
+        width: 14px;
     }
     
     .horseOnRoof {
-        width: 90px;
-        height: 60px;
-        bottom: 25px;
+        width: 80px;
+        height: 55px;
+        bottom: 20px;
     }
     
     .horseBody {
-        width: 45px;
-        height: 25px;
-        left: 15px;
+        width: 40px;
+        height: 22px;
+        bottom: 14px;
+        left: 20px;
     }
     
     .horseHead {
-        width: 25px;
-        height: 30px;
+        width: 11px;
+        height: 24px;
+        bottom: 26px;
+        left: 3px;
+    }
+    
+    .horseNeck {
+        width: 14px;
+        height: 18px;
+        bottom: 22px;
+        left: 14px;
+    }
+    
+    .horseMane {
+        width: 20px;
+        height: 12px;
+        bottom: 32px;
+        left: 14px;
+    }
+    
+    .horseTail {
+        width: 10px;
+        height: 18px;
+        bottom: 16px;
+        right: 14px;
+    }
+    
+    .sinterklaas {
+        bottom: 30px;
+        left: 28px;
+        width: 32px;
+        height: 40px;
+    }
+    
+    .sintBody {
+        width: 18px;
+        height: 20px;
+    }
+    
+    .sintHead {
+        width: 10px;
+        height: 10px;
         bottom: 18px;
+    }
+    
+    .sintMitre {
+        width: 12px;
+        height: 12px;
+        bottom: 26px;
+    }
+    
+    .sintBeard {
+        width: 11px;
+        height: 8px;
+        bottom: 14px;
     }
 }
 
@@ -338,13 +567,78 @@ main {
     
     .chimney {
         height: 25px;
-        width: 8px;
+        width: 12px;
     }
     
     .horseOnRoof {
-        width: 70px;
-        height: 50px;
+        width: 65px;
+        height: 45px;
+        bottom: 18px;
+    }
+    
+    .horseBody {
+        width: 32px;
+        height: 18px;
+        bottom: 12px;
+        left: 16px;
+    }
+    
+    .horseHead {
+        width: 9px;
+        height: 20px;
+        bottom: 22px;
+        left: 2px;
+    }
+    
+    .horseNeck {
+        width: 12px;
+        height: 14px;
+        bottom: 18px;
+        left: 12px;
+    }
+    
+    .horseMane {
+        width: 16px;
+        height: 10px;
+        bottom: 27px;
+        left: 11px;
+    }
+    
+    .horseTail {
+        width: 8px;
+        height: 14px;
+        bottom: 14px;
+        right: 12px;
+    }
+    
+    .sinterklaas {
+        bottom: 25px;
+        left: 22px;
+        width: 26px;
+        height: 32px;
+    }
+    
+    .sintBody {
+        width: 14px;
+        height: 16px;
+    }
+    
+    .sintHead {
+        width: 8px;
+        height: 8px;
+        bottom: 14px;
+    }
+    
+    .sintMitre {
+        width: 10px;
+        height: 10px;
         bottom: 20px;
+    }
+    
+    .sintBeard {
+        width: 9px;
+        height: 6px;
+        bottom: 11px;
     }
 }
 

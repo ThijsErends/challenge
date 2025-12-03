@@ -1,4 +1,4 @@
-/* Puzzle 4: Amerigo's Algorithm for Arrival - CSS Module */
+/* Puzzle 4: Amerigo's Algorithm - Interactive Code Simulation */
 
 .puzzleContainer {
   display: flex;
@@ -16,76 +16,299 @@
   font-size: 2rem;
   color: var(--marker-black);
   text-transform: uppercase;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   transform: rotate(-1deg);
   text-align: center;
 }
 
-.algorithmContainer {
+.intro {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.2rem;
+  color: var(--marker-black);
+  text-align: center;
+  max-width: 600px;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* Code Editor Styling */
+.codeEditorContainer {
   width: 100%;
-  max-width: 800px;
-  margin: 1rem 0 2rem 0;
-  padding: 1rem;
+  max-width: 700px;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
+  border: 4px solid var(--marker-black);
+}
+
+.editorHeader {
+  background-color: #2d2d2d;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.editorDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.editorTitle {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 0.9rem;
+  color: #999;
+  margin-left: 8px;
 }
 
 .algorithmCode {
-  background-color: var(--paper-white);
-  border: 4px solid var(--marker-black);
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
-  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background-color: #1e1e1e;
   padding: 1.5rem;
   overflow-x: auto;
 }
 
 .codeBlock {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: var(--marker-black);
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #d4d4d4;
   margin: 0;
-  white-space: pre-wrap;
-  word-wrap: break-word;
+  white-space: pre;
   text-align: left;
 }
 
-.codeBlock code {
-  font-family: inherit;
+/* Syntax highlighting */
+.keyword {
+  color: #c586c0;
+  font-weight: bold;
 }
 
-.instructionContainer {
-  max-width: 700px;
+.funcName {
+  color: #dcdcaa;
+}
+
+.string {
+  color: #ce9178;
+}
+
+.array {
+  color: #4ec9b0;
+}
+
+.number {
+  color: #b5cea8;
+}
+
+.comment {
+  color: #6a9955;
+  font-style: italic;
+}
+
+/* Offset input field in the code */
+.offsetInput {
+  all: unset;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 0.9rem;
+  width: 1em;
+  padding: 1px 4px;
+  background-color: #3c3c3c;
+  border: 2px solid #ff6b6b;
+  border-radius: 3px;
+  color: #ff6b6b;
+  text-align: center;
+  animation: pulse 1.5s ease-in-out infinite;
+  box-sizing: content-box;
+  display: inline;
+}
+
+.offsetInput:focus {
+  border-color: #4ec9b0;
+  color: #4ec9b0;
+  animation: none;
+  box-shadow: 0 0 6px rgba(78, 201, 176, 0.5);
+}
+
+.offsetInput::placeholder {
+  color: #ff6b6b;
+  opacity: 0.7;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; border-color: #ff6b6b; }
+  50% { opacity: 0.6; border-color: #ff9999; }
+}
+
+/* Run Button */
+.runButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--ushanka-green);
+  color: var(--paper-white);
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.3rem;
+  padding: 12px 28px;
+  border: 4px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  margin-bottom: 1.5rem;
+  animation: slowWiggle 3s ease-in-out infinite;
+}
+
+.runButton:hover:not(:disabled) {
+  animation: fastWiggle 0.5s linear infinite;
+  background-color: #4fb053;
+}
+
+.runButton:active:not(:disabled) {
+  transform: scale(0.95);
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.25);
+  animation: none;
+}
+
+.runButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  animation: none;
+}
+
+.running {
+  background-color: var(--parka-orange);
+}
+
+/* Console Styling */
+.consoleContainer {
   width: 100%;
-  margin-bottom: 2rem;
+  max-width: 700px;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
+  border: 4px solid var(--marker-black);
+}
+
+.consoleHeader {
+  background-color: #1a1a2e;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 2px solid #333;
+}
+
+.consoleIcon {
+  font-size: 0.8rem;
+}
+
+.consoleTitle {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.consoleOutput {
+  background-color: #0d0d1a;
+  padding: 1rem;
+  min-height: 200px;
+  max-height: 280px;
+  overflow-y: auto;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.consolePlaceholder {
+  color: #555;
+  font-style: italic;
+}
+
+.consoleLine {
+  margin: 0;
+  padding: 2px 0;
+  animation: fadeIn 0.3s ease-out;
+  text-align: left;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Console line types */
+.info {
+  color: #6bb3ff;
+}
+
+.var {
+  color: #98c379;
+}
+
+.index {
+  color: #e5c07b;
+  font-size: 0.8rem;
+}
+
+.empty {
+  color: transparent;
+  height: 0.5rem;
+}
+
+.error {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.success {
+  color: #98c379;
+  font-weight: bold;
+}
+
+.hint {
+  color: #c792ea;
+  font-style: italic;
+}
+
+.cursor {
+  color: #6bb3ff;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Instruction container */
+.instructionContainer {
+  max-width: 600px;
+  width: 100%;
+  margin-bottom: 1.5rem;
   text-align: center;
 }
 
 .instruction {
   font-family: 'Patrick Hand', cursive;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   color: var(--marker-black);
-  margin-bottom: 0.5rem;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .instruction code {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Fira Code', 'Consolas', monospace;
   background-color: var(--paper-white);
-  padding: 0.2rem 0.4rem;
+  padding: 0.2rem 0.5rem;
   border: 2px solid var(--marker-black);
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
 }
 
-.hint {
-  font-family: 'Patrick Hand', cursive;
-  font-size: 1rem;
-  color: var(--marker-black);
-  font-style: italic;
-  opacity: 0.8;
-  margin-top: 0.5rem;
-}
-
+/* Input Container */
 .inputContainer {
   display: flex;
   flex-direction: column;
@@ -239,12 +462,29 @@
     font-size: 1.5rem;
   }
 
-  .instruction {
+  .intro {
     font-size: 1rem;
+    padding: 0 1rem;
   }
 
   .codeBlock {
     font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .offsetInput {
+    font-size: 0.75rem;
+    width: 28px;
+    padding: 1px 4px;
+  }
+
+  .consoleOutput {
+    font-size: 0.75rem;
+    min-height: 150px;
+  }
+
+  .instruction {
+    font-size: 1rem;
   }
 
   .answerInput {
@@ -258,13 +498,14 @@
     padding: 12px 24px;
   }
 
+  .runButton {
+    font-size: 1.1rem;
+    padding: 10px 20px;
+  }
+
   .successMessage {
     font-size: 1.2rem;
     padding: 0.75rem 1.5rem;
-  }
-
-  .algorithmCode {
-    padding: 1rem;
   }
 }
 
@@ -274,8 +515,21 @@
     line-height: 1.4;
   }
 
+  .offsetInput {
+    font-size: 0.65rem;
+    width: 24px;
+  }
+
   .puzzleContainer {
     padding: 1rem 0.5rem;
   }
-}
 
+  .consoleOutput {
+    font-size: 0.7rem;
+    padding: 0.75rem;
+  }
+
+  .index {
+    font-size: 0.65rem;
+  }
+}
