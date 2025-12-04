@@ -4,20 +4,20 @@ import { Chess } from 'chess.js'
 import { usePuzzleProgress } from '../contexts/PuzzleProgressContext'
 import styles from './Puzzle3.module.css'
 
+// Checkmate-in-2 position: White to move
+// White Queen on d2, Rook on a1/h1, King on e1
+// Black King on g8 with pawns, needs to be checkmated
+const INITIAL_POSITION = 'r5k1/5ppp/8/8/8/8/3Q1PPP/R3K2R w KQ - 0 1'
+
 function Puzzle3() {
   const navigate = useNavigate()
   const { markPuzzleSolved } = usePuzzleProgress()
   const [chess] = useState(() => {
     const game = new Chess()
-    // Set up a checkmate-in-2 position
-    // White to move, can checkmate in 2 moves
-    // Position: White Queen on d1, Rook on a1, King on e1
-    // Black King on h8, needs to be checkmated
-    // This is a classic checkmate puzzle position
-    game.load('r5k1/5ppp/8/8/8/8/3Q1PPP/R3K2R w KQ - 0 1')
+    game.load(INITIAL_POSITION)
     return game
   })
-  
+
   const [board, setBoard] = useState(chess.board())
   const [selectedSquare, setSelectedSquare] = useState(null)
   const [availableMoves, setAvailableMoves] = useState([])
@@ -27,11 +27,7 @@ function Puzzle3() {
   const [draggedPiece, setDraggedPiece] = useState(null)
   const [dragOverSquare, setDragOverSquare] = useState(null)
   const [isCompleted, setIsCompleted] = useState(false)
-  const [initialPosition] = useState(() => {
-    const game = new Chess()
-    game.load('r5k1/5ppp/8/8/8/8/3Q1PPP/R3K2R w KQ - 0 1')
-    return game.fen()
-  })
+  const [initialPosition] = useState(INITIAL_POSITION)
   const boardRef = useRef(null)
 
   useEffect(() => {
@@ -263,58 +259,60 @@ function Puzzle3() {
         </button>
       </div>
       
-      <div className={styles.boardContainer} ref={boardRef}>
-        <div className={styles.board}>
-          {board.map((row, rowIndex) =>
-            row.map((piece, colIndex) => {
-              const square = getSquareFromPosition(rowIndex, colIndex)
-              const isLight = (rowIndex + colIndex) % 2 === 0
-              const isSelected = selectedSquare === square
-              const canMove = availableMoves.includes(square)
-              const isDragOver = dragOverSquare === square
-              
-              return (
-                <div
-                  key={`${rowIndex}-${colIndex}`}
-                  className={`${styles.square} ${isLight ? styles.light : styles.dark} ${isSelected ? styles.selectedSquare : ''} ${canMove ? styles.availableMove : ''} ${isDragOver ? styles.dragOver : ''}`}
-                  onClick={() => handleSquareClick(rowIndex, colIndex)}
-                  onDragOver={(e) => handleDragOver(e, rowIndex, colIndex)}
-                  onDrop={(e) => handleDrop(e, rowIndex, colIndex)}
-                >
-                  {renderPiece(piece, rowIndex, colIndex)}
-                </div>
-              )
-            })
-          )}
+      <div className={styles.gameArea}>
+        <div className={styles.legend}>
+          <p className={styles.legendTitle}>Je Stukken:</p>
+          <div className={styles.legendItems}>
+            <div className={styles.legendItem}>
+              <div className={`${styles.piece} ${styles.king} ${styles.white}`}><div className={styles.king}></div></div>
+              <span>Sinterklaas (Koning)</span>
+            </div>
+            <div className={styles.legendItem}>
+              <div className={`${styles.piece} ${styles.queen} ${styles.white}`}><div className={styles.queen}></div></div>
+              <span>Pakjesboot (Dame)</span>
+            </div>
+            <div className={styles.legendItem}>
+              <div className={`${styles.piece} ${styles.rook} ${styles.white}`}><div className={styles.rook}></div></div>
+              <span>Schoorsteen (Toren)</span>
+            </div>
+            <div className={styles.legendItem}>
+              <div className={`${styles.piece} ${styles.bishop} ${styles.white}`}><div className={styles.bishop}></div></div>
+              <span>Zwarte Piet (Loper)</span>
+            </div>
+            <div className={styles.legendItem}>
+              <div className={`${styles.piece} ${styles.knight} ${styles.white}`}><div className={styles.knight}></div></div>
+              <span>Amerigo (Paard)</span>
+            </div>
+            <div className={styles.legendItem}>
+              <div className={`${styles.piece} ${styles.pawn} ${styles.white}`}><div className={styles.pawn}></div></div>
+              <span>Pepernoot (Pion)</span>
+            </div>
+          </div>
         </div>
-      </div>
-      
-      <div className={styles.legend}>
-        <p className={styles.legendTitle}>Je Stukken:</p>
-        <div className={styles.legendItems}>
-          <div className={styles.legendItem}>
-            <div className={`${styles.piece} ${styles.king} ${styles.white}`}><div className={styles.king}></div></div>
-            <span>Sinterklaas (Koning)</span>
-          </div>
-          <div className={styles.legendItem}>
-            <div className={`${styles.piece} ${styles.queen} ${styles.white}`}><div className={styles.queen}></div></div>
-            <span>Pakjesboot (Dame)</span>
-          </div>
-          <div className={styles.legendItem}>
-            <div className={`${styles.piece} ${styles.rook} ${styles.white}`}><div className={styles.rook}></div></div>
-            <span>Schoorsteen (Toren)</span>
-          </div>
-          <div className={styles.legendItem}>
-            <div className={`${styles.piece} ${styles.bishop} ${styles.white}`}><div className={styles.bishop}></div></div>
-            <span>Zwarte Piet (Loper)</span>
-          </div>
-          <div className={styles.legendItem}>
-            <div className={`${styles.piece} ${styles.knight} ${styles.white}`}><div className={styles.knight}></div></div>
-            <span>Amerigo (Paard)</span>
-          </div>
-          <div className={styles.legendItem}>
-            <div className={`${styles.piece} ${styles.pawn} ${styles.white}`}><div className={styles.pawn}></div></div>
-            <span>Pepernoot (Pion)</span>
+
+        <div className={styles.boardContainer} ref={boardRef}>
+          <div className={styles.board}>
+            {board.map((row, rowIndex) =>
+              row.map((piece, colIndex) => {
+                const square = getSquareFromPosition(rowIndex, colIndex)
+                const isLight = (rowIndex + colIndex) % 2 === 0
+                const isSelected = selectedSquare === square
+                const canMove = availableMoves.includes(square)
+                const isDragOver = dragOverSquare === square
+
+                return (
+                  <div
+                    key={`${rowIndex}-${colIndex}`}
+                    className={`${styles.square} ${isLight ? styles.light : styles.dark} ${isSelected ? styles.selectedSquare : ''} ${canMove ? styles.availableMove : ''} ${isDragOver ? styles.dragOver : ''}`}
+                    onClick={() => handleSquareClick(rowIndex, colIndex)}
+                    onDragOver={(e) => handleDragOver(e, rowIndex, colIndex)}
+                    onDrop={(e) => handleDrop(e, rowIndex, colIndex)}
+                  >
+                    {renderPiece(piece, rowIndex, colIndex)}
+                  </div>
+                )
+              })
+            )}
           </div>
         </div>
       </div>

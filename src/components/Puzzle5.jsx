@@ -8,6 +8,8 @@ const CORRECT_SHIFT = 5 // December 5th - Pakjesavond
 const ENCRYPTED_MESSAGE = 'IJ PFITX ENOS AJWGTWLJS'
 const CORRECT_ANSWER = 'DE KADOS ZIJN VERBORGEN'
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const ALPHABET_ARRAY = ALPHABET.split('')
+const ENCRYPTED_CHARS = ENCRYPTED_MESSAGE.split('')
 
 function Puzzle5() {
   const navigate = useNavigate()
@@ -21,6 +23,10 @@ function Puzzle5() {
   const [isCompleted, setIsCompleted] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [wheelSize, setWheelSize] = useState(320)
+
+  // Answer input state
+  const [userAnswer, setUserAnswer] = useState('')
+  const [answerError, setAnswerError] = useState(false)
   
   // Refs
   const wheelRef = useRef(null)
@@ -62,7 +68,7 @@ function Puzzle5() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (isCompleted) return
-      
+
       if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
         e.preventDefault()
         setShift(prev => (prev - 1 + 26) % 26)
@@ -71,7 +77,7 @@ function Puzzle5() {
         setShift(prev => (prev + 1) % 26)
       }
     }
-    
+
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [isCompleted])
@@ -92,7 +98,7 @@ function Puzzle5() {
   // Mouse/touch handlers
   const handleStart = useCallback((clientX, clientY) => {
     if (isCompleted) return
-    
+
     setIsDragging(true)
     setDragStartAngle(getAngleFromCenter(clientX, clientY))
     setDragStartShift(shift)
@@ -176,12 +182,14 @@ function Puzzle5() {
     }
   }
 
-  // Check answer
-  const handleCheck = () => {
-    if (shift === CORRECT_SHIFT) {
+  // Validate answer
+  const handleAnswerSubmit = () => {
+    if (userAnswer.toLowerCase() === CORRECT_ANSWER.toLowerCase()) {
       setIsCompleted(true)
       setShowSuccess(true)
       markPuzzleSolved(5, CORRECT_ANSWER.toLowerCase())
+    } else {
+      setAnswerError(true)
     }
   }
 
@@ -193,6 +201,8 @@ function Puzzle5() {
   // Reset puzzle
   const handleReset = () => {
     setShift(0)
+    setUserAnswer('')
+    setAnswerError(false)
     setIsCompleted(false)
     setShowSuccess(false)
   }
@@ -212,189 +222,197 @@ function Puzzle5() {
   return (
     <div className={styles.puzzleContainer} ref={containerRef}>
       <h2 className={styles.title}>Puzzel 5: Piet's Cijferwiel</h2>
-      
-      {/* Clue section */}
-      <div className={styles.clueBox}>
-        <p className={styles.clueText}>
-          Een geheime boodschap van Piet! Draai het wiel om de code te kraken.
-        </p>
-        <p className={styles.hintText}>
-          💡 Hint: Wanneer vieren we Pakjesavond?
-        </p>
-      </div>
 
-      {/* Encrypted message display */}
-      <div className={styles.messageSection}>
-        <span className={styles.messageLabel}>Versleuteld:</span>
-        <div className={styles.encryptedMessage}>
-          {ENCRYPTED_MESSAGE.split('').map((char, i) => (
-            <span key={i} className={char === ' ' ? styles.space : styles.letter}>
-              {char}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Cipher wheel */}
-      <div 
-        className={styles.wheelWrapper}
-        style={{ width: wheelSize, height: wheelSize }}
-      >
-        <div 
-          ref={wheelRef}
-          className={`${styles.wheel} ${isDragging ? styles.dragging : ''}`}
-          onMouseDown={handleMouseDown}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleEnd}
-          role="slider"
-          aria-label="Cipher wheel rotation"
-          aria-valuenow={shift}
-          aria-valuemin={0}
-          aria-valuemax={25}
-          tabIndex={0}
-        >
-          {/* Outer ring (fixed - ciphertext) */}
-          <div className={styles.outerRing} style={{ width: outerRadius * 2, height: outerRadius * 2 }}>
-            {ALPHABET.split('').map((letter, index) => {
-              const angle = (index * 360 / 26) - 90 // Start from top
-              const radian = (angle * Math.PI) / 180
-              const x = Math.cos(radian) * letterRadiusOuter
-              const y = Math.sin(radian) * letterRadiusOuter
-              const isHighlighted = index === 0 // Highlight 'A' as reference
-              
-              return (
-                <span
-                  key={`outer-${index}`}
-                  className={`${styles.outerLetter} ${isHighlighted ? styles.highlighted : ''}`}
-                  style={{
-                    transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
-                  }}
-                >
-                  {letter}
-                </span>
-              )
-            })}
+      <div className={styles.horizontalLayout}>
+        {/* Left side: Text content */}
+        <div className={styles.textContent}>
+          {/* Clue section */}
+          <div className={styles.clueBox}>
+            <p className={styles.clueText}>
+              Een geheime boodschap van Piet! Draai het wiel om de code te kraken.
+            </p>
+            <p className={styles.hintText}>
+              💡 Hint: Wanneer vieren we Pakjesavond?
+            </p>
           </div>
 
-          {/* Inner ring (rotatable - plaintext) */}
-          <div 
-            className={styles.innerRing}
-            style={{ 
-              width: innerRadius * 2, 
-              height: innerRadius * 2,
-              transform: `translate(-50%, -50%) rotate(${innerRotation}deg)`,
-              transition: isDragging ? 'none' : 'transform 0.15s ease-out'
-            }}
+          {/* Encrypted message display */}
+          <div className={styles.messageSection}>
+            <span className={styles.messageLabel}>Versleutelde boodschap:</span>
+            <div className={styles.encryptedMessage}>
+              {ENCRYPTED_CHARS.map((char, i) => (
+                <span key={i} className={char === ' ' ? styles.space : styles.letter}>
+                  {char}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Answer input */}
+          {!isCompleted && (
+            <div className={styles.stepSection}>
+              <span className={styles.stepLabel}>Typ de ontcijferde boodschap:</span>
+              <div className={styles.answerInputWrapper}>
+                <input
+                  type="text"
+                  value={userAnswer}
+                  onChange={(e) => {
+                    setUserAnswer(e.target.value)
+                    setAnswerError(false)
+                  }}
+                  className={`${styles.answerInput} ${answerError ? styles.inputError : ''}`}
+                  placeholder="Typ hier je antwoord..."
+                  aria-label="Antwoord invoeren"
+                />
+                <button className={styles.submitButton} onClick={handleAnswerSubmit}>
+                  Controleer
+                </button>
+              </div>
+              {answerError && (
+                <p className={styles.errorText}>Dat is niet correct. Controleer je spelling!</p>
+              )}
+            </div>
+          )}
+
+          {/* Action buttons */}
+          <div className={styles.actions}>
+            {!isCompleted ? (
+              <button className={styles.resetButton} onClick={handleReset}>
+                Reset
+              </button>
+            ) : (
+              <button className={styles.nextButton} onClick={handleNext}>
+                Volgende Puzzel →
+              </button>
+            )}
+          </div>
+
+          {/* Success message */}
+          {showSuccess && (
+            <div className={styles.successMessage}>
+              🎉 Perfect! Je hebt de code gekraakt!
+            </div>
+          )}
+        </div>
+
+        {/* Right side: Wheel */}
+        <div className={styles.wheelContent}>
+          {/* Cipher wheel */}
+          <div
+            className={styles.wheelWrapper}
+            style={{ width: wheelSize, height: wheelSize }}
           >
-            {ALPHABET.split('').map((letter, index) => {
-              const angle = (index * 360 / 26) - 90 // Start from top
-              const radian = (angle * Math.PI) / 180
-              const x = Math.cos(radian) * letterRadiusInner
-              const y = Math.sin(radian) * letterRadiusInner
-              const isAligned = index === 0 // 'A' on inner ring
-              
-              return (
-                <span
-                  key={`inner-${index}`}
-                  className={`${styles.innerLetter} ${isAligned ? styles.alignedInner : ''}`}
-                  style={{
-                    transform: `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${-innerRotation}deg)`,
-                    transition: isDragging ? 'none' : 'transform 0.15s ease-out'
-                  }}
-                >
-                  {letter}
-                </span>
-              )
-            })}
-          </div>
+            <div
+              ref={wheelRef}
+              className={`${styles.wheel} ${isDragging ? styles.dragging : ''}`}
+              onMouseDown={handleMouseDown}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleEnd}
+              role="slider"
+              aria-label="Cipher wheel rotation"
+              aria-valuenow={shift}
+              aria-valuemin={0}
+              aria-valuemax={25}
+              tabIndex={0}
+            >
+              {/* Outer ring (fixed - ciphertext) */}
+              <div className={styles.outerRing} style={{ width: outerRadius * 2, height: outerRadius * 2 }}>
+                {ALPHABET_ARRAY.map((letter, index) => {
+                  const angle = (index * 360 / 26) - 90 // Start from top
+                  const radian = (angle * Math.PI) / 180
+                  const x = Math.cos(radian) * letterRadiusOuter
+                  const y = Math.sin(radian) * letterRadiusOuter
+                  const isHighlighted = index === 0 // Highlight 'A' as reference
 
-          {/* Center hub */}
-          <div className={styles.centerHub}>
-            <span className={styles.hubIcon}>🔐</span>
-          </div>
-        </div>
+                  return (
+                    <span
+                      key={`outer-${index}`}
+                      className={`${styles.outerLetter} ${isHighlighted ? styles.highlighted : ''}`}
+                      style={{
+                        transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
+                      }}
+                    >
+                      {letter}
+                    </span>
+                  )
+                })}
+              </div>
 
-        {/* Alignment indicator arrow */}
-        <div className={styles.alignmentArrow}>▼</div>
-      </div>
-
-      {/* Shift display and controls */}
-      <div className={styles.shiftControls}>
-        <button 
-          className={styles.shiftButton} 
-          onClick={decrementShift}
-          disabled={isCompleted}
-          aria-label="Decrease shift"
-        >
-          ◀
-        </button>
-        
-        <div className={styles.shiftDisplay}>
-          <span className={styles.shiftLabel}>Verschuiving</span>
-          <span className={styles.shiftValue}>{shift}</span>
-          <span className={styles.alignmentInfo}>A → {alignedLetter}</span>
-        </div>
-        
-        <button 
-          className={styles.shiftButton} 
-          onClick={incrementShift}
-          disabled={isCompleted}
-          aria-label="Increase shift"
-        >
-          ▶
-        </button>
-      </div>
-
-      {/* Decrypted message display */}
-      <div className={styles.messageSection}>
-        <span className={styles.messageLabel}>Ontcijferd:</span>
-        <div className={`${styles.decryptedMessage} ${showSuccess ? styles.success : ''}`}>
-          {decryptedMessage.split('').map((char, i) => {
-            const originalChar = ENCRYPTED_MESSAGE[i]
-            const isCorrect = shift === CORRECT_SHIFT && originalChar !== ' '
-            
-            return (
-              <span 
-                key={i} 
-                className={`${char === ' ' ? styles.space : styles.letter} ${isCorrect ? styles.correctLetter : ''}`}
-                style={{ animationDelay: isCorrect ? `${i * 30}ms` : '0ms' }}
+              {/* Inner ring (rotatable - plaintext) */}
+              <div
+                className={styles.innerRing}
+                style={{
+                  width: innerRadius * 2,
+                  height: innerRadius * 2,
+                  transform: `translate(-50%, -50%) rotate(${innerRotation}deg)`,
+                  transition: isDragging ? 'none' : 'transform 0.15s ease-out'
+                }}
               >
-                {char}
-              </span>
-            )
-          })}
-        </div>
-      </div>
+                {ALPHABET_ARRAY.map((letter, index) => {
+                  const angle = (index * 360 / 26) - 90 // Start from top
+                  const radian = (angle * Math.PI) / 180
+                  const x = Math.cos(radian) * letterRadiusInner
+                  const y = Math.sin(radian) * letterRadiusInner
+                  const isAligned = index === 0 // 'A' on inner ring
 
-      {/* Action buttons */}
-      <div className={styles.actions}>
-        {!isCompleted ? (
-          <>
-            <button className={styles.resetButton} onClick={handleReset}>
-              Reset
+                  return (
+                    <span
+                      key={`inner-${index}`}
+                      className={`${styles.innerLetter} ${isAligned ? styles.alignedInner : ''}`}
+                      style={{
+                        transform: `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${-innerRotation}deg)`,
+                        transition: isDragging ? 'none' : 'transform 0.15s ease-out'
+                      }}
+                    >
+                      {letter}
+                    </span>
+                  )
+                })}
+              </div>
+
+              {/* Center hub */}
+              <div className={styles.centerHub}>
+                <span className={styles.hubIcon}>🔐</span>
+              </div>
+            </div>
+
+            {/* Alignment indicator arrow */}
+            <div className={styles.alignmentArrow}>▼</div>
+          </div>
+
+          {/* Shift display and controls */}
+          <div className={styles.shiftControls}>
+            <button
+              className={styles.shiftButton}
+              onClick={decrementShift}
+              disabled={isCompleted}
+              aria-label="Decrease shift"
+            >
+              ◀
             </button>
-            <button className={styles.checkButton} onClick={handleCheck}>
-              Controleer
+
+            <div className={styles.shiftDisplay}>
+              <span className={styles.shiftLabel}>Verschuiving</span>
+              <span className={styles.shiftValue}>{shift}</span>
+              <span className={styles.alignmentInfo}>A → {alignedLetter}</span>
+            </div>
+
+            <button
+              className={styles.shiftButton}
+              onClick={incrementShift}
+              disabled={isCompleted}
+              aria-label="Increase shift"
+            >
+              ▶
             </button>
-          </>
-        ) : (
-          <button className={styles.nextButton} onClick={handleNext}>
-            Volgende Puzzel →
-          </button>
-        )}
-      </div>
+          </div>
 
-      {/* Success message */}
-      {showSuccess && (
-        <div className={styles.successMessage}>
-          🎉 Perfect! Je hebt de code gekraakt!
+          {/* Instructions */}
+          <div className={styles.instructions}>
+            <p>Draai het binnenste wiel om elke letter te vertalen.</p>
+          </div>
         </div>
-      )}
-
-      {/* Instructions */}
-      <div className={styles.instructions}>
-        <p>Draai het binnenste wiel of gebruik de knoppen. Je kunt ook de pijltjestoetsen gebruiken.</p>
       </div>
     </div>
   )

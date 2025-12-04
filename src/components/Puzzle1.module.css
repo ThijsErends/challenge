@@ -1,5 +1,16 @@
 /* Puzzle 1: Piet's Perfecte Pepernoot Specific Styles - CSS Module */
 
+.title {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2rem;
+    color: var(--marker-black);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    transform: rotate(-1deg);
+    text-align: center;
+    z-index: 1;
+}
+
 .puzzleContainer {
     display: flex;
     flex-direction: column;

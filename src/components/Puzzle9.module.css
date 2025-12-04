@@ -1,4 +1,4 @@
-/* Puzzle 9: Boven en Onder - CSS Module */
+/* Puzzle 9: De Drie Schoorstenen - Tower of Hanoi Style */
 
 .puzzleContainer {
   display: flex;
@@ -11,203 +11,348 @@
 }
 
 .title {
-  margin-bottom: 1.5rem;
-  color: var(--ushanka-green);
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2rem;
+  color: var(--marker-black);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  transform: rotate(-1deg);
+  text-align: center;
 }
 
-.riddleBox {
-  background-color: var(--paper-white);
-  border: 4px solid var(--marker-black);
-  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
-  padding: 2rem;
-  margin-bottom: 2rem;
+.instructions {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.1rem;
+  color: var(--marker-black);
   text-align: center;
   max-width: 600px;
-}
-
-.riddleText {
-  font-size: 1.5rem;
-  font-style: italic;
-  color: var(--marker-black);
-  margin: 0 0 0.5rem 0;
-  line-height: 1.6;
-}
-
-.riddleHint {
-  font-size: 1rem;
-  color: #666;
-  margin: 0;
-}
-
-.hintsSection {
-  width: 100%;
-  margin-bottom: 2rem;
-}
-
-.hintsTitle {
-  text-align: center;
-  font-family: 'Permanent Marker', cursive;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  color: var(--marker-black);
-}
-
-.hintsGrid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.hintCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: var(--puzzle-cyan);
-  border: 3px solid var(--marker-black);
-  border-radius: 12px;
-  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
-  padding: 1rem;
-  min-width: 180px;
-  max-width: 220px;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: 'Patrick Hand', cursive;
-}
-
-.hintCard:hover:not(:disabled):not(.revealed) {
-  transform: translateY(-3px);
-  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
-}
-
-.hintCard.revealed {
-  background-color: var(--paper-white);
-  cursor: default;
-}
-
-.hintIcon {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.hintCard .hintText {
-  font-size: 0.95rem;
-  text-align: center;
-  color: var(--marker-black);
-}
-
-.hintCard:not(.revealed) .hintText {
-  color: var(--paper-white);
-  font-family: 'Permanent Marker', cursive;
-}
-
-.selectionSection {
-  width: 100%;
-  margin-bottom: 2rem;
-}
-
-.selectionTitle {
-  text-align: center;
-  font-family: 'Permanent Marker', cursive;
-  font-size: 1.3rem;
   margin-bottom: 1.5rem;
-  color: var(--marker-black);
+  line-height: 1.5;
 }
 
-.bodyPartsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
-  max-width: 700px;
-  margin: 0 auto;
+/* Game Area */
+.gameArea {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 900px;
 }
 
-.bodyPartCard {
+.gameArea.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Chimney */
+.chimneyContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: var(--paper-white);
+}
+
+.chimney {
+  position: relative;
+  width: 115px;
+  min-height: 320px;
+  background-color: #8B4513;
   border: 4px solid var(--marker-black);
-  border-radius: 15px;
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
-  padding: 1.25rem 1rem;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  padding: 10px;
+  padding-top: 30px;
+  gap: 4px;
   cursor: pointer;
-  transition: all 0.2s;
-  min-height: 130px;
-  font-family: 'Patrick Hand', cursive;
+  transition: all 0.2s ease;
+  /* Brick pattern */
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 20px,
+      rgba(0, 0, 0, 0.15) 20px,
+      rgba(0, 0, 0, 0.15) 22px
+    ),
+    repeating-linear-gradient(
+      to right,
+      transparent 0px,
+      transparent 50px,
+      rgba(0, 0, 0, 0.1) 50px,
+      rgba(0, 0, 0, 0.1) 52px
+    );
+  background-color: #8B4513;
 }
 
-.bodyPartCard:hover:not(:disabled) {
-  transform: translateY(-4px);
-  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
-  background-color: var(--teal-toque);
+.chimney:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
 }
 
-.bodyPartCard:hover:not(:disabled) .partLabel,
-.bodyPartCard:hover:not(:disabled) .partDescription {
-  color: var(--paper-white);
+.chimney.validDrop {
+  background-color: #6B8E23;
+  border-color: var(--ushanka-green);
+  box-shadow: 0 0 15px rgba(67, 159, 71, 0.5), 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.bodyPartCard.selected {
-  background-color: var(--parka-orange);
-  transform: scale(1.05);
+.chimney.invalidDrop {
+  background-color: #A0522D;
 }
 
-.bodyPartCard.selected .partLabel,
-.bodyPartCard.selected .partDescription {
-  color: var(--paper-white);
+/* Chimney colored ribbon at top */
+.chimneyRibbon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 3px solid var(--marker-black);
 }
 
-.bodyPartCard.correct {
+.ribbonRed {
+  background-color: var(--poofball-red);
+}
+
+.ribbonGreen {
   background-color: var(--ushanka-green);
 }
 
-.bodyPartCard.correct .partLabel,
-.bodyPartCard.correct .partDescription {
-  color: var(--paper-white);
+.ribbonOrange {
+  background-color: var(--parka-orange);
 }
 
-.partEmoji {
-  font-size: 2.5rem;
+.ribbonBlue {
+  background-color: var(--teal-toque);
+}
+
+.chimneyLabel {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.1rem;
+  color: var(--marker-black);
+  text-align: center;
   margin-bottom: 0.5rem;
 }
 
-.partLabel {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 1.2rem;
+/* Present */
+.present {
+  position: relative;
+  border: 3px solid var(--marker-black);
+  border-radius: 6px;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Size variants */
+.presentExtraLarge {
+  width: 100px;
+  height: 60px;
+}
+
+.presentLarge {
+  width: 85px;
+  height: 50px;
+}
+
+.presentMedium {
+  width: 65px;
+  height: 40px;
+}
+
+.presentSmall {
+  width: 45px;
+  height: 30px;
+}
+
+/* Color variants */
+.presentRed {
+  background-color: var(--poofball-red);
+}
+
+.presentGreen {
+  background-color: var(--ushanka-green);
+}
+
+.presentOrange {
+  background-color: var(--parka-orange);
+}
+
+.presentBlue {
+  background-color: var(--teal-toque);
+}
+
+.present:hover:not(.selected) {
+  transform: scale(1.05);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+.present.selected {
+  animation: pulse 0.6s ease-in-out infinite;
+  box-shadow: 0 0 20px currentColor, 3px 3px 0px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+}
+
+.present.selected.presentRed {
+  box-shadow: 0 0 20px var(--poofball-red), 3px 3px 0px rgba(0, 0, 0, 0.25);
+}
+
+.present.selected.presentGreen {
+  box-shadow: 0 0 20px var(--ushanka-green), 3px 3px 0px rgba(0, 0, 0, 0.25);
+}
+
+.present.selected.presentOrange {
+  box-shadow: 0 0 20px var(--parka-orange), 3px 3px 0px rgba(0, 0, 0, 0.25);
+}
+
+.present.selected.presentBlue {
+  box-shadow: 0 0 20px var(--teal-toque), 3px 3px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* Present ribbon decoration */
+.ribbon {
+  position: absolute;
+  background-color: var(--paper-white);
+}
+
+.ribbonHorizontal {
+  width: 100%;
+  height: 8px;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.ribbonVertical {
+  width: 8px;
+  height: 100%;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+/* Bow on top */
+.bow {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+}
+
+/* Stats section */
+.stats {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.1rem;
   color: var(--marker-black);
-  margin-bottom: 0.25rem;
+  margin-bottom: 1rem;
 }
 
-.partDescription {
-  font-size: 0.85rem;
+/* Error message */
+.errorMessage {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.1rem;
+  color: var(--poofball-red);
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: rgba(201, 67, 67, 0.1);
+  border-radius: 8px;
+}
+
+/* Hint text */
+.hintText {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 0.95rem;
   color: #666;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-style: italic;
 }
 
+/* Controls */
 .controls {
   margin-bottom: 1.5rem;
 }
 
-.submitButton,
-.nextButton {
-  font-size: 1.3rem;
-  padding: 15px 30px;
+.resetButton {
+  font-size: 1.1rem;
+  padding: 12px 24px;
+  background-color: var(--teal-toque);
   animation: slowWiggle 3s ease-in-out infinite;
 }
 
-.submitButton {
-  background-color: var(--poofball-red);
+.resetButton:hover {
+  animation: fastWiggle 0.5s linear infinite;
+  background-color: #3bc7da;
 }
 
-.submitButton:hover {
-  animation: fastWiggle 0.5s linear infinite;
-  background-color: #d45454;
+/* Success Overlay */
+.successOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.successMessage {
+  background-color: var(--ushanka-green);
+  color: var(--paper-white);
+  border: 4px solid var(--marker-black);
+  border-radius: 20px;
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+  padding: 2rem 3rem;
+  text-align: center;
+  max-width: 400px;
+  animation: bounceIn 0.5s ease-out;
+}
+
+.successIcon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.successTitle {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.8rem;
+  margin: 0 0 1rem 0;
+}
+
+.successMessage p {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.password {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.3rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  display: inline-block;
 }
 
 .nextButton {
+  font-size: 1.3rem;
+  padding: 15px 30px;
   background-color: var(--parka-orange);
+  margin-top: 1rem;
+  animation: slowWiggle 3s ease-in-out infinite;
 }
 
 .nextButton:hover {
@@ -215,105 +360,14 @@
   background-color: #f9a23e;
 }
 
-.errorMessage {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 1.2rem;
-  color: var(--poofball-red);
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.successMessage {
-  padding: 1.5rem 2rem;
-  background-color: var(--ushanka-green);
-  color: var(--paper-white);
-  border: 4px solid var(--marker-black);
-  border-radius: 15px;
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  max-width: 600px;
-  margin-bottom: 2rem;
-  animation: bounceIn 0.5s ease-out;
-}
-
-.successTitle {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 1.5rem;
-  margin: 0 0 0.75rem 0;
-}
-
-.successExplanation {
-  font-size: 1.1rem;
-  margin: 0;
-  line-height: 1.6;
-}
-
-.successExplanation strong {
-  text-decoration: underline;
-}
-
-/* Leg Diagram */
-.diagram {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-.legDiagram {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: var(--paper-white);
-  border: 3px solid var(--marker-black);
-  border-radius: 15px;
-  padding: 1.5rem 2rem;
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
-}
-
-.legPart {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem 2rem;
-  border-radius: 10px;
-  font-family: 'Permanent Marker', cursive;
-  font-size: 1rem;
-  color: var(--paper-white);
-  text-align: center;
-}
-
-.bovenbeen {
-  background-color: var(--puzzle-cyan);
-  width: 80px;
-  height: 80px;
-}
-
-.onderbeen {
-  background-color: var(--parka-orange);
-  width: 60px;
-  height: 100px;
-}
-
-.knee {
-  font-size: 2rem;
-  margin: 0.25rem 0;
-}
-
-.foot {
-  font-size: 2.5rem;
-  margin-top: 0.25rem;
-}
-
-.diagramNote {
-  font-family: 'Patrick Hand', cursive;
-  font-size: 0.8rem;
-  margin-top: 0.25rem;
-}
-
-.shake {
-  animation: shake 0.5s ease-in-out;
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
 }
 
 @keyframes bounceIn {
@@ -327,6 +381,15 @@
   100% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
@@ -353,28 +416,143 @@
 }
 
 /* Responsive */
-@media (max-width: 600px) {
-  .bodyPartsGrid {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 900px) {
+  .gameArea {
+    gap: 1rem;
   }
-  
-  .hintsGrid {
-    flex-direction: column;
-    align-items: center;
+
+  .chimney {
+    width: 100px;
+    min-height: 280px;
   }
-  
-  .hintCard {
-    width: 100%;
-    max-width: 280px;
+
+  .presentExtraLarge {
+    width: 85px;
+    height: 52px;
   }
-  
-  .bodyPartCard {
-    min-height: 110px;
-    padding: 1rem 0.75rem;
+
+  .presentLarge {
+    width: 72px;
+    height: 44px;
   }
-  
-  .partEmoji {
-    font-size: 2rem;
+
+  .presentMedium {
+    width: 56px;
+    height: 36px;
+  }
+
+  .presentSmall {
+    width: 40px;
+    height: 28px;
   }
 }
 
+@media (max-width: 700px) {
+  .gameArea {
+    gap: 0.75rem;
+  }
+
+  .chimney {
+    width: 85px;
+    min-height: 240px;
+    padding: 8px;
+    padding-top: 25px;
+  }
+
+  .presentExtraLarge {
+    width: 72px;
+    height: 46px;
+  }
+
+  .presentLarge {
+    width: 62px;
+    height: 40px;
+  }
+
+  .presentMedium {
+    width: 48px;
+    height: 32px;
+  }
+
+  .presentSmall {
+    width: 36px;
+    height: 26px;
+  }
+
+  .ribbonHorizontal {
+    height: 6px;
+  }
+
+  .ribbonVertical {
+    width: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gameArea {
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .chimney {
+    width: 70px;
+    min-height: 200px;
+  }
+
+  .presentExtraLarge {
+    width: 60px;
+    height: 38px;
+  }
+
+  .presentLarge {
+    width: 52px;
+    height: 34px;
+  }
+
+  .presentMedium {
+    width: 40px;
+    height: 28px;
+  }
+
+  .presentSmall {
+    width: 30px;
+    height: 22px;
+  }
+
+  .chimneyLabel {
+    font-size: 0.8rem;
+  }
+
+  .instructions {
+    font-size: 1rem;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .present.selected {
+    animation: none;
+  }
+
+  .resetButton,
+  .nextButton {
+    animation: none;
+  }
+
+  .resetButton:hover,
+  .nextButton:hover {
+    animation: none;
+  }
+
+  .successMessage {
+    animation: none;
+  }
+
+  .successOverlay {
+    animation: none;
+  }
+
+  .gameArea.shake {
+    animation: none;
+  }
+}

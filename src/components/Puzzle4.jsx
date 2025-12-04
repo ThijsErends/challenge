@@ -145,7 +145,7 @@ function Puzzle4() {
 <span className={styles.keyword}>FUNCTION</span> <span className={styles.funcName}>DecodeerBericht</span>() {'{'}{'\n'}
 {'  '}<span className={styles.keyword}>LET</span> bericht = <span className={styles.string}>"pakjesavond"</span>{'\n'}
 {'  '}<span className={styles.keyword}>LET</span> sleutel = <span className={styles.array}>[4, 6, 7]</span>{'\n'}
-{'  '}<span className={styles.keyword}>LET</span> offset = <input type="text" value={offsetInput} onChange={(e) => setOffsetInput(e.target.value)} className={styles.offsetInput} placeholder="?" maxLength={2} />{'\n'}
+{'  '}<span className={styles.keyword}>LET</span> offset = <span className={styles.offsetWrapper}><span className={styles.offsetPlaceholder}>{offsetInput || '?'}</span><input type="text" value={offsetInput} onChange={(e) => setOffsetInput(e.target.value)} className={styles.offsetInput} maxLength={2} /></span>{'\n'}
 {'  '}<span className={styles.keyword}>LET</span> resultaat = <span className={styles.string}>""</span>{'\n'}
 {'\n'}
 {'  '}<span className={styles.keyword}>FOR EACH</span> pos <span className={styles.keyword}>IN</span> sleutel {'{'}{'\n'}

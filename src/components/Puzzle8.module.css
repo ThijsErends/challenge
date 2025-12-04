@@ -1,221 +1,369 @@
-/* Puzzle 8: De Verdwijnende Letters - CSS Module */
+/* Puzzle 8: Woordzoeker (Word Search) - CSS Module */
 
 .puzzleContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 1rem;
 }
 
 .title {
-  margin-bottom: 1.5rem;
-  color: var(--puzzle-lavender);
-}
-
-.riddleBox {
-  background-color: var(--paper-white);
-  border: 4px solid var(--marker-black);
-  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
-  padding: 2rem;
-  margin-bottom: 2rem;
-  text-align: center;
-  max-width: 600px;
-}
-
-.riddleText {
-  font-size: 1.3rem;
-  font-style: italic;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2rem;
   color: var(--marker-black);
-  margin: 0;
-  line-height: 1.6;
-}
-
-.gameSection {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
 }
 
 .instructions {
   text-align: center;
-  font-size: 1.1rem;
   margin-bottom: 1.5rem;
+}
+
+.instructions p {
+  margin: 0.5rem 0;
   color: var(--marker-black);
-  max-width: 500px;
 }
 
-.wordDisplay {
-  display: flex;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
+.moveCounter {
+  font-size: 0.95rem;
+  opacity: 0.8;
 }
 
-.letterTile {
-  width: 70px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--puzzle-lavender);
-  border: 4px solid var(--marker-black);
-  border-radius: 12px;
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
-  cursor: pointer;
-  transition: all 0.2s;
-  position: relative;
+.moveCounter strong {
   font-family: 'Permanent Marker', cursive;
+  color: var(--puzzle-lavender);
 }
 
-.letterTile:hover:not(:disabled):not(.removed) {
-  transform: translateY(-5px);
-  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
-  background-color: var(--poofball-red);
+/* Game Area - Grid and Word List side by side */
+.gameArea {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
-.letterTile:active:not(:disabled) {
-  transform: scale(0.95);
-  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
-}
-
-.letterTile.removed {
-  background-color: #e0e0e0;
-  opacity: 0.5;
-  transform: scale(0.9);
-  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
-}
-
-.letterTile.removed:hover:not(:disabled) {
-  opacity: 0.7;
-  background-color: var(--ushanka-green);
-}
-
-.letter {
-  font-size: 2.5rem;
-  color: var(--paper-white);
-}
-
-.removed .letter {
-  text-decoration: line-through;
-  color: #999;
-}
-
-.removedMark {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  font-size: 1rem;
-  color: var(--poofball-red);
-}
-
-.resultPreview {
+/* Grid Container */
+.gridContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--paper-white);
-  border: 3px solid var(--marker-black);
-  border-radius: 15px;
-  padding: 1rem 2rem;
-  margin-bottom: 1rem;
-}
-
-.resultLabel {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 0.3rem;
-}
-
-.resultWord {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 2rem;
-  color: var(--puzzle-lavender);
-  letter-spacing: 0.5rem;
-}
-
-.pronunciation {
-  font-size: 0.95rem;
-  color: var(--marker-black);
-  font-style: italic;
-  margin-top: 0.3rem;
-}
-
-.stats {
-  margin-bottom: 1.5rem;
-}
-
-.stat {
-  font-size: 1rem;
-  color: var(--marker-black);
-}
-
-.stat strong {
-  color: var(--puzzle-lavender);
-  font-family: 'Permanent Marker', cursive;
-}
-
-.controls {
-  display: flex;
   gap: 1rem;
 }
 
-.resetButton,
-.checkButton,
-.nextButton,
-.submitButton {
-  font-size: 1.2rem;
-  padding: 12px 24px;
+/* 8x8 Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+  background-color: var(--marker-black);
+  padding: 4px;
+  border: 4px solid var(--marker-black);
+  border-radius: 8px;
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
 }
 
-.resetButton {
-  background-color: var(--teal-toque);
-}
-
-.checkButton {
-  background-color: var(--poofball-red);
-}
-
-.nextButton {
-  background-color: var(--ushanka-green);
-}
-
-.divider {
+/* Grid Cell */
+.cell {
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
-  width: 100%;
-  max-width: 400px;
-  margin: 1.5rem 0;
-}
-
-.divider::before,
-.divider::after {
-  content: '';
-  flex: 1;
-  height: 3px;
-  background-color: var(--marker-black);
-  opacity: 0.3;
-}
-
-.divider span {
-  padding: 0 1rem;
+  justify-content: center;
+  background-color: var(--paper-white);
+  border: none;
   font-family: 'Permanent Marker', cursive;
+  font-size: 1.4rem;
   color: var(--marker-black);
-  opacity: 0.5;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-radius: 4px;
 }
 
-.inputSection {
-  width: 100%;
-  max-width: 400px;
+.cell:hover:not(:disabled) {
+  background-color: var(--puzzle-lavender);
+  color: var(--paper-white);
+  transform: scale(1.05);
+}
+
+.cell:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+/* Cell States */
+.cell.selected {
+  background-color: var(--teal-toque);
+  color: var(--paper-white);
+  box-shadow: inset 0 0 0 3px var(--marker-black);
+}
+
+.cell.used {
+  background-color: #e8e8e8;
+  color: #666;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--poofball-red);
+}
+
+.cell.used:hover:not(:disabled) {
+  background-color: var(--puzzle-lavender);
+  color: var(--paper-white);
+  transform: scale(1.05);
+}
+
+.cell.answer {
+  background-color: var(--parka-orange);
+  color: var(--paper-white);
+  animation: pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(247, 147, 30, 0.4);
+  }
+  to {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 6px rgba(247, 147, 30, 0);
+  }
+}
+
+/* Grid Buttons Container */
+.gridButtons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Clear Selection Button */
+.clearButton {
+  background-color: var(--teal-toque);
+  color: var(--paper-white);
+  border: 3px solid var(--marker-black);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+  transition: all 0.15s ease;
+}
+
+.clearButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.clearButton:active {
+  transform: translateY(0);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Reset Button */
+.resetButton {
+  background-color: var(--poofball-red);
+  color: var(--paper-white);
+  border: 3px solid var(--marker-black);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+  transition: all 0.15s ease;
+}
+
+.resetButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.resetButton:active {
+  transform: translateY(0);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Word List Container */
+.wordListContainer {
+  flex-shrink: 0;
+}
+
+/* Torn Paper Effect */
+.tornPaper {
+  background-color: var(--paper-white);
+  padding: 1.5rem;
+  min-width: 180px;
+  position: relative;
+  border: 3px solid var(--marker-black);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+
+  /* Torn edge effect using clip-path */
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 5%,
+    98% 8%,
+    100% 12%,
+    99% 18%,
+    100% 25%,
+    98% 32%,
+    100% 40%,
+    99% 48%,
+    100% 55%,
+    98% 62%,
+    100% 70%,
+    99% 78%,
+    100% 85%,
+    98% 92%,
+    100% 100%,
+    0% 100%,
+    2% 95%,
+    0% 88%,
+    1% 80%,
+    0% 72%,
+    2% 65%,
+    0% 58%,
+    1% 50%,
+    0% 42%,
+    2% 35%,
+    0% 28%,
+    1% 20%,
+    0% 12%,
+    2% 5%
+  );
+}
+
+.wordListTitle {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.3rem;
+  color: var(--marker-black);
+  margin: 0 0 0.25rem 0;
   text-align: center;
 }
 
-.inputLabel {
+.wordListSubtitle {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0 0 1rem 0;
+  text-align: center;
+  font-style: italic;
+}
+
+.wordList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.wordItem {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.15rem;
+  color: var(--marker-black);
+  padding: 0.35rem 0;
+  border-bottom: 1px dashed #ccc;
+  transition: all 0.2s ease;
+}
+
+.wordItem:last-child {
+  border-bottom: none;
+}
+
+.wordItem.found {
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+  text-decoration-color: var(--poofball-red);
+  color: #999;
+}
+
+.wordItem.hidden {
+  color: #888;
+  font-style: italic;
+}
+
+.wordItem.hidden.found {
+  font-style: normal;
+}
+
+.foundCount {
+  margin: 1rem 0 0 0;
+  text-align: center;
+  font-family: 'Permanent Marker', cursive;
   font-size: 1rem;
-  margin-bottom: 0.75rem;
+  color: var(--ushanka-green);
+}
+
+/* Answer Section */
+.answerSection {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.answerReveal {
+  background-color: var(--paper-white);
+  border: 4px solid var(--marker-black);
+  border-radius: 15px;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.answerLabel {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  color: var(--marker-black);
+}
+
+.answerLetters {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.answerLetter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 40px;
+  background-color: var(--parka-orange);
+  color: var(--paper-white);
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.4rem;
+  border: 3px solid var(--marker-black);
+  border-radius: 6px;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.answerInput {
+  text-align: center;
+}
+
+.answerInput p {
+  margin: 0 0 0.75rem 0;
   color: var(--marker-black);
 }
 
@@ -228,82 +376,62 @@
   flex: 1;
   font-size: 1.2rem;
   padding: 10px 15px;
+  border: 3px solid var(--marker-black);
+  border-radius: 8px;
+  font-family: 'Patrick Hand', cursive;
+  background-color: var(--paper-white);
+}
+
+.textInput:focus {
+  outline: none;
+  border-color: var(--puzzle-lavender);
+  box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.2);
 }
 
 .submitButton {
-  background-color: var(--parka-orange);
-  font-size: 1rem;
-  padding: 10px 20px;
-}
-
-.hintButton {
-  margin-top: 1.5rem;
-  background-color: transparent;
-  border: 3px dashed var(--marker-black);
-  color: var(--marker-black);
-  font-size: 1rem;
-  padding: 10px 20px;
-  box-shadow: none;
-  opacity: 0.7;
-  animation: none;
-}
-
-.hintButton:hover {
-  opacity: 1;
-  background-color: rgba(0, 0, 0, 0.05);
-  animation: none;
-}
-
-.hintBox {
-  margin-top: 1rem;
-  padding: 1rem 1.5rem;
-  background-color: var(--puzzle-yellow);
+  background-color: var(--ushanka-green);
+  color: var(--paper-white);
   border: 3px solid var(--marker-black);
-  border-radius: 12px;
-  max-width: 400px;
-}
-
-.hintText {
-  margin: 0;
-  font-size: 1rem;
-  color: var(--marker-black);
-}
-
-.errorMessage {
-  margin-top: 1.5rem;
+  border-radius: 8px;
+  padding: 10px 20px;
   font-family: 'Permanent Marker', cursive;
-  font-size: 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+  transition: all 0.15s ease;
+}
+
+.submitButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.submitButton:active {
+  transform: translateY(0);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Error Message */
+.errorMessage {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.1rem;
   color: var(--poofball-red);
   text-align: center;
+  margin: 0;
 }
 
+/* Success Message */
 .successMessage {
-  margin-top: 1.5rem;
-  padding: 1.5rem 2rem;
+  margin-top: 2rem;
+  padding: 2rem;
   background-color: var(--ushanka-green);
   color: var(--paper-white);
   border: 4px solid var(--marker-black);
   border-radius: 15px;
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
   text-align: center;
   max-width: 500px;
   animation: bounceIn 0.5s ease-out;
-}
-
-.successTitle {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 1.5rem;
-  margin: 0 0 0.5rem 0;
-}
-
-.successExplanation {
-  font-size: 1.1rem;
-  margin: 0;
-  line-height: 1.5;
-}
-
-.shake {
-  animation: shake 0.5s ease-in-out;
 }
 
 @keyframes bounceIn {
@@ -320,40 +448,91 @@
   }
 }
 
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-10px); }
-  75% { transform: translateX(10px); }
+.successTitle {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.8rem;
+  margin: 0 0 0.75rem 0;
 }
 
-/* Responsive */
-@media (max-width: 500px) {
-  .letterTile {
-    width: 55px;
-    height: 65px;
+.successText {
+  font-size: 1.15rem;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.5;
+}
+
+.successText strong {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.3rem;
+}
+
+.nextButton {
+  background-color: var(--paper-white);
+  color: var(--ushanka-green);
+  border: 3px solid var(--marker-black);
+  border-radius: 10px;
+  padding: 12px 28px;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+  transition: all 0.15s ease;
+}
+
+.nextButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
+.nextButton:active {
+  transform: translateY(0);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 700px) {
+  .gameArea {
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .letter {
-    font-size: 2rem;
+
+  .cell {
+    width: 38px;
+    height: 38px;
+    font-size: 1.2rem;
   }
-  
-  .wordDisplay {
-    gap: 0.5rem;
+
+  .tornPaper {
+    min-width: 160px;
   }
-  
+
+  .wordListTitle {
+    font-size: 1.1rem;
+  }
+
+  .wordItem {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .cell {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .grid {
+    gap: 2px;
+    padding: 2px;
+  }
+
   .inputContainer {
     flex-direction: column;
   }
-  
-  .controls {
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  .resetButton,
-  .checkButton,
-  .nextButton {
-    width: 100%;
+
+  .answerLetter {
+    width: 30px;
+    height: 34px;
+    font-size: 1.2rem;
   }
 }
-

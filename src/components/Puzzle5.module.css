@@ -5,10 +5,33 @@
   flex-direction: column;
   align-items: center;
   padding: 1.5rem;
-  min-height: 100vh;
   width: 100%;
-  max-width: 600px;
+  max-width: 1000px;
   margin: 0 auto;
+}
+
+/* Horizontal Layout for desktop */
+.horizontalLayout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 100%;
+}
+
+.textContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+}
+
+.wheelContent {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
@@ -440,7 +463,114 @@
   margin: 0;
 }
 
-/* Responsive Design */
+/* Two-Step Puzzle Styles */
+.stepSection {
+  margin: 1.5rem 0;
+  text-align: center;
+  width: 100%;
+}
+
+.stepLabel {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.1rem;
+  color: var(--teal-toque);
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.answerInputWrapper {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.answerInput {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.2rem;
+  width: 100%;
+  max-width: 320px;
+  padding: 0.75rem 1rem;
+  border: 3px solid var(--marker-black);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+  background-color: var(--paper-white);
+  color: var(--marker-black);
+}
+
+.answerInput:focus {
+  outline: none;
+  border-color: var(--teal-toque);
+  box-shadow: 3px 3px 0px var(--teal-toque);
+}
+
+.answerInput::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.inputError {
+  border-color: var(--poofball-red) !important;
+  box-shadow: 3px 3px 0px var(--poofball-red) !important;
+}
+
+.submitButton {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1rem;
+  text-transform: uppercase;
+  padding: 0.6rem 1.2rem;
+  border: 3px solid var(--marker-black);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background-color: var(--ushanka-green);
+  color: var(--paper-white);
+  animation: slowWiggle 3s ease-in-out infinite;
+}
+
+.submitButton:hover {
+  background-color: #4ab04a;
+  animation: fastWiggle 0.5s linear infinite;
+}
+
+.submitButton:active {
+  transform: scale(0.95);
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.25);
+  animation: none;
+}
+
+.errorText {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  color: var(--poofball-red);
+  margin: 0.75rem 0 0 0;
+  animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Responsive Design - Mobile: stack vertically */
+@media (max-width: 768px) {
+  .horizontalLayout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .textContent {
+    order: 1;
+  }
+
+  .wheelContent {
+    order: 2;
+  }
+}
+
 @media (max-width: 480px) {
   .puzzleContainer {
     padding: 1rem;
@@ -523,14 +653,14 @@
 }
 
 /* Large screens */
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   .title {
     font-size: 2.5rem;
   }
 
   .encryptedMessage,
   .decryptedMessage {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 
   .outerLetter {

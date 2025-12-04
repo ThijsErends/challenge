@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react'
 
 const PuzzleProgressContext = createContext()
 
@@ -33,7 +33,7 @@ export function PuzzleProgressProvider({ children }) {
     }
   }, [solvedPuzzles])
 
-  const markPuzzleSolved = (puzzleNumber, password) => {
+  const markPuzzleSolved = useCallback((puzzleNumber, password) => {
     setSolvedPuzzles(prev => ({
       ...prev,
       [puzzleNumber]: {
@@ -41,21 +41,21 @@ export function PuzzleProgressProvider({ children }) {
         solvedAt: new Date().toISOString()
       }
     }))
-  }
+  }, [])
 
-  const isPuzzleSolved = (puzzleNumber) => {
+  const isPuzzleSolved = useCallback((puzzleNumber) => {
     return !!solvedPuzzles[puzzleNumber]
-  }
+  }, [solvedPuzzles])
 
-  const getPuzzlePassword = (puzzleNumber) => {
+  const getPuzzlePassword = useCallback((puzzleNumber) => {
     return solvedPuzzles[puzzleNumber]?.password || null
-  }
+  }, [solvedPuzzles])
 
-  const getAllProgress = () => {
+  const getAllProgress = useCallback(() => {
     return solvedPuzzles
-  }
+  }, [solvedPuzzles])
 
-  const resetProgress = () => {
+  const resetProgress = useCallback(() => {
     // Clear state first
     setSolvedPuzzles({})
     // Explicitly remove from localStorage (useEffect will also handle this, but this ensures it's immediate)
@@ -64,9 +64,9 @@ export function PuzzleProgressProvider({ children }) {
     } catch (error) {
       console.error('Error resetting puzzle progress:', error)
     }
-  }
+  }, [])
 
-  const unlockAllPuzzles = () => {
+  const unlockAllPuzzles = useCallback(() => {
     // Actual passwords from each puzzle implementation
     const puzzlePasswords = {
       1: 'pepernoot',
@@ -75,12 +75,12 @@ export function PuzzleProgressProvider({ children }) {
       4: 'dak',
       5: 'de kados zijn verborgen',
       6: 'pakjesboot',
-      7: 'potlood',
-      8: 'queue',
-      9: 'een been',
-      10: '1006'
+      7: 'legpuzzel',
+      8: 'pakjesavond',
+      9: 'schoorsteen',
+      10: '4728'
     }
-    
+
     const allPuzzles = {}
     for (let i = 1; i <= 10; i++) {
       allPuzzles[i] = {
@@ -89,18 +89,18 @@ export function PuzzleProgressProvider({ children }) {
       }
     }
     setSolvedPuzzles(allPuzzles)
-  }
+  }, [])
 
-  const canAccessPuzzle = (puzzleNumber) => {
+  const canAccessPuzzle = useCallback((puzzleNumber) => {
     // Puzzle 1 is always accessible
     if (puzzleNumber === 1) return true
-    
+
     // Check if previous puzzle is solved
     const previousPuzzle = puzzleNumber - 1
-    return isPuzzleSolved(previousPuzzle)
-  }
+    return !!solvedPuzzles[previousPuzzle]
+  }, [solvedPuzzles])
 
-  const value = {
+  const value = useMemo(() => ({
     solvedPuzzles,
     markPuzzleSolved,
     isPuzzleSolved,
@@ -109,7 +109,7 @@ export function PuzzleProgressProvider({ children }) {
     resetProgress,
     unlockAllPuzzles,
     canAccessPuzzle
-  }
+  }), [solvedPuzzles, markPuzzleSolved, isPuzzleSolved, getPuzzlePassword, getAllProgress, resetProgress, unlockAllPuzzles, canAccessPuzzle])
 
   return (
     <PuzzleProgressContext.Provider value={value}>

@@ -2,20 +2,20 @@
 
 main {
     margin-left: 280px; /* Account for sidebar width */
-    margin-top: 150px; /* Account for fixed header */
+    margin-top: 140px; /* Account for fixed header */
     transition: margin-left 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 150px); /* Account for header */
+    min-height: calc(100vh - 140px);
     box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
     main {
         margin-left: 0;
-        margin-top: 120px; /* Account for smaller fixed header on mobile */
+        margin-top: 120px;
         min-height: calc(100vh - 120px);
     }
 }
@@ -23,20 +23,19 @@ main {
 .stickyHeader {
     position: fixed;
     top: 0;
-    left: 280px; /* Account for sidebar width */
+    left: 280px;
     right: 0;
     z-index: 1000;
     margin: 0;
     padding: 0;
-    background-color: var(--teal-toque);
+    background: linear-gradient(to bottom, #1a1a2e 0%, #16213e 60%, var(--teal-toque) 100%);
     border-bottom: 4px solid var(--marker-black);
     box-shadow: 0 4px 0px rgba(0, 0, 0, 0.25);
-    overflow: visible;
-    min-height: 150px;
+    overflow: hidden; /* Hide anything extending below */
+    min-height: 140px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    padding-top: 20px;
     transition: left 0.3s ease-in-out;
 }
 
@@ -46,77 +45,311 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: flex-end;
     pointer-events: none;
 }
 
-/* House container */
+/* ==================== HOUSE BASE STYLES ==================== */
 .house {
     position: absolute;
     bottom: 0;
-    height: 100%;
 }
 
-/* Dutch Rooftops - Traditional stepped gable style (facade) */
-.rooftop {
+.houseWall {
     position: absolute;
     bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: var(--poofball-red);
+    left: 5%;
+    width: 90%;
+    height: 75px;
     border: 3px solid var(--marker-black);
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
-    clip-path: polygon(
-        0% 100%,
-        0% 20%,
-        10% 10%,
-        20% 20%,
-        30% 10%,
-        40% 20%,
-        50% 10%,
-        60% 20%,
-        70% 10%,
-        80% 20%,
-        90% 10%,
-        100% 20%,
-        100% 100%
-    );
-    opacity: 0.9;
+    border-bottom: none;
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 22px;
 }
 
-/* Roof structure on top of gable */
-.roof {
+.tallHouse {
+    height: 90px;
+    padding-top: 26px;
+}
+
+/* Short house - for the house with Sinterklaas */
+.shortHouse {
+    height: 55px;
+    padding-top: 8px;
+}
+
+.shortHouse .stepGable {
+    bottom: 55px;
+}
+
+/* ==================== HOUSE COLORS ==================== */
+.houseRed .houseWall {
+    background-color: #B85450;
+}
+
+.houseCream .houseWall {
+    background-color: #F5E6C8;
+}
+
+.houseGreen .houseWall {
+    background-color: var(--ushanka-green);
+}
+
+.houseOrange .houseWall {
+    background-color: var(--parka-orange);
+}
+
+.houseBlue .houseWall {
+    background-color: #5D8AA8;
+}
+
+.houseBrown .houseWall {
+    background-color: #8B6914;
+}
+
+/* ==================== GABLE STYLES ==================== */
+
+/* Step Gable (Trapgevel) - Traditional Dutch */
+.stepGable {
     position: absolute;
-    bottom: 0;
-    left: 0;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100%;
-    height: 30px;
-    background-color: var(--poofball-red);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tallHouse .stepGable {
+    bottom: 90px;
+}
+
+.step {
+    background-color: inherit;
     border: 3px solid var(--marker-black);
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
-    clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
-    opacity: 0.95;
+    border-bottom: none;
 }
 
-/* Chimney */
-.chimney {
+.stepGable .step:nth-child(1) {
+    width: 30%;
+    height: 15px;
+}
+
+.stepGable .step:nth-child(2) {
+    width: 55%;
+    height: 12px;
+}
+
+.stepGable .step:nth-child(3) {
+    width: 80%;
+    height: 10px;
+}
+
+.houseRed .stepGable .step {
+    background-color: #B85450;
+}
+
+.houseBlue .stepGable .step {
+    background-color: #5D8AA8;
+}
+
+/* Bell Gable (Klokgevel) */
+.bellGable {
     position: absolute;
-    bottom: 0;
-    right: 10%;
-    width: 18px;
-    height: 38px;
-    background-color: var(--marker-black);
-    border: 2px solid var(--marker-black);
-    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
-    z-index: 5;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 40px;
+    background-color: inherit;
+    border: 3px solid var(--marker-black);
+    border-bottom: none;
+    border-radius: 50% 50% 0 0;
 }
 
-/* Chimney top detail */
-.chimney::before {
+.tallHouse .bellGable {
+    bottom: 90px;
+}
+
+.houseCream .bellGable {
+    background-color: #F5E6C8;
+}
+
+.houseBrown .bellGable {
+    background-color: #8B6914;
+}
+
+/* Pointed Gable (Puntgevel) */
+.pointedGable {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 45% solid transparent;
+    border-right: 45% solid transparent;
+    border-bottom: 35px solid;
+}
+
+.tallHouse .pointedGable {
+    bottom: 90px;
+}
+
+.houseGreen .pointedGable {
+    border-bottom-color: var(--ushanka-green);
+}
+
+.houseRed .pointedGable {
+    border-bottom-color: #B85450;
+}
+
+/* Pointed gable outline */
+.pointedGable::before {
     content: '';
     position: absolute;
     top: 0;
+    left: -48%;
+    width: 0;
+    height: 0;
+    border-left: 48% solid transparent;
+    border-right: 48% solid transparent;
+    border-bottom: 38px solid var(--marker-black);
+    z-index: -1;
+    transform: translateX(-2px) translateY(-3px);
+}
+
+/* Neck Gable (Halsgevel) */
+.neckGable {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+    height: 35px;
+    background-color: inherit;
+    border: 3px solid var(--marker-black);
+    border-bottom: none;
+}
+
+.neckGable::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 15px solid;
+}
+
+.tallHouse .neckGable {
+    bottom: 90px;
+}
+
+.houseOrange .neckGable {
+    background-color: var(--parka-orange);
+}
+
+.houseOrange .neckGable::before {
+    border-bottom-color: var(--parka-orange);
+}
+
+/* ==================== WINDOWS ==================== */
+.windowRow {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin-bottom: 6px;
+}
+
+.window {
+    width: 18px;
+    height: 22px;
+    background-color: #FFF9C4; /* Warm yellow light */
+    border: 2px solid var(--marker-black);
+    border-radius: 2px 2px 0 0;
+    box-shadow: inset 0 0 4px rgba(255, 200, 100, 0.8);
+    position: relative;
+}
+
+/* Window cross frame */
+.window::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--marker-black);
+    transform: translateY(-50%);
+}
+
+.window::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background-color: var(--marker-black);
+    transform: translateX(-50%);
+}
+
+/* ==================== DOOR ==================== */
+.door {
+    width: 20px;
+    height: 28px;
+    background-color: #5D4037;
+    border: 2px solid var(--marker-black);
+    border-radius: 3px 3px 0 0;
+    position: relative;
+    margin-top: auto;
+}
+
+/* Door handle */
+.door::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 3px;
+    width: 4px;
+    height: 4px;
+    background-color: var(--parka-orange);
+    border-radius: 50%;
+    transform: translateY(-50%);
+}
+
+/* ==================== CHIMNEY ==================== */
+.chimney {
+    position: absolute;
+    bottom: 75px;
+    right: 15%;
+    width: 12px;
+    height: 24px;
+    background-color: #4a4a4a;
+    border: 2px solid var(--marker-black);
+    z-index: 5;
+}
+
+.tallHouse ~ .chimney {
+    bottom: 90px;
+}
+
+.shortHouse ~ .chimney {
+    bottom: 55px;
+    height: 18px;
+}
+
+.chimney::before {
+    content: '';
+    position: absolute;
+    top: -4px;
     left: -2px;
     width: calc(100% + 4px);
     height: 4px;
@@ -124,127 +357,107 @@ main {
     border: 1px solid var(--marker-black);
 }
 
-/* Smoke effects */
+/* ==================== SMOKE ==================== */
 .smoke {
     position: absolute;
-    bottom: 38px;
+    bottom: 24px;
     left: 50%;
-    width: 10px;
-    height: 10px;
-    background-color: rgba(255, 255, 255, 0.8);
+    width: 6px;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.7);
     border-radius: 50%;
     animation: smokeRise 4s ease-out infinite;
-    box-shadow: 
-        0 0 0 6px rgba(255, 255, 255, 0.5),
-        0 0 0 12px rgba(255, 255, 255, 0.3),
-        0 0 0 18px rgba(255, 255, 255, 0.1);
     filter: blur(1px);
 }
 
 @keyframes smokeRise {
     0% {
         transform: translateX(-50%) translateY(0px) scale(1);
-        opacity: 0.8;
-    }
-    20% {
-        transform: translateX(calc(-50% + 5px)) translateY(-15px) scale(1.2);
         opacity: 0.7;
     }
-    40% {
-        transform: translateX(calc(-50% - 3px)) translateY(-30px) scale(1.5);
-        opacity: 0.5;
-    }
-    60% {
-        transform: translateX(calc(-50% + 2px)) translateY(-50px) scale(1.8);
-        opacity: 0.3;
-    }
-    80% {
-        transform: translateX(calc(-50% - 1px)) translateY(-70px) scale(2.2);
-        opacity: 0.1;
+    50% {
+        transform: translateX(calc(-50% + 5px)) translateY(-30px) scale(1.5);
+        opacity: 0.4;
     }
     100% {
-        transform: translateX(-50%) translateY(-100px) scale(2.5);
+        transform: translateX(-50%) translateY(-60px) scale(2);
         opacity: 0;
     }
 }
 
-/* Horse on Roof - Sinterklaas's white horse (Amerigo/Ozosnel) - on leftmost house */
+/* ==================== HORSE AND SINTERKLAAS ==================== */
 .horseOnRoof {
     position: absolute;
-    bottom: 25px;
+    bottom: 55px; /* Position on short house */
     left: 50%;
-    width: 100px;
-    height: 70px;
+    width: 90px;
+    height: 65px;
     transform: translateX(-50%);
     animation: horseGallop 3s ease-in-out infinite;
     z-index: 20;
 }
 
-/* Horse body - main torso */
 .horseBody {
     position: absolute;
-    bottom: 18px;
-    left: 25px;
-    width: 50px;
-    height: 28px;
+    bottom: 15px;
+    left: 20px;
+    width: 45px;
+    height: 24px;
     background-color: var(--paper-white);
     border: 2px solid var(--marker-black);
     box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
-    border-radius: 12px 8px 5px 8px;
+    border-radius: 10px 6px 4px 6px;
 }
 
 /* Front legs */
 .horseBody::before {
     content: '';
     position: absolute;
-    bottom: -18px;
-    left: 8px;
-    width: 6px;
-    height: 20px;
+    bottom: -14px;
+    left: 5px;
+    width: 5px;
+    height: 15px;
     background-color: var(--paper-white);
     border: 2px solid var(--marker-black);
-    border-radius: 0 0 3px 3px;
-    box-shadow: 12px 0 0 var(--paper-white), 
-                12px 0 0 0 var(--paper-white);
+    border-radius: 0 0 2px 2px;
+    box-shadow: 10px 0 0 var(--paper-white);
 }
 
 /* Back legs */
 .horseBody::after {
     content: '';
     position: absolute;
-    bottom: -18px;
-    right: 6px;
-    width: 6px;
-    height: 20px;
+    bottom: -14px;
+    right: 5px;
+    width: 5px;
+    height: 15px;
     background-color: var(--paper-white);
     border: 2px solid var(--marker-black);
-    border-radius: 0 0 3px 3px;
-    box-shadow: -10px 0 0 var(--paper-white);
+    border-radius: 0 0 2px 2px;
+    box-shadow: -9px 0 0 var(--paper-white);
 }
 
-/* Horse head - elongated snout shape */
 .horseHead {
     position: absolute;
-    bottom: 32px;
-    left: 4px;
-    width: 14px;
-    height: 30px;
+    bottom: 26px;
+    left: 2px;
+    width: 12px;
+    height: 24px;
     background-color: var(--paper-white);
     border: 2px solid var(--marker-black);
     box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
-    border-radius: 8px 8px 4px 4px;
-    transform: rotate(-15deg);
-    transform-origin: bottom center;
+    border-radius: 6px 6px 3px 3px;
+    transform: rotate(-12deg);
 }
 
 /* Horse ear */
 .horseHead::before {
     content: '';
     position: absolute;
-    top: -6px;
-    left: 3px;
-    width: 5px;
-    height: 8px;
+    top: -5px;
+    left: 2px;
+    width: 4px;
+    height: 7px;
     background-color: var(--paper-white);
     border: 2px solid var(--marker-black);
     border-radius: 50% 50% 0 0;
@@ -254,101 +467,95 @@ main {
 .horseHead::after {
     content: '';
     position: absolute;
-    top: 8px;
-    left: 4px;
-    width: 4px;
-    height: 4px;
+    top: 6px;
+    left: 3px;
+    width: 3px;
+    height: 3px;
     background-color: var(--marker-black);
     border-radius: 50%;
 }
 
-/* Horse neck - connects head to body */
 .horseNeck {
     position: absolute;
-    bottom: 28px;
-    left: 18px;
-    width: 18px;
-    height: 22px;
+    bottom: 24px;
+    left: 12px;
+    width: 16px;
+    height: 18px;
     background-color: var(--paper-white);
     border: 2px solid var(--marker-black);
-    border-radius: 10px 5px 0 0;
-    transform: rotate(-20deg);
+    border-radius: 8px 4px 0 0;
+    transform: rotate(-18deg);
     z-index: -1;
 }
 
-/* Horse mane - flowing from neck */
 .horseMane {
     position: absolute;
-    bottom: 40px;
-    left: 18px;
-    width: 25px;
-    height: 16px;
+    bottom: 34px;
+    left: 12px;
+    width: 20px;
+    height: 14px;
     background-color: var(--marker-black);
-    border-radius: 8px 8px 0 0;
+    border-radius: 5px 5px 0 0;
     clip-path: polygon(0% 100%, 10% 40%, 25% 70%, 40% 30%, 55% 60%, 70% 20%, 85% 50%, 100% 0%, 100% 100%);
     z-index: 5;
 }
 
-/* Horse tail */
 .horseTail {
     position: absolute;
-    bottom: 20px;
-    right: 18px;
-    width: 12px;
-    height: 22px;
+    bottom: 16px;
+    right: 14px;
+    width: 10px;
+    height: 18px;
     background-color: var(--marker-black);
-    border-radius: 6px 6px 0 0;
-    transform: rotate(25deg);
-    transform-origin: top center;
+    border-radius: 5px 5px 0 0;
+    transform: rotate(20deg);
     clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 80% 60%, 100% 100%, 50% 80%, 0% 100%, 20% 60%, 0% 30%);
 }
 
-/* Sinterklaas figure riding the horse */
+/* ==================== SINTERKLAAS ==================== */
 .sinterklaas {
     position: absolute;
-    bottom: 38px;
-    left: 35px;
-    width: 40px;
-    height: 50px;
+    bottom: 32px;
+    left: 28px;
+    width: 36px;
+    height: 45px;
     z-index: 10;
 }
 
-/* Sinterklaas body - red bishop's robe */
 .sintBody {
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 22px;
-    height: 26px;
+    width: 18px;
+    height: 22px;
     background-color: var(--poofball-red);
     border: 2px solid var(--marker-black);
-    border-radius: 6px 6px 10px 10px;
+    border-radius: 5px 5px 8px 8px;
     box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
 }
 
-/* Golden trim on robe */
+/* Golden trim */
 .sintBody::before {
     content: '';
     position: absolute;
     bottom: 3px;
     left: 50%;
     transform: translateX(-50%);
-    width: 16px;
+    width: 14px;
     height: 3px;
     background-color: var(--parka-orange);
-    border-radius: 2px;
+    border-radius: 1px;
 }
 
-/* Sinterklaas head */
 .sintHead {
     position: absolute;
-    bottom: 24px;
+    bottom: 19px;
     left: 50%;
     transform: translateX(-50%);
     width: 12px;
     height: 12px;
-    background-color: #FFDAB9; /* Peach skin tone */
+    background-color: #FFDAB9;
     border: 2px solid var(--marker-black);
     border-radius: 50%;
     box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
@@ -367,30 +574,17 @@ main {
     box-shadow: 4px 0 0 var(--marker-black);
 }
 
-/* Sinterklaas mitre (bishop's hat) */
 .sintMitre {
     position: absolute;
-    bottom: 34px;
+    bottom: 28px;
     left: 50%;
     transform: translateX(-50%);
     width: 14px;
-    height: 16px;
+    height: 14px;
     background-color: var(--poofball-red);
     border: 2px solid var(--marker-black);
     clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
     box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
-}
-
-/* Gold cross on mitre */
-.sintMitre::before {
-    content: '';
-    position: absolute;
-    bottom: 2px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 6px;
-    height: 3px;
-    background-color: var(--parka-orange);
 }
 
 /* Mitre band */
@@ -400,41 +594,22 @@ main {
     bottom: 0;
     left: -2px;
     width: 14px;
-    height: 4px;
+    height: 3px;
     background-color: var(--parka-orange);
     border: 1px solid var(--marker-black);
 }
 
-/* Sinterklaas beard */
 .sintBeard {
     position: absolute;
-    bottom: 18px;
+    bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
     width: 14px;
-    height: 10px;
+    height: 8px;
     background-color: var(--paper-white);
     border: 1px solid var(--marker-black);
     border-radius: 0 0 7px 7px;
     clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 85% 80%, 70% 100%, 50% 90%, 30% 100%, 15% 80%, 0% 50%);
-}
-
-.titleText {
-    position: relative;
-    z-index: 15;
-    font-family: 'Permanent Marker', cursive;
-    font-size: 2.5rem;
-    color: var(--paper-white);
-    text-transform: uppercase;
-    text-shadow: 
-        3px 3px 0px var(--marker-black),
-        5px 5px 0px rgba(0, 0, 0, 0.3);
-    margin: 0 !important;
-    padding: 1rem 0;
-    transform: rotate(-1deg);
-    animation: titleWiggle 4s ease-in-out infinite;
-    letter-spacing: 2px;
-    pointer-events: none;
 }
 
 @keyframes horseGallop {
@@ -442,8 +617,34 @@ main {
         transform: translateX(-50%) translateY(0px);
     }
     50% {
-        transform: translateX(-50%) translateY(-5px);
+        transform: translateX(-50%) translateY(-4px);
     }
+}
+
+/* ==================== TITLE ==================== */
+.titleContainer {
+    position: relative;
+    z-index: 15;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.titleText {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2.2rem;
+    color: var(--paper-white);
+    text-transform: uppercase;
+    text-shadow:
+        3px 3px 0px var(--marker-black),
+        5px 5px 0px rgba(0, 0, 0, 0.3);
+    margin: 0 !important;
+    transform: rotate(-1deg);
+    animation: titleWiggle 4s ease-in-out infinite;
+    letter-spacing: 2px;
+    pointer-events: none;
 }
 
 @keyframes titleWiggle {
@@ -458,187 +659,214 @@ main {
     }
 }
 
-/* Responsive Design */
+/* ==================== RESPONSIVE DESIGN ==================== */
 @media (max-width: 768px) {
     .stickyHeader {
-        left: 0; /* Full width on mobile since sidebar slides in */
+        left: 0;
         min-height: 120px;
     }
-    
+
+    .titleContainer {
+        padding: 0.4rem 1rem;
+    }
+
     .titleText {
-        font-size: 1.8rem;
-        padding: 0.8rem 0;
+        font-size: 1.5rem;
     }
-    
-    .roof {
-        height: 25px;
+
+    .houseWall {
+        height: 60px;
+        padding-top: 16px;
     }
-    
+
+    .tallHouse {
+        height: 72px;
+        padding-top: 20px;
+    }
+
     .chimney {
-        height: 30px;
-        width: 14px;
-    }
-    
-    .horseOnRoof {
-        width: 80px;
-        height: 55px;
-        bottom: 20px;
-    }
-    
-    .horseBody {
-        width: 40px;
-        height: 22px;
-        bottom: 14px;
-        left: 20px;
-    }
-    
-    .horseHead {
-        width: 11px;
-        height: 24px;
-        bottom: 26px;
-        left: 3px;
-    }
-    
-    .horseNeck {
-        width: 14px;
+        bottom: 60px;
         height: 18px;
-        bottom: 22px;
-        left: 14px;
-    }
-    
-    .horseMane {
-        width: 20px;
-        height: 12px;
-        bottom: 32px;
-        left: 14px;
-    }
-    
-    .horseTail {
         width: 10px;
-        height: 18px;
-        bottom: 16px;
-        right: 14px;
     }
-    
-    .sinterklaas {
-        bottom: 30px;
-        left: 28px;
-        width: 32px;
+
+    .window {
+        width: 12px;
+        height: 14px;
+    }
+
+    .door {
+        width: 14px;
+        height: 18px;
+    }
+
+    .horseOnRoof {
+        bottom: 60px;
+        width: 55px;
         height: 40px;
     }
-    
-    .sintBody {
-        width: 18px;
-        height: 20px;
+
+    .horseBody {
+        width: 28px;
+        height: 14px;
+        bottom: 10px;
+        left: 12px;
     }
-    
-    .sintHead {
-        width: 10px;
-        height: 10px;
+
+    .horseHead {
+        width: 7px;
+        height: 14px;
+        bottom: 16px;
+        left: 1px;
+    }
+
+    .sinterklaas {
         bottom: 18px;
+        left: 17px;
+        width: 22px;
+        height: 28px;
     }
-    
-    .sintMitre {
-        width: 12px;
-        height: 12px;
-        bottom: 26px;
-    }
-    
-    .sintBeard {
+
+    .sintBody {
         width: 11px;
+        height: 13px;
+    }
+
+    .sintHead {
+        width: 6px;
+        height: 6px;
+        bottom: 11px;
+    }
+
+    .sintMitre {
+        width: 8px;
         height: 8px;
-        bottom: 14px;
+        bottom: 15px;
+    }
+
+    .sintBeard {
+        width: 8px;
+        height: 5px;
+        bottom: 9px;
     }
 }
 
 @media (max-width: 480px) {
-    .titleText {
-        font-size: 1.4rem;
-        padding: 0.6rem 0.5rem;
-    }
-    
     .stickyHeader {
         min-height: 100px;
     }
-    
-    .roof {
-        height: 20px;
+
+    main {
+        margin-top: 100px;
+        min-height: calc(100vh - 100px);
     }
-    
+
+    .titleContainer {
+        padding: 0.3rem 0.6rem;
+    }
+
+    .titleText {
+        font-size: 1.1rem;
+    }
+
+    .houseWall {
+        height: 50px;
+        padding-top: 12px;
+    }
+
+    .tallHouse {
+        height: 60px;
+        padding-top: 14px;
+    }
+
     .chimney {
-        height: 25px;
-        width: 12px;
-    }
-    
-    .horseOnRoof {
-        width: 65px;
-        height: 45px;
-        bottom: 18px;
-    }
-    
-    .horseBody {
-        width: 32px;
-        height: 18px;
-        bottom: 12px;
-        left: 16px;
-    }
-    
-    .horseHead {
-        width: 9px;
-        height: 20px;
-        bottom: 22px;
-        left: 2px;
-    }
-    
-    .horseNeck {
-        width: 12px;
+        bottom: 50px;
         height: 14px;
-        bottom: 18px;
-        left: 12px;
-    }
-    
-    .horseMane {
-        width: 16px;
-        height: 10px;
-        bottom: 27px;
-        left: 11px;
-    }
-    
-    .horseTail {
         width: 8px;
-        height: 14px;
-        bottom: 14px;
-        right: 12px;
     }
-    
-    .sinterklaas {
-        bottom: 25px;
-        left: 22px;
-        width: 26px;
+
+    .window {
+        width: 8px;
+        height: 10px;
+    }
+
+    .windowRow {
+        margin-bottom: 3px;
+    }
+
+    .door {
+        width: 10px;
+        height: 14px;
+    }
+
+    .horseOnRoof {
+        bottom: 50px;
+        width: 45px;
         height: 32px;
     }
-    
-    .sintBody {
-        width: 14px;
-        height: 16px;
+
+    .horseBody {
+        width: 22px;
+        height: 12px;
+        bottom: 8px;
+        left: 10px;
     }
-    
-    .sintHead {
-        width: 8px;
-        height: 8px;
-        bottom: 14px;
+
+    .horseHead {
+        width: 6px;
+        height: 12px;
+        bottom: 13px;
+        left: 1px;
     }
-    
-    .sintMitre {
+
+    .horseNeck {
         width: 10px;
         height: 10px;
-        bottom: 20px;
+        bottom: 14px;
+        left: 8px;
     }
-    
-    .sintBeard {
+
+    .horseMane {
+        width: 12px;
+        height: 8px;
+        bottom: 20px;
+        left: 8px;
+    }
+
+    .horseTail {
+        width: 6px;
+        height: 10px;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .sinterklaas {
+        bottom: 15px;
+        left: 14px;
+        width: 18px;
+        height: 22px;
+    }
+
+    .sintBody {
         width: 9px;
-        height: 6px;
-        bottom: 11px;
+        height: 11px;
+    }
+
+    .sintHead {
+        width: 5px;
+        height: 5px;
+        bottom: 9px;
+    }
+
+    .sintMitre {
+        width: 6px;
+        height: 7px;
+        bottom: 12px;
+    }
+
+    .sintBeard {
+        width: 6px;
+        height: 4px;
+        bottom: 7px;
     }
 }
-

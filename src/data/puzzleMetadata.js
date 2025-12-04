@@ -37,9 +37,9 @@ export const puzzleMetadata = [
   },
   {
     number: 7,
-    title: "Het Mysterie van de Mijn",
+    title: "De Legpuzzel van Sint",
     route: "/puzzle-7",
-    description: "Wat komt uit de mijn maar zit in hout?"
+    description: "Maak de puzzel van Sinterklaas compleet"
   },
   {
     number: 8,
@@ -49,9 +49,9 @@ export const puzzleMetadata = [
   },
   {
     number: 9,
-    title: "Boven en Onder",
+    title: "De Drie Schoorstenen",
     route: "/puzzle-9",
-    description: "Een raadsel over lichaamsdelen"
+    description: "Sorteer de cadeautjes in de juiste schoorstenen"
   },
   {
     number: 10,

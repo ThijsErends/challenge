@@ -172,9 +172,6 @@ function Puzzle2() {
     return colorMap[colorName] || '#000000'
   }
 
-  const getColorNameDutch = (colorName) => {
-    return colorName // Already Dutch
-  }
 
   // Render gable based on type
   const renderGable = (type) => {
@@ -364,7 +361,7 @@ function Puzzle2() {
                   className={styles.badgeColor}
                   style={{ backgroundColor: getColorValue(color) }}
                 ></div>
-                <span className={styles.badgeText}>{getColorNameDutch(color)}</span>
+                <span className={styles.badgeText}>{color}</span>
                 {index < selectedSequence.length - 1 && (
                   <span className={styles.arrow}>→</span>
                 )}
