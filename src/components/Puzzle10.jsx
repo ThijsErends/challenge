@@ -11,7 +11,7 @@ const CORRECT_PASSWORDS = {
   5: 'de kados zijn verborgen',
   6: 'pakjesboot',
   7: 'legpuzzel',
-  8: 'queue',
+  8: 'pakjesavond',
   9: 'schoorsteen',
 }
 
