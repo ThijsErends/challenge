@@ -78,7 +78,7 @@ export function PuzzleProgressProvider({ children }) {
       7: 'legpuzzel',
       8: 'pakjesavond',
       9: 'schoorsteen',
-      10: '4728'
+      10: '728'
     }
 
     const allPuzzles = {}
