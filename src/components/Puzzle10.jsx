@@ -15,7 +15,7 @@ const CORRECT_PASSWORDS = {
   9: 'schoorsteen',
 }
 
-const FINAL_CODE = '4728'
+const FINAL_CODE = '728'
 
 // Generate confetti pieces with various shapes
 const generateConfetti = (count) => {
