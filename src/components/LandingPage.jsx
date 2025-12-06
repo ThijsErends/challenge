@@ -70,7 +70,7 @@ function LandingPage() {
         <div className={styles.welcomeMessage}>
           <h1 className={styles.glitchTitle}>Welkom, VERA!</h1>
           <p className={styles.glitchText}>
-            Ik ben Glitch, de geest van dit digitale labyrint. Een kostbare 4-Cijferige Code is verborgen binnen deze muren. Bewijs je waarde door mijn 10 puzzels op te lossen, en de geit is van jou.
+            Ik ben Glitch, de geest van dit digitale labyrint. Een kostbare 3-Cijferige Code is verborgen binnen deze muren. Bewijs je waarde door mijn 10 puzzels op te lossen.
           </p>
           <p className={styles.glitchQuestion}>
             Ben je klaar om te beginnen?
